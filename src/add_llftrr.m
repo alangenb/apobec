@@ -1,4 +1,4 @@
-function m = add_llftrr(m,strand_collapse)
+function m = add_llftrr(m,strand_collapse,path)
 % given a mutation list, adds the simple ll,l,f,t,r,rr (1-4) annotations
 % if strand_collapse==1, flips G->C and T->A
 
@@ -21,7 +21,7 @@ end
 
 if ~isfield(m,'context1025')
   demand_fields(m,{'chr','pos'});
-  m.context1025 = get_context1025(m.chr,m.pos);
+  m.context1025 = get_context1025(m.chr,m.pos,path);
 end
 
 d = load_categs('context1025');

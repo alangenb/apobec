@@ -3,7 +3,7 @@ function X = make_input_for_nmf(m,P)
 if ~exist('P','var'), P=[]; end
 P = impose_default_value(P,'coding_only',true);
 
-gene_strand_info_file = '/xchip/cga/reference/mutsig_params/coverage_models.v5a.mat.genes.txt';
+gene_strand_info_file = 'coverage_models.v5a.mat.genes.txt';
 G = load_struct(gene_strand_info_file);
 demand_fields(G,{'gene','strand'});
 

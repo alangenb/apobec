@@ -47,9 +47,10 @@ catch me
 
   % legacy methods
 
-  dr = [dirstem '/' build];
+  %dr = [dirstem '/' build];
+  dr = '';
 
-  fname = [dr '/cytoBand.txt'];
+  fname = [dr 'cytoBand.txt'];
   if exist(fname,'file')
     C = load_struct_noheader(fname);
     

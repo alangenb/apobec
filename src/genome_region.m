@@ -1,4 +1,4 @@
-function r = genome_region(c, s, e, P)
+function r = genome_region(c, s, e, P, d)
 % genome_region(chromosome, start, end, build)
 %
 % P.build can be hg17, hg18, hg19, mm9, OR absolute path to directory of chr*.txt files
@@ -72,7 +72,8 @@ catch me
     if strcmp(build,'hg17')
       dirname = ['/xchip/tcga/gbm/analysis/lawrence/genome/' build '/'];
     else
-      dirname = ['/xchip/cga/reference/annotation/db/ucsc/' build '/'];
+      %dirname = ['/xchip/cga/reference/annotation/db/ucsc/' build '/'];
+      dirname = d;
     end
   else
     dirname = build;
@@ -81,8 +82,6 @@ catch me
   end
     
 end
-
-
 
 if isnumeric(c)
     if length(c)>1, error('multiple chromosomes not supported'); end

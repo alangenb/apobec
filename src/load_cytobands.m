@@ -10,7 +10,7 @@ if strcmpi(build,'hg17')
 elseif strcmpi(build,'hg18')
   dr = '/xchip/cga/reference/annotation/db/ucsc/hg18';
 elseif strcmpi(build,'hg19')
-  dr = '/xchip/cga/reference/annotation/db/ucsc/hg19';
+  dr = '';
 elseif strcmpi(build,'hg19gencode')
   dr = '/xchip/cga/reference/annotation/db/ucsc/hg19';
 elseif strcmpi(build,'mm9')
@@ -19,7 +19,7 @@ else
   error('unknown build %s',build);
 end
 
-fname = [dr '/cytoBand.txt'];
+fname = [dr 'cytoBand.txt'];
 C = load_struct_noheader(fname,'%s%f%f%s%s');
 if strcmp(C.col1{1},'chr')
   C = load_struct(fname,'%s%f%f%s%s');

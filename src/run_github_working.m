@@ -7,8 +7,8 @@
 
 %spliceflank=0;   % ORIGINALLY WAS THIS
 spliceflank=20;   % SHOULD BE THIS (tweaked this manually afterwards)
-outdir = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3a'; ede(outdir);
-X=[]; tmp=load('/cga/tcga-gsc/home/lawrence/db/hg19/hg19_genome_blocks.v1.0.mat','B'); X.block=tmp.B; X.gene = load_genes('hg19gencode',spliceflank);
+outdir = 'v3a'; ede(outdir);
+X=[]; tmp=load('hg19_genome_blocks.v1.0.mat','B'); X.block=tmp.B; X.gene = load_genes('hg19gencode',spliceflank);
 X.loop=[];
 X.loop.len = uint8([repmat(3,1,3) repmat(4,1,4) repmat(5,1,5) repmat(6,1,6) repmat(7,1,7) repmat(8,1,8) repmat(9,1,9) repmat(10,1,10) repmat(11,1,11)]');
 X.loop.pos = uint8([1:3 1:4 1:5 1:6 1:7 1:8 1:9 1:10 1:11]');
@@ -68,10 +68,10 @@ end
 %     -d /cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hsurv/mcc/v1 survey_hairpins
 
 % run
-outdir = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3a'; ede(outdir);
-mccdir = '/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hsurv/mcc/v1';
+outdir = 'v3a'; ede(outdir);
+mccdir = 'v1';
 mccname = 'survey_hairpins';
-load('/cga/tcga-gsc/home/lawrence/db/hg19/hg19_genome_blocks.v1.0.mat','B');
+load('hg19_genome_blocks.v1.0.mat','B');
 cmds = {}; banner='survhp'; mem = '36g';
 for blockno=1:slength(B)
   outfile = [outdir '/block' num2str(blockno) '.mat'];
@@ -90,8 +90,8 @@ qcmd = [qcmd char(10)]; qcmdfile = [outdir '/qcmd.txt']; save_textfile(qcmd,qcmd
 
 % manually correct spliceflank=0 -> spliceflank=20
 spliceflank=20; G = load_genes('hg19gencode',spliceflank);
-indir = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3a';
-outdir = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3a/s20'; ede(outdir);
+indir = 'v3a';
+outdir = 's20'; ede(outdir);
 for blockno=1:32
   infile = [indir '/block' num2str(blockno) '.mat'];
   outfile = [outdir '/block' num2str(blockno) '.mat'];
@@ -111,8 +111,8 @@ toc,end  % ~6 hr
 
 % COLLAPSE AMBIGUOUS STRUCTURES
 % collapse each position to its strongest stem (defined by 3GC+1AT), using shortest loop as tiebreaker
-load('/cga/tcga-gsc/home/lawrence/db/hg19/hg19_genome_blocks.v1.0.mat','B');
-indir = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3a';
+load('hg19_genome_blocks.v1.0.mat','B');
+indir = 'v3a';
 for bi=1:slength(B)
   infile=[indir '/block' num2str(bi) '.mat']; outfile = [indir '/block' num2str(bi) '.collapsed.mat'];
   if exist(outfile,'file'), continue; end
@@ -131,8 +131,8 @@ for bi=1:slength(B)
 end
 
 % COMBINE TpCs FROM ALL BLOCKS
-load('/cga/tcga-gsc/home/lawrence/db/hg19/hg19_genome_blocks.v1.0.mat','B');
-indir = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3a';
+load('hg19_genome_blocks.v1.0.mat','B');
+indir = 'v3a';
 X=[];
 for bi=1:slength(B),fprintf('BLOCK %d\n',bi);
   infile = [indir '/block' num2str(bi) '.collapsed.mat'];
@@ -148,7 +148,7 @@ save([indir '/all.TpCs_only.mat'],'X','-v7.3');
 
 
 % FINAL DATASET IS IN:
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.0.mat','X');
+load('FINAL_DATASET.v2.0.mat','X');
 
 
 
@@ -158,14 +158,14 @@ load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.0.mat',
 %
 % k=8, NMF on rates
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.0.mat','X');
+load('FINAL_DATASET.v2.0.mat','X');
 
 % make input for NMF, normalized to genomic territory
 X.mut.patient = nansub(X.pat.name,X.mut.pat_idx);
 P=[]; P.coding_only=false; X.nmf_input = make_input_for_nmf(X.mut,P);
 X.mut = rmfield(X.mut,'patient');
 X.nmf_input_rates = X.nmf_input;
-load('/cga/tcga-gsc/home/lawrence/db/hg19/context65/breakdowns.v1.1.mat','K');
+load('breakdowns.v1.1.mat','K');
 for i=1:slength(X.nmf_input_rates.chan)
   X.nmf_input_rates.chan.terr(i,1)=sum(K.Ng(K.f==X.nmf_input_rates.chan.f(i)&K.l==X.nmf_input_rates.chan.l(i)&K.r==X.nmf_input_rates.chan.r(i)));
 end
@@ -189,7 +189,7 @@ X.pat=keep_fields(X.pat,{'name','cohort','ttype','ttype_long','ttype_idx','nmut'
 
 figure(1);clf,display_nmf_legos(X.nmf)
 
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.1.mat','X');
+save('FINAL_DATASET.v2.1.mat','X');
 %%%
 
 
@@ -197,15 +197,15 @@ save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.1.mat',
 %
 % LEGO PLOTS
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.2.mat','X');
+load('FINAL_DATASET.v2.2.mat','X');
 
 figure(1)
-ede('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2');
+ede('v2');
 P=[];P.catnames=X.nmf.chan.name;P.add_sanger_plot=true;P.use_lighter_blue=true;
 for i=1:slength(X.nmf.factor),disp(X.nmf.factor.name{i});
   clf,lego(X.nmf.chan.nmf(:,i),P);
   set(gcf,'papersize',[3 3],'paperposition',[0.2 0.2 2.6 2.6]);
-  print_to_file(['/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/lego.' X.nmf.factor.name{i} '.pdf']);
+  print_to_file(['lego.' X.nmf.factor.name{i} '.pdf']);
 end
 
 
@@ -216,23 +216,23 @@ end
 % MAP final dataset onto windows
 
 % make stripped-down version of genomic windows file
-tic; load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/WGS_data.SNPs_only.no_dup_pats.on_windows.with_tpcs.v3.0.mat','X'); toc  % ~1 min to load, 10 Gb in mem
+tic; load('WGS_data.SNPs_only.no_dup_pats.on_windows.with_tpcs.v3.0.mat','X'); toc  % ~1 min to load, 10 Gb in mem
 W = keep_fields(X,{'gene','win'});
 W.win = keep_fields(W.win,{'chr','st','en','pos','cov_nonexon','rt_extra1','expr','comp'});
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hg19_windows.v1.0.mat','W');
+save('hg19_windows.v1.0.mat','W');
 %%%
 
 % map final dataset onto windows
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.2.mat','X');
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hg19_windows.v1.0.mat','W');
+load('FINAL_DATASET.v2.2.mat','X');
+load('hg19_windows.v1.0.mat','W');
 X.gene=W.gene; X.win=W.win; clear W
-X.mut.zone_idx = get_context(X.mut.chr,X.mut.pos,'/cga/tcga-gsc/home/lawrence/db/hg19/zone');
+X.mut.zone_idx = get_context(X.mut.chr,X.mut.pos,'zone');
 X.mut.win_idx = mmw(X.mut,X.win);
 puse = (1:slength(X.pat)); muse = find(ismember(X.mut.pat_idx,puse) & X.mut.zone_idx~=3); % nonexon only
 X.win.nmut_nonexon_newdata = histc(X.mut.win_idx(muse),1:slength(X.win));
 X.win.mutrate_nonexon_newdata = X.win.nmut_nonexon_newdata./(X.win.cov_nonexon*slength(X.pat));
 X.win.mutrate_nonexon_newdata(isinf(X.win.mutrate_nonexon_newdata))=nan;  % (smooth behaves differently on nan vs. inf)
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET_on_windows.v2.2.mat','X','-v7.3');
+save('FINAL_DATASET_on_windows.v2.2.mat','X','-v7.3');
 %%%
 
 
@@ -241,7 +241,7 @@ save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET_on_windows
 % FIGURE 1a
 % large-scale covariates & mutation rate
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET_on_windows.v2.2.mat','X');
+load('FINAL_DATASET_on_windows.v2.2.mat','X');
 
 chrlen = load_chrlen('hg19'); cen = load_cen('hg19'); window=100000;
 chr=17; st=1; en=81e6; ptel=1e5; pcen=1e6; qcen=1e5; qtel=1e6;
@@ -276,7 +276,7 @@ for i=1:length(gidx),gi=gidx(i);
 end, x(3)=x(3)-2; x(2)=x(2)+2; text(x,y,txt,'fontsize',16,'hor','cen');
 
 set(gcf,'papersize',[13 5],'paperposition',[0 0.05 12.9 4.8]);
-print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fig1a.pdf');
+print_to_file('fig1a.pdf');
 %%%%
 
 
@@ -288,8 +288,8 @@ print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fi
 % add more info to mutation object
 % --> define patient cohorts
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.1.mat','X');
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/gcloud/pats_with_ABdel_classifications.mat','pat');
+load('FINAL_DATASET.v2.1.mat','X');
+load('pats_with_ABdel_classifications.mat','pat');
 X.pat = parsein(X.pat,'name','^[^:]+:(.+)$','name0');
 X.pat.ABdel = mapacross(X.pat.name0,pat.name,pat.isdel);
 X.pat.nmut = histc(X.mut.pat_idx,1:slength(X.pat));
@@ -318,19 +318,19 @@ X.pat.apobec =  (X.pat.frac_apobec>=0.1 & X.pat.msupe_neg);                     
 X.pat.apobec_most_a3a = X.pat.apobec & y>0.285;                                    %  40 APO+ MSUPE- A3A-most patients
 X.pat.apobec_most_a3b = X.pat.apobec & x>0.05 & y<0.11 & (x./(y+0.0315)>=0.50);    %  40 APO+ MSUPE- A3B-most patients
 
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.2.mat','X','-v7.3');
+save('FINAL_DATASET.v2.2.mat','X','-v7.3');
 %%%%%%%%%%%%%%%
 
 
 % output table of patients
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.2.mat','X');
+load('FINAL_DATASET.v2.2.mat','X');
 pat = X.pat;
 pat = sort_struct(pat,{'cohort','ttype','name0'});
 pat = keep_fields(pat,{'cohort','name0','ttype','ttype_long','nmut','ABdel','frac_apobec','frac_uv','frac_pole','frac_msi','frac_smoking','frac_eso','frac_aging','frac_brca',...
                     'msupe_neg','vanilla','apobec','RTCA_C','YTCA_C','apobec_most_a3a','apobec_most_a3b'});
 pat=rename_field(pat,'name0','name');
-ede('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/supp_data_files');
-save_struct(pat,'/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/supp_data_files/patient_list.txt');
+ede('supp_data_files');
+save_struct(pat,'patient_list.txt');
 %%%%%
 
 
@@ -339,7 +339,7 @@ save_struct(pat,'/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/supp_data_fil
 %
 % A3A vs. A3B PLOTS
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.2.mat','X');
+load('FINAL_DATASET.v2.2.mat','X');
 
 % Fig. S4a (Gordenin A3A vs. A3B metric)
 figure(3);clf,hold on
@@ -358,11 +358,11 @@ scatter(x(a3a),y(a3a),sz(a3a),clr(a3a,:),'filled');
 scatter(x(abd),y(abd),70,[1 0.7 0],'filled');scatter(x(abd),y(abd),90,[0 0 0]);%scatter(x(abd),y(abd),sz(abd),clr(abd,:),'filled');
 ff;set(gca,'fontsize',20,'ytick',0:0.1:4);xlabel('APOBEC3B character','fontsize',30); ylabel('APOBEC3A character','fontsize',30);xlim([0 0.14]);
 set(gcf,'papersize',[8 8],'paperposition',[0.2 0.2 8-0.4 8-0.4]);
-print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fig_S4a.pdf');
+print_to_file('fig_S4a.pdf');
 
 
 % Fig. S4c (lego plots)
-ede('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2');
+ede('v2');
 mut_nonapobec = reorder_struct(X.mut,X.pat.vanilla(X.mut.pat_idx));
 mut_apobec = reorder_struct(X.mut,X.pat.apobec(X.mut.pat_idx));
 mut_apobec_most_a3b = reorder_struct(X.mut,X.pat.apobec_most_a3b(X.mut.pat_idx));
@@ -370,10 +370,10 @@ mut_apobec_most_a3a = reorder_struct(X.mut,X.pat.apobec_most_a3a(X.mut.pat_idx))
 
 figure(1),clf,set(gcf,'papersize',[3 3],'paperposition',[0.2 0.2 2.6 2.6]);
 P=[];P.display='rates';P.coverage='genome';P.add_sanger_plot=true;P.use_lighter_blue=true;
-clf,legomaf(mut_nonapobec,P);print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/lego.cohort.non_APOBEC.pdf');
-clf,legomaf(mut_apobec,P);print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/lego.cohort.APOBEC.pdf');
-clf,legomaf(mut_apobec_most_a3b,P);print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/lego.cohort.A3B.pdf');
-clf,legomaf(mut_apobec_most_a3a,P);print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/lego.cohort.A3A.pdf');
+clf,legomaf(mut_nonapobec,P);print_to_file('lego.cohort.non_APOBEC.pdf');
+clf,legomaf(mut_apobec,P);print_to_file('lego.cohort.APOBEC.pdf');
+clf,legomaf(mut_apobec_most_a3b,P);print_to_file('lego.cohort.A3B.pdf');
+clf,legomaf(mut_apobec_most_a3a,P);print_to_file('lego.cohort.A3A.pdf');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -398,11 +398,11 @@ clf,legomaf(mut_apobec_most_a3a,P);print_to_file('/cga/tcga-gsc/home/lawrence/ap
 %     -d /cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/mcc/phb/v7 process_hairpin_block_v7
 
 % run
-mutfile = '/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.2.mat';
-survdir = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3a';
+mutfile = 'FINAL_DATASET.v2.2.mat';
+survdir = 'v3a';
 gcmin=0.4; gcmax=0.6;
-outdir = '/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v3/run12'; ede(outdir);
-mccdir = '/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/mcc/phb/v7';
+outdir = 'run12'; ede(outdir);
+mccdir = 'v7';
 mccname = 'process_hairpin_block_v7';
 cmds={}; banner='phb';
 for blockno=1:32
@@ -415,7 +415,7 @@ qcmd = [qcmd char(10)]; qcmdfile = [outdir '/qcmd.txt']; save_textfile(qcmd,qcmd
 
 % gather
 n=0;N=0;Q=[];nn=[];NN=[]; sss=[0:26]';
-indir = '/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v3/run12';
+indir = 'run12';
 for blockno=1:32, infile = [indir '/block' num2str(blockno) '.cts.mat']; tmp=load(infile,'N','n','Q','subsets');
   n=n+tmp.n; N=N+tmp.N; if blockno==1, subsets=tmp.subsets; Q=tmp.Q; else Q.N=Q.N+tmp.Q.N; Q.n=Q.n+tmp.Q.n;
 end,end
@@ -427,11 +427,11 @@ for i=1:length(subsets), row=0;
 end,end, r = nn./NN;
 nnn=squeeze(sum(nn(:,1:3,:),2)); NNN=squeeze(sum(NN(:,1:3,:),2)); [r sd] = ratio_and_sd(nnn,NNN);
 rmd = nanmedian(r(1:2,:),1); r = bsxfun(@rdivide,r,rmd); sd = bsxfun(@rdivide,sd,rmd);
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v3/run12/stats_all.v1.1.mat','nn','NN','Q','subsets');
+save('stats_all.v1.1.mat','nn','NN','Q','subsets');
 
 prn(ssmin',ssmax',r)
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v3/run11/stats_all.v1.1.mat','NN','nn','Q','subsets');
+load('stats_all.v1.1.mat','NN','nn','Q','subsets');
 
 % hairpin-potential decile plots
 figure(6),clf
@@ -461,7 +461,7 @@ for i=1:length(subsets)
 end
 
 % FINAL VERSION FOR PAPER (vector-graphics): hairpin-potential decile plots
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v3/run11/stats_all.v1.1.mat','NN','nn','Q','subsets');
+load('stats_all.v1.1.mat','NN','nn','Q','subsets');
 figure(2)
 nnn=squeeze(sum(nn(:,1:3,:),2)); NNN=squeeze(sum(NN(:,1:3,:),2)); [r sd] = ratio_and_sd(nnn,NNN);
 rmd = nanmedian(r(1:2,:),1); r = bsxfun(@rdivide,r,rmd); sd = bsxfun(@rdivide,sd,rmd);
@@ -474,12 +474,12 @@ for i=1:length(subsets)
   line(xlim,[1 1],'color',[0 0 0],'linestyle',':');
   set(gca,'ytick',[0:2:10],'ticklength',[0.015 0.015]);
   set(gcf,'papersize',[4.6 4.2],'paperposition',[0.4 0.4 3.8 3.3],'color',[1 1 1]);
-  print_to_file(['/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/hairpins.' subsets{i} '.pdf'],600);
+  print_to_file(['hairpins.' subsets{i} '.pdf'],600);
 end
 pr(subsets,corrs,pvals);
 
 % FINAL VERSION FOR PAPER (vector-graphics): replication-timing decile plots
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v3/run11/stats_all.v1.1.mat','NN','nn','Q','subsets');
+load('stats_all.v1.1.mat','NN','nn','Q','subsets');
 figure(2)
 [r sd] = ratio_and_sd(Q.n,Q.N);
 med = nanmedian(r,1); r=bsxfun(@rdivide,r,med);sd=bsxfun(@rdivide,sd,med);
@@ -492,7 +492,7 @@ for i=1:length(subsets)
   line(xlim,[1 1],'color',[0 0 0],'linestyle',':');
   set(gca,'ytick',[0:0.5:5],'ticklength',[0.015 0.015]);
   set(gcf,'papersize',[4.6 4.2],'paperposition',[0.4 0.4 3.8 3.3],'color',[1 1 1]);
-  print_to_file(['/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/reptime.' subsets{i} '.pdf'],600);
+  print_to_file(['reptime.' subsets{i} '.pdf'],600);
 end
 pr(subsets,corrs,pvals);
 
@@ -501,22 +501,22 @@ pr(subsets,corrs,pvals);
 % MAP MUTATIONS TO LIST OF TpCs
 
 % hairpins list v3a (looppos = 1 - looplen)
-tpcfile = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3a/all.TpCs_only.mat';
-mutfile = '/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.2.mat';
+tpcfile = 'all.TpCs_only.mat';
+mutfile = 'FINAL_DATASET.v2.2.mat';
 tic;load(tpcfile,'X');toc % 40 sec
 tic;tmp=load(mutfile);toc % 10 sec
 fs={'pat','ttype','nmf','mut'};for fi=1:length(fs),f=fs{fi};X.(f)=tmp.X.(f);end
 tic;X.mut.sidx = multimap(X.mut,X.site,{'chr','pos'});toc % 12 min
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X','-v7.3');
+save('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X','-v7.3');
 
 % hairpins list v3b (looppos = 0 - looplen+1)
-tpcfile = '/cga/tcga-gsc/home/lawrence/db/hg19/hairpins/v3b/all.TpCs_only.mat';
-mutfile = '/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.v2.2.mat';
+tpcfile = 'all.TpCs_only.mat';
+mutfile = 'FINAL_DATASET.v2.2.mat';
 tic;load(tpcfile,'X');toc % 40 sec
 tic;tmp=load(mutfile);toc % 10 sec
 fs={'pat','ttype','nmf','mut'};for fi=1:length(fs),f=fs{fi};X.(f)=tmp.X.(f);end
 tic;X.mut.sidx = multimap(X.mut,X.site,{'chr','pos'});toc % 12 min
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3b.v2.2.mat','X','-v7.3');
+save('FINAL_DATASET.with_TpCs_v3b.v2.2.mat','X','-v7.3');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -524,7 +524,7 @@ save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_
 
 % TABULATE 
 
-tic;load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec to load --> 9.3Gb in mem
+tic;load('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec to load --> 9.3Gb in mem
 puse = (X.pat.frac_apobec>=0.5); muse = puse(X.mut.pat_idx); S=X.site; S.ct = histc(X.mut.sidx(muse),1:slength(S)); S.ss = S.nbp+2*S.ngc;
 keep = (S.zone<3); S = reorder_struct(keep_fields(S,{'ct';'looplen';'looppos';'ss'}),keep); ii = (S.ss<5); nohprate = mean(S.ct(ii));
 bin=[];bin.min=[0 7:2:17 19 18]';bin.max=[6 8:2:18 inf inf]';
@@ -535,26 +535,26 @@ for looplen=3:11,disp(looplen);S1 = reorder_struct(S,S.looplen==looplen); Q=bin;
       Q.N(i,looppos) = sum(ii); Q.n(i,looppos) = sum(S2.ct(ii));
   end,end, [Q.rate Q.sd] = ratio_and_sd(Q.n,Q.N);Q.relrate = Q.rate/nohprate; Q.relsd = Q.sd/nohprate; Qs{looplen-2}=Q;
 end % ~2 min
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL.Qs.v3a.1.mat','Qs');
+save('FINAL.Qs.v3a.1.mat','Qs');
 
 % PLOT for Fig. 3b
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL.Qs.v3a.1.mat','Qs');
+load('FINAL.Qs.v3a.1.mat','Qs');
 figure(4),clf,looplen=4;Q=Qs{looplen-2};Q=reorder_struct(Q,1:slength(Q)-1);rate=Q.relrate;sd=Q.relsd;ratehi=rate+1.96*sd;ratelo=rate-1.96*sd;
 b=barweb(rate,ratelo,ratehi);ff;colormap(parula);set(gca,'xtick',1:slength(Q),'xticklabel',Q.label,'fontsize',14,'linewidth',1.5);
 for bi=1:length(b.bars),set(b.bars(bi),'linewidth',1);end;xlim([0.3 slength(Q)+0.7]);line(xlim,[1 1],'linestyle',':','color',[0 0 0]);
 set(gcf,'papersize',[10 7.5],'paperposition',[0.2 0.2 10-0.4 7.5-0.4]);
-print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fig.3b.pdf');
+print_to_file('fig.3b.pdf');
 
 % PLOT for Fig. S6
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL.Qs.v3a.1.mat','Qs');
+load('FINAL.Qs.v3a.1.mat','Qs');
 figure(5),clf,looplen=3;Q=Qs{looplen-2};Q=reorder_struct(Q,1:slength(Q)-1);rate=Q.relrate;sd=Q.relsd;ratehi=rate+1.96*sd;ratelo=rate-1.96*sd;
 b=barweb(rate,ratelo,ratehi);ff;colormap(parula);set(gca,'xtick',1:slength(Q),'xticklabel',Q.label,'fontsize',14,'linewidth',1.5);
 for bi=1:length(b.bars),set(b.bars(bi),'linewidth',1);end;xlim([0.3 slength(Q)+0.7]);line(xlim,[1 1],'linestyle',':','color',[0 0 0]);
 set(gcf,'papersize',[10 7.5],'paperposition',[0.2 0.2 10-0.4 7.5-0.4]);
-print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fig.S6.pdf');
+print_to_file('fig.S6.pdf');
 
 % PLOT for Fig. 3d
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL.Qs.v3a.1.mat','Qs');
+load('FINAL.Qs.v3a.1.mat','Qs');
 figure(6),clf,hold on,cmap=parula;maxlooplen=8;x=0;xt=[];
 for looplen=3:maxlooplen,Q=Qs{looplen-2};Q=reorder_struct(Q,slength(Q));x=x+2; xt(end+1)=x+0.5+looplen/2;
   rate=Q.relrate;sd=Q.relsd;ratelo=rate-1.96*sd;ratehi=rate+1.96*sd;
@@ -565,7 +565,7 @@ end,end
 xlim([0.46 x+1.9]);ylim([0 49]);set(gca,'ytick',0:10:40,'xtick',xt,'xticklabel',3:maxlooplen,'fontsize',14,'linewidth',1.5);ff
 line(xlim,[1 1],'linestyle',':','color',[0 0 0]);colorbar('position',[0.6 0.8 0.3 0.02],'orientation','horizontal');
 set(gcf,'papersize',[9.5 7.5],'paperposition',[0.2 0.2 9.5-0.4 7.5-0.4]);
-print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fig.3d.pdf');
+print_to_file('fig.3d.pdf');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -573,7 +573,7 @@ print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fi
 
 % TABULATE 
 
-tic;load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec to load --> 9.3Gb in mem
+tic;load('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec to load --> 9.3Gb in mem
 puse = (X.pat.frac_apobec>=0.5); muse = puse(X.mut.pat_idx);
 So=X.site; So.ct = histc(X.mut.sidx(muse),1:slength(So)); So.ss = So.nbp+2*So.ngc; ii = (So.ss<5); nohprate = mean(So.ct(ii));
 So=reorder_struct(keep_fields(So,{'looplen';'looppos';'ss';'minus2';'minus1';'plus1';'plus2';'ct'}),...
@@ -623,7 +623,7 @@ for i=1:slength(ZL3),ZL3.context{i}=[rc(ZL3.context{i}(4)) '(' ZL3.context{i}(1:
 ZL3all = reorder_struct(ZL3,listmap({'G(GTC)C';'G(ATC)C';'T(ATC)A';'T(GTC)A';'A(ATC)T';'G(CTC)C';'G(TTC)C';'A(TTC)T';'T(CTC)A';'A(CTC)T';'T(TTC)A';'A(GTC)T';...
                     'C(CTC)G';'C(GTC)G';'C(ATC)G';'C(TTC)G'},ZL3.context));
 ZL3 = reorder_struct(ZL3,listmap({'G(GTC)C';'T(GTC)A';'A(GTC)T';'C(TTC)G'},ZL3.context));
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL.Qs2.v3a.1.mat','QL3','Q4','Q3','contextL3','context3','context4','Z3','Z4','ZL3','ZL3all');
+save('FINAL.Qs2.v3a.1.mat','QL3','Q4','Q3','contextL3','context3','context4','Z3','Z4','ZL3','ZL3all');
 
 %  check numbers
 pr(Z4);pr(Z3);pr(ZL3);pr(ZL3all)
@@ -631,7 +631,7 @@ pr(Z4);pr(Z3);pr(ZL3);pr(ZL3all)
 
 % PLOT  OLD Fig. 3f, S8
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL.Qs2.v3a.1.mat','Z3','Z4','ZL3','ZL3all');
+load('FINAL.Qs2.v3a.1.mat','Z3','Z4','ZL3','ZL3all');
 
 figure(3),clf,fontsize=8;
 subplot(2,2,1) % TETRALOOPS (Z3=pos3, Z4=pos4)
@@ -657,7 +657,7 @@ subplot(2,2,3) % TRILOOPS (all--for supplementary info)
 
 % PLOT  NEW Fig. 3f
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL.Qs2.v3a.1.mat','QL3','contextL3');
+load('FINAL.Qs2.v3a.1.mat','QL3','contextL3');
 ssbin=6; % this corresponds to stemstrength=13-14.  The actual stemstrength for this construct is 16-18... pretty close
 context=contextL3.name; for i=1:length(context),context{i}=[rc(context{i}(4)) '(' context{i}(1:3) ')' context{i}(4)];end
 Z=[]; Z.context=context; Z.relrate = QL3.relrate(ssbin,:)'; Z.relsd = QL3.relsd(ssbin,:)';
@@ -670,7 +670,7 @@ xlabel('sequence of (loop) and closing basepair','fontsize',14);  ylabel('relati
 xlim([0.55 1.45]); line(xlim,[1 1],'linestyle',':','color',[0 0 0]); dd=dat';sdd=sd';
 for i=1:length(context),text(0.56+0.0995*i,dd(i)+sdd(i)+2.0,context{i},'fontsize',17,'hor','cen','ver','bot','rot',55);end
 set(gcf,'papersize',[10 7.5],'paperposition',[0.2 0.2 10-0.4 7.5-0.4]);
-print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fig.3f.pdf');
+print_to_file('fig.3f.pdf');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -681,7 +681,7 @@ print_to_file('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/finalfigs/v2/fi
 %
 % FINAL QUANTITATIVE MODELING
 
-tic;load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
+tic;load('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
 X.site.ss = X.site.nbp+2*X.site.ngc; ssmin = [0 4:22]; X.site.ssbin=min(max(1,X.site.ss-3),length(ssmin));
 X.mut.muttype = nan(slength(X.mut),1);
 X.mut.muttype((X.mut.ref==2 & X.mut.alt==3)|(X.mut.ref==3 & X.mut.alt==2))=1; % C->G
@@ -753,11 +753,11 @@ Z=[]; Z.cohort=rmfield(C,'Q'); Z.pat=X.co{1}.pat; Z.stem.ssmin=as_column(ssmin);
 for ci=1:slength(C),Z.cohort.mut{ci,1}=reorder_struct(X.co{1}.mut,C.muse{ci});end
 fs={'n3','n','rate','sd'}; Z.loop=rmfield(C.Q{1},fs); for fi=1:length(fs),f=fs{fi};for ci=1:slength(C); Z.loop.(f)(:,:,ci,:)=C.Q{ci}.(f);end,end
 
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_cohorts_vs_looptypes.analysis.1.0.mat','Z');
+save('FINAL_cohorts_vs_looptypes.analysis.1.0.mat','Z');
 
 % CURVE FITTING FOR EACH SERIES
 
-tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_cohorts_vs_looptypes.analysis.1.0.mat','Z');X=tmp.Z; % ~5 sec to load
+tmp=load('FINAL_cohorts_vs_looptypes.analysis.1.0.mat','Z');X=tmp.Z; % ~5 sec to load
 
 minmut=10; xas=0:0.1:200; mhps=0.35:0.01:0.55;
 for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); npat=X.cohort.npat(ci);
@@ -773,11 +773,11 @@ for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); n
     end, Q.log10rr = log10(Q.rr); W.err(wi,1)=sum(Q.err); W.Q{wi,1}=Q;
   end,fprintf('\n'); [tmp wi] = min(W.err); X.cohort.mhp(ci,1)=W.mhp(wi); X.cohort.Q{ci,1}=W.Q{wi};
 end % ~3 hr
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_cohorts_vs_looptypes.analysis.1.1.mat','X');
+save('FINAL_cohorts_vs_looptypes.analysis.1.1.mat','X');
 
 % triangle arrangement of subplots
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_cohorts_vs_looptypes.analysis.1.1.mat','X');
+load('FINAL_cohorts_vs_looptypes.analysis.1.1.mat','X');
 ci=6;
 
 figure(3),clf;nrow=9;ncol=11;minmut=10; xas = 0:0.1:200; x=X.stem.ssmin;
@@ -808,8 +808,8 @@ end,end
 
 
 % annotate all TpC sites with predicted relrate
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v2/all.TpCs_only.with_cts.no_exons.v1.1a.mat','X');
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v2/all.TpCs_only.with_cts.no_exons.v1.1.tabulatedQ.v3.0.fits.mat','Q');
+load('all.TpCs_only.with_cts.no_exons.v1.1a.mat','X');
+load('all.TpCs_only.with_cts.no_exons.v1.1.tabulatedQ.v3.0.fits.mat','Q');
 interp_thresh=10;
 X.site.dG3hcap = min(10,X.site.dG3h);
 X.site.relrate_exp2 = nan(slength(X.site),1);
@@ -826,7 +826,7 @@ for looplen=3:11, i1=find(X.site.looplen==looplen);q1=find(Q.looplen==looplen);
 end,end,end,end,end,end,end % ~5min
 X.site.relrate_exp = X.site.relrate_exp2;idx=find(isnan(X.site.relrate_exp));X.site.relrate_exp(idx)=X.site.relrate_exp1(idx);
 X.site=rmfield(X.site,{'dG3hcap','relrate_exp2','relrate_exp1'});X.site.relrate_exp=single(X.site.relrate_exp);
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/wgs/v2/all.TpCs_only.with_cts.no_exons.v1.1a.with_relrate.mat','X','-v7.3');
+save('all.TpCs_only.with_cts.no_exons.v1.1a.with_relrate.mat','X','-v7.3');
 
 
 

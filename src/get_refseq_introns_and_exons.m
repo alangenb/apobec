@@ -26,7 +26,8 @@ P = impose_default_value(P,'skip_longname_annotation',false);
 P = impose_default_value(P,'load_conservation29',false);
 P = impose_default_value(P,'load_conservation3',false);
 
-premadefile=['/cga/tcga-gsc/home/lawrence/db/load_genes/' build '_splicesiteflank' num2str(splicesiteflank) '.mat'];
+%premadefile=['/cga/tcga-gsc/home/lawrence/db/load_genes/' build '_splicesiteflank' num2str(splicesiteflank) '.mat'];
+premadefile=[build '_splicesiteflank' num2str(splicesiteflank) '.mat'];
 if exist(premadefile,'file')
   load(premadefile,'G');
 

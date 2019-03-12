@@ -99,7 +99,7 @@ if strcmp(format_to_use,'mat')
     idx = find(chr==c);
     if isempty(idx), continue; end
     fprintf('chr%d ',c);
-    x = load([contextdir '/chr' num2str(c) P.fileext]);
+    x = load([contextdir 'chr' num2str(c) P.fileext]);
     f = fieldnames(x);
     x = getfield(x,f{1});
     maxlen = length(x);
