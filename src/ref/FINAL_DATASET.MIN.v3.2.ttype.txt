@@ -1,14 +1,3 @@
-name	longname	npat
-ALL	Acute lymphocytic leukemia	1
-AML	Acute myeloid leukemia	3
-BRCA	Breast	597
-CLL	Chronic lymphocytic leukemia	31
-CRC	Colorectal	9
-DLBCL	Diffuse large B-cell lymphoma	23
-ESO	Esophageal	9
-LIHC	Liver	88
-LUAD	Lung adenocarcinoma	24
-MED	Medulloblastoma	76
-MEL	Melanoma	5
-MM	Multiple myeloma	23
-PRAD	Prostate	36
+version https://git-lfs.github.com/spec/v1
+oid sha256:e43bf359eb363dcfff3b0829ef7a277ed77fd3602c740e9033fbaf20448467ff
+size 340
