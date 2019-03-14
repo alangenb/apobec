@@ -1,0 +1,926 @@
+name	ttype	cohort	ttype_long	nmut	ttype_idx
+Broad126:BR-0001	BRCA	Lawrence126	Breast	1486	3
+Broad126:BR-0002	BRCA	Lawrence126	Breast	6605	3
+Broad126:BR-0003	BRCA	Lawrence126	Breast	2356	3
+Broad126:BR-0004	BRCA	Lawrence126	Breast	6609	3
+Broad126:BR-0005	BRCA	Lawrence126	Breast	2860	3
+Broad126:BR-0006	BRCA	Lawrence126	Breast	5090	3
+Broad126:BR-0008	BRCA	Lawrence126	Breast	3880	3
+Broad126:BR-0009	BRCA	Lawrence126	Breast	5991	3
+Broad126:BR-0010	BRCA	Lawrence126	Breast	2610	3
+Broad126:BR-MEX-015	BRCA	Lawrence126	Breast	5616	3
+Broad126:BR-MEX-045	BRCA	Lawrence126	Breast	9119	3
+Broad126:BR-MEX-050	BRCA	Lawrence126	Breast	3910	3
+Broad126:BR-MEX-071	BRCA	Lawrence126	Breast	2942	3
+Broad126:BR-MEX-082	BRCA	Lawrence126	Breast	8112	3
+Broad126:BR-MEX-098	BRCA	Lawrence126	Breast	2865	3
+Broad126:BR-MEX-106	BRCA	Lawrence126	Breast	3411	3
+Broad126:BR-MEX-116	BRCA	Lawrence126	Breast	8442	3
+Broad126:BR-MEX-123	BRCA	Lawrence126	Breast	3974	3
+Broad126:BR-MEX-154	BRCA	Lawrence126	Breast	2864	3
+Broad126:BR-MEX-165	BRCA	Lawrence126	Breast	2297	3
+Broad126:BR-MEX-198	BRCA	Lawrence126	Breast	3175	3
+Broad126:BR-MEX-200	BRCA	Lawrence126	Breast	2034	3
+Broad126:CLL-G	CLL	Lawrence126	Chronic lymphocytic leukemia	2113	4
+Broad126:CLL-JE	CLL	Lawrence126	Chronic lymphocytic leukemia	4276	4
+Broad126:CRC-0002	CRC	Lawrence126	Colorectal	10534	5
+Broad126:CRC-0003	CRC	Lawrence126	Colorectal	13527	5
+Broad126:CRC-0004	CRC	Lawrence126	Colorectal	13836	5
+Broad126:CRC-0005	CRC	Lawrence126	Colorectal	17280	5
+Broad126:CRC-0006	CRC	Lawrence126	Colorectal	10230	5
+Broad126:CRC-0007	CRC	Lawrence126	Colorectal	15828	5
+Broad126:CRC-0008	CRC	Lawrence126	Colorectal	19882	5
+Broad126:CRC-0009	CRC	Lawrence126	Colorectal	26016	5
+Broad126:CRC-0010	CRC	Lawrence126	Colorectal	10407	5
+Broad126:ESO-1060	ESO	Lawrence126	Esophageal	30216	7
+Broad126:ESO-1163	ESO	Lawrence126	Esophageal	46780	7
+Broad126:ESO-130	ESO	Lawrence126	Esophageal	22110	7
+Broad126:ESO-409	ESO	Lawrence126	Esophageal	22038	7
+Broad126:ESO-682	ESO	Lawrence126	Esophageal	34660	7
+Broad126:ESO-721	ESO	Lawrence126	Esophageal	37988	7
+Broad126:ESO-774	ESO	Lawrence126	Esophageal	29325	7
+Broad126:ESO-838	ESO	Lawrence126	Esophageal	31373	7
+Broad126:ESO-913	ESO	Lawrence126	Esophageal	23484	7
+Broad126:CLL-JN_08	CLL	Lawrence126	Chronic lymphocytic leukemia	4752	4
+Broad126:MEL-0009	MEL	Lawrence126	Melanoma	244646	11
+Broad126:MEL-0012	MEL	Lawrence126	Melanoma	30328	11
+Broad126:MEL-0015	MEL	Lawrence126	Melanoma	4679	11
+Broad126:MEL-0032	MEL	Lawrence126	Melanoma	16031	11
+Broad126:MEL-0045	MEL	Lawrence126	Melanoma	37858	11
+Broad126:MM-0191	MM	Lawrence126	Multiple myeloma	8903	12
+Broad126:MM-0242	MM	Lawrence126	Multiple myeloma	7642	12
+Broad126:MM-0309	MM	Lawrence126	Multiple myeloma	6304	12
+Broad126:MM-0319	MM	Lawrence126	Multiple myeloma	6553	12
+Broad126:MM-0332	MM	Lawrence126	Multiple myeloma	5897	12
+Broad126:MM-0335	MM	Lawrence126	Multiple myeloma	11776	12
+Broad126:MM-0338	MM	Lawrence126	Multiple myeloma	7033	12
+Broad126:MM-0343	MM	Lawrence126	Multiple myeloma	7940	12
+Broad126:MM-0344	MM	Lawrence126	Multiple myeloma	6282	12
+Broad126:MM-0356	MM	Lawrence126	Multiple myeloma	7934	12
+Broad126:MM-0375	MM	Lawrence126	Multiple myeloma	5016	12
+Broad126:MM-0376	MM	Lawrence126	Multiple myeloma	5887	12
+Broad126:MM-0383	MM	Lawrence126	Multiple myeloma	5435	12
+Broad126:MM-0387	MM	Lawrence126	Multiple myeloma	6696	12
+Broad126:MM-0389	MM	Lawrence126	Multiple myeloma	16604	12
+Broad126:MM-0390	MM	Lawrence126	Multiple myeloma	6485	12
+Broad126:MM-0392	MM	Lawrence126	Multiple myeloma	6128	12
+Broad126:MM-0406	MM	Lawrence126	Multiple myeloma	3796	12
+Broad126:MM-0408	MM	Lawrence126	Multiple myeloma	5747	12
+Broad126:MM-0412	MM	Lawrence126	Multiple myeloma	9254	12
+Broad126:MM-0421-FIX	MM	Lawrence126	Multiple myeloma	9275	12
+Broad126:MM-0425-FIX	MM	Lawrence126	Multiple myeloma	6632	12
+Broad126:MM-0447	MM	Lawrence126	Multiple myeloma	7518	12
+Broad126:PR-02-1431	PRAD	Lawrence126	Prostate	1985	13
+Broad126:PR-03-3125	PRAD	Lawrence126	Prostate	4353	13
+Broad126:PR-03-728	PRAD	Lawrence126	Prostate	1046	13
+Broad126:PR-0581	PRAD	Lawrence126	Prostate	4701	13
+Broad126:PR-07-3258	PRAD	Lawrence126	Prostate	2316	13
+Broad126:PR-07-4610	PRAD	Lawrence126	Prostate	3701	13
+Broad126:PR-07-4814	PRAD	Lawrence126	Prostate	2690	13
+Broad126:PR-08-2153	PRAD	Lawrence126	Prostate	3211	13
+Broad126:PR-08-2455	PRAD	Lawrence126	Prostate	3429	13
+Broad126:PR-08-4154	PRAD	Lawrence126	Prostate	4400	13
+Broad126:PR-08-556	PRAD	Lawrence126	Prostate	4355	13
+Broad126:PR-08-784	PRAD	Lawrence126	Prostate	4737	13
+Broad126:PR-09-146	PRAD	Lawrence126	Prostate	2209	13
+Broad126:PR-09-3983	PRAD	Lawrence126	Prostate	4180	13
+Broad126:PR-09-601	PRAD	Lawrence126	Prostate	3876	13
+Broad126:PR-1701	PRAD	Lawrence126	Prostate	4484	13
+Broad126:PR-2832	PRAD	Lawrence126	Prostate	3898	13
+Broad126:PR-3027	PRAD	Lawrence126	Prostate	6570	13
+Broad126:PR-3043	PRAD	Lawrence126	Prostate	3752	13
+Broad126:PR-P508	PRAD	Lawrence126	Prostate	3093	13
+Broad126:PR-P559	PRAD	Lawrence126	Prostate	6557	13
+Sanger560:PD10010a	BRCA	Nik-Zainal560	Breast	2431	3
+Sanger560:PD10011a	BRCA	Nik-Zainal560	Breast	8272	3
+Sanger560:PD10014a	BRCA	Nik-Zainal560	Breast	12125	3
+Sanger560:PD11326a	BRCA	Nik-Zainal560	Breast	9628	3
+Sanger560:PD11327a	BRCA	Nik-Zainal560	Breast	12715	3
+Sanger560:PD11336a	BRCA	Nik-Zainal560	Breast	5585	3
+Sanger560:PD11337a	BRCA	Nik-Zainal560	Breast	3073	3
+Sanger560:PD11338a	BRCA	Nik-Zainal560	Breast	2300	3
+Sanger560:PD11339a	BRCA	Nik-Zainal560	Breast	2529	3
+Sanger560:PD11340a	BRCA	Nik-Zainal560	Breast	5064	3
+Sanger560:PD11341a	BRCA	Nik-Zainal560	Breast	1652	3
+Sanger560:PD11342a	BRCA	Nik-Zainal560	Breast	3305	3
+Sanger560:PD11343a	BRCA	Nik-Zainal560	Breast	2944	3
+Sanger560:PD11344a	BRCA	Nik-Zainal560	Breast	11028	3
+Sanger560:PD11345a	BRCA	Nik-Zainal560	Breast	10351	3
+Sanger560:PD11346a	BRCA	Nik-Zainal560	Breast	2292	3
+Sanger560:PD11347a	BRCA	Nik-Zainal560	Breast	2031	3
+Sanger560:PD11348a	BRCA	Nik-Zainal560	Breast	5010	3
+Sanger560:PD11349a	BRCA	Nik-Zainal560	Breast	7449	3
+Sanger560:PD11352a	BRCA	Nik-Zainal560	Breast	2586	3
+Sanger560:PD11355a	BRCA	Nik-Zainal560	Breast	1838	3
+Sanger560:PD11357a	BRCA	Nik-Zainal560	Breast	3379	3
+Sanger560:PD11358a	BRCA	Nik-Zainal560	Breast	4327	3
+Sanger560:PD11359a	BRCA	Nik-Zainal560	Breast	2666	3
+Sanger560:PD11360a	BRCA	Nik-Zainal560	Breast	3116	3
+Sanger560:PD11361a	BRCA	Nik-Zainal560	Breast	1723	3
+Sanger560:PD11364a	BRCA	Nik-Zainal560	Breast	2339	3
+Sanger560:PD11365a	BRCA	Nik-Zainal560	Breast	13652	3
+Sanger560:PD11366a	BRCA	Nik-Zainal560	Breast	3005	3
+Sanger560:PD11367a	BRCA	Nik-Zainal560	Breast	8164	3
+Sanger560:PD11368a	BRCA	Nik-Zainal560	Breast	6828	3
+Sanger560:PD11369a	BRCA	Nik-Zainal560	Breast	6134	3
+Sanger560:PD11370a	BRCA	Nik-Zainal560	Breast	1279	3
+Sanger560:PD11372a	BRCA	Nik-Zainal560	Breast	13793	3
+Sanger560:PD11374a	BRCA	Nik-Zainal560	Breast	2383	3
+Sanger560:PD11375a	BRCA	Nik-Zainal560	Breast	1934	3
+Sanger560:PD11376a	BRCA	Nik-Zainal560	Breast	3152	3
+Sanger560:PD11379a	BRCA	Nik-Zainal560	Breast	19382	3
+Sanger560:PD11380a	BRCA	Nik-Zainal560	Breast	2720	3
+Sanger560:PD11381a	BRCA	Nik-Zainal560	Breast	2097	3
+Sanger560:PD11383a	BRCA	Nik-Zainal560	Breast	2579	3
+Sanger560:PD11384a	BRCA	Nik-Zainal560	Breast	1725	3
+Sanger560:PD11385a	BRCA	Nik-Zainal560	Breast	1887	3
+Sanger560:PD11386a	BRCA	Nik-Zainal560	Breast	3382	3
+Sanger560:PD11388a	BRCA	Nik-Zainal560	Breast	4989	3
+Sanger560:PD11389a	BRCA	Nik-Zainal560	Breast	1677	3
+Sanger560:PD11391a	BRCA	Nik-Zainal560	Breast	1274	3
+Sanger560:PD11393a	BRCA	Nik-Zainal560	Breast	4669	3
+Sanger560:PD11394a	BRCA	Nik-Zainal560	Breast	2209	3
+Sanger560:PD11395a	BRCA	Nik-Zainal560	Breast	3792	3
+Sanger560:PD11396a	BRCA	Nik-Zainal560	Breast	2435	3
+Sanger560:PD11397a	BRCA	Nik-Zainal560	Breast	4827	3
+Sanger560:PD11398a	BRCA	Nik-Zainal560	Breast	2347	3
+Sanger560:PD11399a	BRCA	Nik-Zainal560	Breast	3496	3
+Sanger560:PD11402a	BRCA	Nik-Zainal560	Breast	2636	3
+Sanger560:PD11462a	BRCA	Nik-Zainal560	Breast	2839	3
+Sanger560:PD11464a	BRCA	Nik-Zainal560	Breast	4497	3
+Sanger560:PD11465a	BRCA	Nik-Zainal560	Breast	22551	3
+Sanger560:PD11740a	BRCA	Nik-Zainal560	Breast	2334	3
+Sanger560:PD11741a	BRCA	Nik-Zainal560	Breast	1976	3
+Sanger560:PD11742a	BRCA	Nik-Zainal560	Breast	7005	3
+Sanger560:PD11743a	BRCA	Nik-Zainal560	Breast	3309	3
+Sanger560:PD11744a	BRCA	Nik-Zainal560	Breast	1882	3
+Sanger560:PD11745a	BRCA	Nik-Zainal560	Breast	3018	3
+Sanger560:PD11748a	BRCA	Nik-Zainal560	Breast	11761	3
+Sanger560:PD11750a	BRCA	Nik-Zainal560	Breast	10078	3
+Sanger560:PD11751a	BRCA	Nik-Zainal560	Breast	16648	3
+Sanger560:PD11752a	BRCA	Nik-Zainal560	Breast	7636	3
+Sanger560:PD11753a	BRCA	Nik-Zainal560	Breast	6858	3
+Sanger560:PD11755a	BRCA	Nik-Zainal560	Breast	2776	3
+Sanger560:PD11756a	BRCA	Nik-Zainal560	Breast	1771	3
+Sanger560:PD11757a	BRCA	Nik-Zainal560	Breast	1952	3
+Sanger560:PD11760a	BRCA	Nik-Zainal560	Breast	4091	3
+Sanger560:PD11761a	BRCA	Nik-Zainal560	Breast	2707	3
+Sanger560:PD11762a	BRCA	Nik-Zainal560	Breast	1734	3
+Sanger560:PD11765a	BRCA	Nik-Zainal560	Breast	2002	3
+Sanger560:PD11766a	BRCA	Nik-Zainal560	Breast	1695	3
+Sanger560:PD11767a	BRCA	Nik-Zainal560	Breast	869	3
+Sanger560:PD11769a	BRCA	Nik-Zainal560	Breast	1722	3
+Sanger560:PD11816a	BRCA	Nik-Zainal560	Breast	4011	3
+Sanger560:PD11818a	BRCA	Nik-Zainal560	Breast	1605	3
+Sanger560:PD11819a	BRCA	Nik-Zainal560	Breast	1686	3
+Sanger560:PD13162a	BRCA	Nik-Zainal560	Breast	5404	3
+Sanger560:PD13163a	BRCA	Nik-Zainal560	Breast	5353	3
+Sanger560:PD13164a	BRCA	Nik-Zainal560	Breast	2722	3
+Sanger560:PD13165a	BRCA	Nik-Zainal560	Breast	6341	3
+Sanger560:PD13166a	BRCA	Nik-Zainal560	Breast	2331	3
+Sanger560:PD13167a	BRCA	Nik-Zainal560	Breast	2405	3
+Sanger560:PD13168a	BRCA	Nik-Zainal560	Breast	2528	3
+Sanger560:PD13296a	BRCA	Nik-Zainal560	Breast	18582	3
+Sanger560:PD13297a	BRCA	Nik-Zainal560	Breast	14982	3
+Sanger560:PD13298a	BRCA	Nik-Zainal560	Breast	8367	3
+Sanger560:PD13299a	BRCA	Nik-Zainal560	Breast	10735	3
+Sanger560:PD13302a	BRCA	Nik-Zainal560	Breast	4896	3
+Sanger560:PD13304a	BRCA	Nik-Zainal560	Breast	1517	3
+Sanger560:PD13306a	BRCA	Nik-Zainal560	Breast	2026	3
+Sanger560:PD13307a	BRCA	Nik-Zainal560	Breast	5353	3
+Sanger560:PD13310a	BRCA	Nik-Zainal560	Breast	1831	3
+Sanger560:PD13311a	BRCA	Nik-Zainal560	Breast	4510	3
+Sanger560:PD13312a	BRCA	Nik-Zainal560	Breast	2034	3
+Sanger560:PD13416a	BRCA	Nik-Zainal560	Breast	1939	3
+Sanger560:PD13418a	BRCA	Nik-Zainal560	Breast	6808	3
+Sanger560:PD13419a	BRCA	Nik-Zainal560	Breast	1092	3
+Sanger560:PD13420a	BRCA	Nik-Zainal560	Breast	1862	3
+Sanger560:PD13422a	BRCA	Nik-Zainal560	Breast	1805	3
+Sanger560:PD13424a	BRCA	Nik-Zainal560	Breast	3954	3
+Sanger560:PD13425a	BRCA	Nik-Zainal560	Breast	34502	3
+Sanger560:PD13426a	BRCA	Nik-Zainal560	Breast	2699	3
+Sanger560:PD13427a	BRCA	Nik-Zainal560	Breast	1134	3
+Sanger560:PD13428a	BRCA	Nik-Zainal560	Breast	3422	3
+Sanger560:PD13602a	BRCA	Nik-Zainal560	Breast	5914	3
+Sanger560:PD13603a	BRCA	Nik-Zainal560	Breast	3064	3
+Sanger560:PD13604a	BRCA	Nik-Zainal560	Breast	93102	3
+Sanger560:PD13605a	BRCA	Nik-Zainal560	Breast	1238	3
+Sanger560:PD13606a	BRCA	Nik-Zainal560	Breast	5893	3
+Sanger560:PD13607a	BRCA	Nik-Zainal560	Breast	3288	3
+Sanger560:PD13608a	BRCA	Nik-Zainal560	Breast	4107	3
+Sanger560:PD13609a	BRCA	Nik-Zainal560	Breast	4706	3
+Sanger560:PD13618a	BRCA	Nik-Zainal560	Breast	1833	3
+Sanger560:PD13619a	BRCA	Nik-Zainal560	Breast	2112	3
+Sanger560:PD13620a	BRCA	Nik-Zainal560	Breast	4598	3
+Sanger560:PD13622a	BRCA	Nik-Zainal560	Breast	4355	3
+Sanger560:PD13623a	BRCA	Nik-Zainal560	Breast	3800	3
+Sanger560:PD13625a	BRCA	Nik-Zainal560	Breast	11239	3
+Sanger560:PD13626a	BRCA	Nik-Zainal560	Breast	1076	3
+Sanger560:PD13627a	BRCA	Nik-Zainal560	Breast	8442	3
+Sanger560:PD13629a	BRCA	Nik-Zainal560	Breast	2029	3
+Sanger560:PD13630a	BRCA	Nik-Zainal560	Breast	4107	3
+Sanger560:PD13631a	BRCA	Nik-Zainal560	Breast	2603	3
+Sanger560:PD13752a	BRCA	Nik-Zainal560	Breast	2809	3
+Sanger560:PD13753a	BRCA	Nik-Zainal560	Breast	7995	3
+Sanger560:PD13754a	BRCA	Nik-Zainal560	Breast	2506	3
+Sanger560:PD13755a	BRCA	Nik-Zainal560	Breast	1936	3
+Sanger560:PD13756a	BRCA	Nik-Zainal560	Breast	2083	3
+Sanger560:PD13757a	BRCA	Nik-Zainal560	Breast	1487	3
+Sanger560:PD13758a	BRCA	Nik-Zainal560	Breast	2299	3
+Sanger560:PD13760a	BRCA	Nik-Zainal560	Breast	4634	3
+Sanger560:PD13761a	BRCA	Nik-Zainal560	Breast	1688	3
+Sanger560:PD13762a	BRCA	Nik-Zainal560	Breast	1653	3
+Sanger560:PD13763a	BRCA	Nik-Zainal560	Breast	2563	3
+Sanger560:PD13764a	BRCA	Nik-Zainal560	Breast	4830	3
+Sanger560:PD13765a	BRCA	Nik-Zainal560	Breast	5479	3
+Sanger560:PD13766a	BRCA	Nik-Zainal560	Breast	3837	3
+Sanger560:PD13767a	BRCA	Nik-Zainal560	Breast	2638	3
+Sanger560:PD13768a	BRCA	Nik-Zainal560	Breast	1352	3
+Sanger560:PD13770a	BRCA	Nik-Zainal560	Breast	2079	3
+Sanger560:PD13771a	BRCA	Nik-Zainal560	Breast	13089	3
+Sanger560:PD14432a	BRCA	Nik-Zainal560	Breast	1870	3
+Sanger560:PD14433a	BRCA	Nik-Zainal560	Breast	3582	3
+Sanger560:PD14435a	BRCA	Nik-Zainal560	Breast	3716	3
+Sanger560:PD14437a	BRCA	Nik-Zainal560	Breast	4363	3
+Sanger560:PD14439a	BRCA	Nik-Zainal560	Breast	1316	3
+Sanger560:PD14441a	BRCA	Nik-Zainal560	Breast	4662	3
+Sanger560:PD14442a	BRCA	Nik-Zainal560	Breast	1746	3
+Sanger560:PD14450a	BRCA	Nik-Zainal560	Breast	1298	3
+Sanger560:PD14453a	BRCA	Nik-Zainal560	Breast	9916	3
+Sanger560:PD14454a	BRCA	Nik-Zainal560	Breast	2510	3
+Sanger560:PD14456a	BRCA	Nik-Zainal560	Breast	1977	3
+Sanger560:PD14457a	BRCA	Nik-Zainal560	Breast	4567	3
+Sanger560:PD14458a	BRCA	Nik-Zainal560	Breast	1513	3
+Sanger560:PD14459a	BRCA	Nik-Zainal560	Breast	2086	3
+Sanger560:PD14460a	BRCA	Nik-Zainal560	Breast	4524	3
+Sanger560:PD14461a	BRCA	Nik-Zainal560	Breast	1436	3
+Sanger560:PD14462a	BRCA	Nik-Zainal560	Breast	2628	3
+Sanger560:PD14465a	BRCA	Nik-Zainal560	Breast	3097	3
+Sanger560:PD14467a	BRCA	Nik-Zainal560	Breast	1624	3
+Sanger560:PD14468a	BRCA	Nik-Zainal560	Breast	1549	3
+Sanger560:PD14471a	BRCA	Nik-Zainal560	Breast	3270	3
+Sanger560:PD14472a	BRCA	Nik-Zainal560	Breast	2298	3
+Sanger560:PD14473a	BRCA	Nik-Zainal560	Breast	1543	3
+Sanger560:PD17973a	BRCA	Nik-Zainal560	Breast	2025	3
+Sanger560:PD17981a	BRCA	Nik-Zainal560	Breast	6964	3
+Sanger560:PD17991a	BRCA	Nik-Zainal560	Breast	1222	3
+Sanger560:PD17994a	BRCA	Nik-Zainal560	Breast	1306	3
+Sanger560:PD18017a	BRCA	Nik-Zainal560	Breast	2108	3
+Sanger560:PD18020a	BRCA	Nik-Zainal560	Breast	17772	3
+Sanger560:PD18022a	BRCA	Nik-Zainal560	Breast	1602	3
+Sanger560:PD18024a	BRCA	Nik-Zainal560	Breast	11104	3
+Sanger560:PD18031a	BRCA	Nik-Zainal560	Breast	2769	3
+Sanger560:PD18037a	BRCA	Nik-Zainal560	Breast	5971	3
+Sanger560:PD18045a	BRCA	Nik-Zainal560	Breast	19468	3
+Sanger560:PD18046a	BRCA	Nik-Zainal560	Breast	2901	3
+Sanger560:PD18047a	BRCA	Nik-Zainal560	Breast	2344	3
+Sanger560:PD18048a	BRCA	Nik-Zainal560	Breast	4786	3
+Sanger560:PD18049a	BRCA	Nik-Zainal560	Breast	3392	3
+Sanger560:PD18050a	BRCA	Nik-Zainal560	Breast	3566	3
+Sanger560:PD18100a	BRCA	Nik-Zainal560	Breast	1531	3
+Sanger560:PD18101a	BRCA	Nik-Zainal560	Breast	863	3
+Sanger560:PD18116a	BRCA	Nik-Zainal560	Breast	1544	3
+Sanger560:PD18149a	BRCA	Nik-Zainal560	Breast	2570	3
+Sanger560:PD18188a	BRCA	Nik-Zainal560	Breast	2236	3
+Sanger560:PD18189a	BRCA	Nik-Zainal560	Breast	4272	3
+Sanger560:PD18247a	BRCA	Nik-Zainal560	Breast	9136	3
+Sanger560:PD18251a	BRCA	Nik-Zainal560	Breast	3487	3
+Sanger560:PD18257a	BRCA	Nik-Zainal560	Breast	2973	3
+Sanger560:PD18258a	BRCA	Nik-Zainal560	Breast	1142	3
+Sanger560:PD18259a	BRCA	Nik-Zainal560	Breast	6639	3
+Sanger560:PD18264a	BRCA	Nik-Zainal560	Breast	6680	3
+Sanger560:PD18269a	BRCA	Nik-Zainal560	Breast	1387	3
+Sanger560:PD18728a	BRCA	Nik-Zainal560	Breast	1769	3
+Sanger560:PD18730a	BRCA	Nik-Zainal560	Breast	1901	3
+Sanger560:PD18733a	BRCA	Nik-Zainal560	Breast	3019	3
+Sanger560:PD18734a	BRCA	Nik-Zainal560	Breast	3828	3
+Sanger560:PD18748a	BRCA	Nik-Zainal560	Breast	2958	3
+Sanger560:PD18749a	BRCA	Nik-Zainal560	Breast	4661	3
+Sanger560:PD18751a	BRCA	Nik-Zainal560	Breast	1907	3
+Sanger560:PD18754a	BRCA	Nik-Zainal560	Breast	2593	3
+Sanger560:PD18756a	BRCA	Nik-Zainal560	Breast	1635	3
+Sanger560:PD18768a	BRCA	Nik-Zainal560	Breast	2556	3
+Sanger560:PD18769a	BRCA	Nik-Zainal560	Breast	2982	3
+Sanger560:PD18771a	BRCA	Nik-Zainal560	Breast	1776	3
+Sanger560:PD18775a	BRCA	Nik-Zainal560	Breast	1330	3
+Sanger560:PD18776a	BRCA	Nik-Zainal560	Breast	1629	3
+Sanger560:PD22036a	BRCA	Nik-Zainal560	Breast	1047	3
+Sanger560:PD22251a	BRCA	Nik-Zainal560	Breast	1505	3
+Sanger560:PD22355a	BRCA	Nik-Zainal560	Breast	9761	3
+Sanger560:PD22357a	BRCA	Nik-Zainal560	Breast	7719	3
+Sanger560:PD22358a	BRCA	Nik-Zainal560	Breast	6158	3
+Sanger560:PD22359a	BRCA	Nik-Zainal560	Breast	1817	3
+Sanger560:PD22360a	BRCA	Nik-Zainal560	Breast	8510	3
+Sanger560:PD22361a	BRCA	Nik-Zainal560	Breast	5899	3
+Sanger560:PD22362a	BRCA	Nik-Zainal560	Breast	1949	3
+Sanger560:PD22363a	BRCA	Nik-Zainal560	Breast	8905	3
+Sanger560:PD22364a	BRCA	Nik-Zainal560	Breast	2402	3
+Sanger560:PD22365a	BRCA	Nik-Zainal560	Breast	1906	3
+Sanger560:PD22366a	BRCA	Nik-Zainal560	Breast	9809	3
+Sanger560:PD23550a	BRCA	Nik-Zainal560	Breast	2866	3
+Sanger560:PD23554a	BRCA	Nik-Zainal560	Breast	6899	3
+Sanger560:PD23558a	BRCA	Nik-Zainal560	Breast	10134	3
+Sanger560:PD23559a	BRCA	Nik-Zainal560	Breast	5382	3
+Sanger560:PD23560a	BRCA	Nik-Zainal560	Breast	3006	3
+Sanger560:PD23561a	BRCA	Nik-Zainal560	Breast	58028	3
+Sanger560:PD23562a	BRCA	Nik-Zainal560	Breast	7348	3
+Sanger560:PD23563a	BRCA	Nik-Zainal560	Breast	8223	3
+Sanger560:PD23564a	BRCA	Nik-Zainal560	Breast	83447	3
+Sanger560:PD23565a	BRCA	Nik-Zainal560	Breast	8852	3
+Sanger560:PD23566a	BRCA	Nik-Zainal560	Breast	6667	3
+Sanger560:PD23567a	BRCA	Nik-Zainal560	Breast	7198	3
+Sanger560:PD23569a	BRCA	Nik-Zainal560	Breast	1055	3
+Sanger560:PD23570a	BRCA	Nik-Zainal560	Breast	2245	3
+Sanger560:PD23574a	BRCA	Nik-Zainal560	Breast	13094	3
+Sanger560:PD23577a	BRCA	Nik-Zainal560	Breast	3970	3
+Sanger560:PD23578a	BRCA	Nik-Zainal560	Breast	6840	3
+Sanger560:PD23579a	BRCA	Nik-Zainal560	Breast	87311	3
+Sanger560:PD24182a	BRCA	Nik-Zainal560	Breast	9537	3
+Sanger560:PD24186a	BRCA	Nik-Zainal560	Breast	7488	3
+Sanger560:PD24189a	BRCA	Nik-Zainal560	Breast	29590	3
+Sanger560:PD24190a	BRCA	Nik-Zainal560	Breast	9808	3
+Sanger560:PD24191a	BRCA	Nik-Zainal560	Breast	6120	3
+Sanger560:PD24192a	BRCA	Nik-Zainal560	Breast	17827	3
+Sanger560:PD24193a	BRCA	Nik-Zainal560	Breast	11237	3
+Sanger560:PD24194a	BRCA	Nik-Zainal560	Breast	13695	3
+Sanger560:PD24195a	BRCA	Nik-Zainal560	Breast	2240	3
+Sanger560:PD24196a	BRCA	Nik-Zainal560	Breast	2620	3
+Sanger560:PD24197a	BRCA	Nik-Zainal560	Breast	20215	3
+Sanger560:PD24199a	BRCA	Nik-Zainal560	Breast	2854	3
+Sanger560:PD24200a	BRCA	Nik-Zainal560	Breast	974	3
+Sanger560:PD24201a	BRCA	Nik-Zainal560	Breast	20478	3
+Sanger560:PD24202a	BRCA	Nik-Zainal560	Breast	7779	3
+Sanger560:PD24204a	BRCA	Nik-Zainal560	Breast	2795	3
+Sanger560:PD24205a	BRCA	Nik-Zainal560	Breast	8928	3
+Sanger560:PD24206a	BRCA	Nik-Zainal560	Breast	3610	3
+Sanger560:PD24207a	BRCA	Nik-Zainal560	Breast	4745	3
+Sanger560:PD24208a	BRCA	Nik-Zainal560	Breast	25624	3
+Sanger560:PD24209a	BRCA	Nik-Zainal560	Breast	10169	3
+Sanger560:PD24212a	BRCA	Nik-Zainal560	Breast	10055	3
+Sanger560:PD24214a	BRCA	Nik-Zainal560	Breast	3079	3
+Sanger560:PD24215a	BRCA	Nik-Zainal560	Breast	6177	3
+Sanger560:PD24216a	BRCA	Nik-Zainal560	Breast	9339	3
+Sanger560:PD24217a	BRCA	Nik-Zainal560	Breast	15305	3
+Sanger560:PD24218a	BRCA	Nik-Zainal560	Breast	3288	3
+Sanger560:PD24219a	BRCA	Nik-Zainal560	Breast	3319	3
+Sanger560:PD24220a	BRCA	Nik-Zainal560	Breast	3611	3
+Sanger560:PD24221a	BRCA	Nik-Zainal560	Breast	2293	3
+Sanger560:PD24223a	BRCA	Nik-Zainal560	Breast	3428	3
+Sanger560:PD24224a	BRCA	Nik-Zainal560	Breast	2212	3
+Sanger560:PD24225a	BRCA	Nik-Zainal560	Breast	1821	3
+Sanger560:PD24302a	BRCA	Nik-Zainal560	Breast	1268	3
+Sanger560:PD24303a	BRCA	Nik-Zainal560	Breast	4500	3
+Sanger560:PD24304a	BRCA	Nik-Zainal560	Breast	6853	3
+Sanger560:PD24306a	BRCA	Nik-Zainal560	Breast	3336	3
+Sanger560:PD24307a	BRCA	Nik-Zainal560	Breast	1594	3
+Sanger560:PD24308a	BRCA	Nik-Zainal560	Breast	4752	3
+Sanger560:PD24314a	BRCA	Nik-Zainal560	Breast	3870	3
+Sanger560:PD24318a	BRCA	Nik-Zainal560	Breast	2546	3
+Sanger560:PD24320a	BRCA	Nik-Zainal560	Breast	15695	3
+Sanger560:PD24322a	BRCA	Nik-Zainal560	Breast	4868	3
+Sanger560:PD24325a	BRCA	Nik-Zainal560	Breast	10387	3
+Sanger560:PD24326a	BRCA	Nik-Zainal560	Breast	23620	3
+Sanger560:PD24327a	BRCA	Nik-Zainal560	Breast	16185	3
+Sanger560:PD24329a	BRCA	Nik-Zainal560	Breast	2111	3
+Sanger560:PD24332a	BRCA	Nik-Zainal560	Breast	1920	3
+Sanger560:PD24333a	BRCA	Nik-Zainal560	Breast	22884	3
+Sanger560:PD24335a	BRCA	Nik-Zainal560	Breast	3948	3
+Sanger560:PD24336a	BRCA	Nik-Zainal560	Breast	3339	3
+Sanger560:PD24337a	BRCA	Nik-Zainal560	Breast	5707	3
+Sanger560:PD3890a	BRCA	Nik-Zainal560	Breast	5584	3
+Sanger560:PD4076a	BRCA	Nik-Zainal560	Breast	2091	3
+Sanger560:PD4107a	BRCA	Nik-Zainal560	Breast	9874	3
+Sanger560:PD4225a	BRCA	Nik-Zainal560	Breast	1955	3
+Sanger560:PD4252a	BRCA	Nik-Zainal560	Breast	3773	3
+Sanger560:PD4255a	BRCA	Nik-Zainal560	Breast	4554	3
+Sanger560:PD4261a	BRCA	Nik-Zainal560	Breast	1796	3
+Sanger560:PD4264a	BRCA	Nik-Zainal560	Breast	2118	3
+Sanger560:PD4266a	BRCA	Nik-Zainal560	Breast	2388	3
+Sanger560:PD4267a	BRCA	Nik-Zainal560	Breast	2119	3
+Sanger560:PD4315a	BRCA	Nik-Zainal560	Breast	3388	3
+Sanger560:PD4606a	BRCA	Nik-Zainal560	Breast	1129	3
+Sanger560:PD4826a	BRCA	Nik-Zainal560	Breast	3818	3
+Sanger560:PD4833a	BRCA	Nik-Zainal560	Breast	6401	3
+Sanger560:PD4836a	BRCA	Nik-Zainal560	Breast	4303	3
+Sanger560:PD4841a	BRCA	Nik-Zainal560	Breast	7020	3
+Sanger560:PD4844a	BRCA	Nik-Zainal560	Breast	12810	3
+Sanger560:PD4845a	BRCA	Nik-Zainal560	Breast	5735	3
+Sanger560:PD4847a	BRCA	Nik-Zainal560	Breast	11042	3
+Sanger560:PD4872a	BRCA	Nik-Zainal560	Breast	4810	3
+Sanger560:PD4874a	BRCA	Nik-Zainal560	Breast	9709	3
+Sanger560:PD4875a	BRCA	Nik-Zainal560	Breast	6805	3
+Sanger560:PD4876a	BRCA	Nik-Zainal560	Breast	4908	3
+Sanger560:PD4951a	BRCA	Nik-Zainal560	Breast	2779	3
+Sanger560:PD4952a	BRCA	Nik-Zainal560	Breast	12033	3
+Sanger560:PD4953a	BRCA	Nik-Zainal560	Breast	6946	3
+Sanger560:PD4955a	BRCA	Nik-Zainal560	Breast	6070	3
+Sanger560:PD4956a	BRCA	Nik-Zainal560	Breast	11582	3
+Sanger560:PD4965a	BRCA	Nik-Zainal560	Breast	2706	3
+Sanger560:PD4967a	BRCA	Nik-Zainal560	Breast	3227	3
+Sanger560:PD4969a	BRCA	Nik-Zainal560	Breast	1032	3
+Sanger560:PD4977a	BRCA	Nik-Zainal560	Breast	42258	3
+Sanger560:PD4978a	BRCA	Nik-Zainal560	Breast	3736	3
+Sanger560:PD4980a	BRCA	Nik-Zainal560	Breast	3796	3
+Sanger560:PD4981a	BRCA	Nik-Zainal560	Breast	1663	3
+Sanger560:PD4982a	BRCA	Nik-Zainal560	Breast	1474	3
+Sanger560:PD5925a	BRCA	Nik-Zainal560	Breast	8780	3
+Sanger560:PD5930a	BRCA	Nik-Zainal560	Breast	3946	3
+Sanger560:PD5932a	BRCA	Nik-Zainal560	Breast	10060	3
+Sanger560:PD5934a	BRCA	Nik-Zainal560	Breast	11579	3
+Sanger560:PD5935a	BRCA	Nik-Zainal560	Breast	9671	3
+Sanger560:PD5937a	BRCA	Nik-Zainal560	Breast	76097	3
+Sanger560:PD5942a	BRCA	Nik-Zainal560	Breast	5990	3
+Sanger560:PD5944a	BRCA	Nik-Zainal560	Breast	2609	3
+Sanger560:PD5945a	BRCA	Nik-Zainal560	Breast	8833	3
+Sanger560:PD5946a	BRCA	Nik-Zainal560	Breast	3912	3
+Sanger560:PD5948a	BRCA	Nik-Zainal560	Breast	15172	3
+Sanger560:PD5950a	BRCA	Nik-Zainal560	Breast	2190	3
+Sanger560:PD5951a	BRCA	Nik-Zainal560	Breast	3193	3
+Sanger560:PD5953a	BRCA	Nik-Zainal560	Breast	2136	3
+Sanger560:PD5956a	BRCA	Nik-Zainal560	Breast	4085	3
+Sanger560:PD5959a	BRCA	Nik-Zainal560	Breast	2504	3
+Sanger560:PD5960a	BRCA	Nik-Zainal560	Breast	4045	3
+Sanger560:PD5961a	BRCA	Nik-Zainal560	Breast	2314	3
+Sanger560:PD5964a	BRCA	Nik-Zainal560	Breast	1590	3
+Sanger560:PD6016a2	BRCA	Nik-Zainal560	Breast	1911	3
+Sanger560:PD6046a	BRCA	Nik-Zainal560	Breast	2976	3
+Sanger560:PD6047a	BRCA	Nik-Zainal560	Breast	9442	3
+Sanger560:PD6048a	BRCA	Nik-Zainal560	Breast	3102	3
+Sanger560:PD6404a	BRCA	Nik-Zainal560	Breast	6553	3
+Sanger560:PD6405a	BRCA	Nik-Zainal560	Breast	35317	3
+Sanger560:PD6406a	BRCA	Nik-Zainal560	Breast	5026	3
+Sanger560:PD6411a	BRCA	Nik-Zainal560	Breast	6675	3
+Sanger560:PD6412a	BRCA	Nik-Zainal560	Breast	25187	3
+Sanger560:PD6413a	BRCA	Nik-Zainal560	Breast	4588	3
+Sanger560:PD6414a	BRCA	Nik-Zainal560	Breast	1761	3
+Sanger560:PD6415a	BRCA	Nik-Zainal560	Breast	9545	3
+Sanger560:PD6416a	BRCA	Nik-Zainal560	Breast	3331	3
+Sanger560:PD6684a	BRCA	Nik-Zainal560	Breast	13677	3
+Sanger560:PD6711a2	BRCA	Nik-Zainal560	Breast	1914	3
+Sanger560:PD6722a	BRCA	Nik-Zainal560	Breast	10110	3
+Sanger560:PD6727b	BRCA	Nik-Zainal560	Breast	6679	3
+Sanger560:PD6728b	BRCA	Nik-Zainal560	Breast	2578	3
+Sanger560:PD6729a2	BRCA	Nik-Zainal560	Breast	4872	3
+Sanger560:PD6730b	BRCA	Nik-Zainal560	Breast	10089	3
+Sanger560:PD6731a2	BRCA	Nik-Zainal560	Breast	8549	3
+Sanger560:PD6732b	BRCA	Nik-Zainal560	Breast	2915	3
+Sanger560:PD6733b	BRCA	Nik-Zainal560	Breast	4676	3
+Sanger560:PD7066a	BRCA	Nik-Zainal560	Breast	3638	3
+Sanger560:PD7067a	BRCA	Nik-Zainal560	Breast	5980	3
+Sanger560:PD7069a	BRCA	Nik-Zainal560	Breast	5131	3
+Sanger560:PD7202a	BRCA	Nik-Zainal560	Breast	5141	3
+Sanger560:PD7203a	BRCA	Nik-Zainal560	Breast	1564	3
+Sanger560:PD7204a	BRCA	Nik-Zainal560	Breast	2176	3
+Sanger560:PD7205a	BRCA	Nik-Zainal560	Breast	7858	3
+Sanger560:PD7206a	BRCA	Nik-Zainal560	Breast	4740	3
+Sanger560:PD7211a	BRCA	Nik-Zainal560	Breast	8286	3
+Sanger560:PD7214a	BRCA	Nik-Zainal560	Breast	1493	3
+Sanger560:PD7215a	BRCA	Nik-Zainal560	Breast	6384	3
+Sanger560:PD7217a	BRCA	Nik-Zainal560	Breast	9169	3
+Sanger560:PD7218a	BRCA	Nik-Zainal560	Breast	1474	3
+Sanger560:PD7219a	BRCA	Nik-Zainal560	Breast	11621	3
+Sanger560:PD7220a	BRCA	Nik-Zainal560	Breast	2709	3
+Sanger560:PD7238a	BRCA	Nik-Zainal560	Breast	2217	3
+Sanger560:PD7240a	BRCA	Nik-Zainal560	Breast	5188	3
+Sanger560:PD7243a	BRCA	Nik-Zainal560	Breast	6774	3
+Sanger560:PD7248a	BRCA	Nik-Zainal560	Breast	13042	3
+Sanger560:PD7249a	BRCA	Nik-Zainal560	Breast	4584	3
+Sanger560:PD7250a	BRCA	Nik-Zainal560	Breast	7890	3
+Sanger560:PD7304a	BRCA	Nik-Zainal560	Breast	2003	3
+Sanger560:PD7305a	BRCA	Nik-Zainal560	Breast	4756	3
+Sanger560:PD7306a	BRCA	Nik-Zainal560	Breast	6863	3
+Sanger560:PD7307a	BRCA	Nik-Zainal560	Breast	8424	3
+Sanger560:PD7316a	BRCA	Nik-Zainal560	Breast	5647	3
+Sanger560:PD7321a	BRCA	Nik-Zainal560	Breast	6055	3
+Sanger560:PD7322a	BRCA	Nik-Zainal560	Breast	2015	3
+Sanger560:PD7341a	BRCA	Nik-Zainal560	Breast	3090	3
+Sanger560:PD7344a	BRCA	Nik-Zainal560	Breast	722	3
+Sanger560:PD7426a	BRCA	Nik-Zainal560	Breast	18497	3
+Sanger560:PD7428a	BRCA	Nik-Zainal560	Breast	15950	3
+Sanger560:PD8609a	BRCA	Nik-Zainal560	Breast	5087	3
+Sanger560:PD8610a	BRCA	Nik-Zainal560	Breast	5098	3
+Sanger560:PD8611a	BRCA	Nik-Zainal560	Breast	6828	3
+Sanger560:PD8612a	BRCA	Nik-Zainal560	Breast	1968	3
+Sanger560:PD8614a	BRCA	Nik-Zainal560	Breast	1439	3
+Sanger560:PD8615a	BRCA	Nik-Zainal560	Breast	4270	3
+Sanger560:PD8617a	BRCA	Nik-Zainal560	Breast	1899	3
+Sanger560:PD8619a	BRCA	Nik-Zainal560	Breast	3571	3
+Sanger560:PD8620a	BRCA	Nik-Zainal560	Breast	2657	3
+Sanger560:PD8621a	BRCA	Nik-Zainal560	Breast	8062	3
+Sanger560:PD8652a2	BRCA	Nik-Zainal560	Breast	15856	3
+Sanger560:PD8660a2	BRCA	Nik-Zainal560	Breast	26128	3
+Sanger560:PD8828a	BRCA	Nik-Zainal560	Breast	2061	3
+Sanger560:PD8830a	BRCA	Nik-Zainal560	Breast	8246	3
+Sanger560:PD8832a	BRCA	Nik-Zainal560	Breast	26409	3
+Sanger560:PD8964a	BRCA	Nik-Zainal560	Breast	11151	3
+Sanger560:PD8965a	BRCA	Nik-Zainal560	Breast	4451	3
+Sanger560:PD8969a	BRCA	Nik-Zainal560	Breast	6820	3
+Sanger560:PD8973a	BRCA	Nik-Zainal560	Breast	5908	3
+Sanger560:PD8977a	BRCA	Nik-Zainal560	Breast	4046	3
+Sanger560:PD8978a	BRCA	Nik-Zainal560	Breast	6670	3
+Sanger560:PD8979a	BRCA	Nik-Zainal560	Breast	4037	3
+Sanger560:PD8980a	BRCA	Nik-Zainal560	Breast	15459	3
+Sanger560:PD8981a	BRCA	Nik-Zainal560	Breast	1748	3
+Sanger560:PD8982a	BRCA	Nik-Zainal560	Breast	21557	3
+Sanger560:PD8984a	BRCA	Nik-Zainal560	Breast	9152	3
+Sanger560:PD8995a	BRCA	Nik-Zainal560	Breast	7586	3
+Sanger560:PD8996a	BRCA	Nik-Zainal560	Breast	3230	3
+Sanger560:PD8997a	BRCA	Nik-Zainal560	Breast	2831	3
+Sanger560:PD8998a	BRCA	Nik-Zainal560	Breast	4769	3
+Sanger560:PD8999a	BRCA	Nik-Zainal560	Breast	1347	3
+Sanger560:PD9000a	BRCA	Nik-Zainal560	Breast	9510	3
+Sanger560:PD9001a	BRCA	Nik-Zainal560	Breast	2705	3
+Sanger560:PD9002a	BRCA	Nik-Zainal560	Breast	8476	3
+Sanger560:PD9004a	BRCA	Nik-Zainal560	Breast	10625	3
+Sanger560:PD9009a	BRCA	Nik-Zainal560	Breast	15210	3
+Sanger560:PD9063a	BRCA	Nik-Zainal560	Breast	50045	3
+Sanger560:PD9064a	BRCA	Nik-Zainal560	Breast	12351	3
+Sanger560:PD9065a	BRCA	Nik-Zainal560	Breast	2210	3
+Sanger560:PD9067a	BRCA	Nik-Zainal560	Breast	1554	3
+Sanger560:PD9193a	BRCA	Nik-Zainal560	Breast	1682	3
+Sanger560:PD9464a	BRCA	Nik-Zainal560	Breast	5251	3
+Sanger560:PD9467a	BRCA	Nik-Zainal560	Breast	2463	3
+Sanger560:PD9539a	BRCA	Nik-Zainal560	Breast	3580	3
+Sanger560:PD9541a	BRCA	Nik-Zainal560	Breast	2706	3
+Sanger560:PD9544a	BRCA	Nik-Zainal560	Breast	1389	3
+Sanger560:PD9567a	BRCA	Nik-Zainal560	Breast	3512	3
+Sanger560:PD9568a	BRCA	Nik-Zainal560	Breast	30395	3
+Sanger560:PD9569a	BRCA	Nik-Zainal560	Breast	2141	3
+Sanger560:PD9570a	BRCA	Nik-Zainal560	Breast	1406	3
+Sanger560:PD9571a	BRCA	Nik-Zainal560	Breast	4700	3
+Sanger560:PD9572a	BRCA	Nik-Zainal560	Breast	4083	3
+Sanger560:PD9573a	BRCA	Nik-Zainal560	Breast	1616	3
+Sanger560:PD9574a	BRCA	Nik-Zainal560	Breast	1634	3
+Sanger560:PD9575a	BRCA	Nik-Zainal560	Breast	6500	3
+Sanger560:PD9576a	BRCA	Nik-Zainal560	Breast	17838	3
+Sanger560:PD9577a	BRCA	Nik-Zainal560	Breast	1624	3
+Sanger560:PD9578a	BRCA	Nik-Zainal560	Breast	1088	3
+Sanger560:PD9579a	BRCA	Nik-Zainal560	Breast	1634	3
+Sanger560:PD9581a	BRCA	Nik-Zainal560	Breast	1616	3
+Sanger560:PD9582a	BRCA	Nik-Zainal560	Breast	2740	3
+Sanger560:PD9584a	BRCA	Nik-Zainal560	Breast	2753	3
+Sanger560:PD9585a	BRCA	Nik-Zainal560	Breast	10284	3
+Sanger560:PD9589a	BRCA	Nik-Zainal560	Breast	1413	3
+Sanger560:PD9591a	BRCA	Nik-Zainal560	Breast	1296	3
+Sanger560:PD9592a	BRCA	Nik-Zainal560	Breast	8496	3
+Sanger560:PD9593a	BRCA	Nik-Zainal560	Breast	1617	3
+Sanger560:PD9595a	BRCA	Nik-Zainal560	Breast	9722	3
+Sanger560:PD9597a	BRCA	Nik-Zainal560	Breast	2911	3
+Sanger560:PD9599a	BRCA	Nik-Zainal560	Breast	3295	3
+Sanger560:PD9600a	BRCA	Nik-Zainal560	Breast	2019	3
+Sanger560:PD9604a	BRCA	Nik-Zainal560	Breast	10669	3
+Sanger560:PD9605a	BRCA	Nik-Zainal560	Breast	3373	3
+Sanger560:PD9606a	BRCA	Nik-Zainal560	Breast	1222	3
+Sanger560:PD9694a	BRCA	Nik-Zainal560	Breast	1712	3
+Sanger560:PD9696a	BRCA	Nik-Zainal560	Breast	5865	3
+Sanger560:PD9702a	BRCA	Nik-Zainal560	Breast	7861	3
+Sanger560:PD9752a	BRCA	Nik-Zainal560	Breast	3476	3
+Sanger560:PD9754a	BRCA	Nik-Zainal560	Breast	1897	3
+Sanger560:PD9755a	BRCA	Nik-Zainal560	Breast	1710	3
+Sanger560:PD9756a	BRCA	Nik-Zainal560	Breast	4212	3
+Sanger560:PD9759a	BRCA	Nik-Zainal560	Breast	2192	3
+Sanger560:PD9760a	BRCA	Nik-Zainal560	Breast	5006	3
+Sanger560:PD9761a	BRCA	Nik-Zainal560	Breast	2103	3
+Sanger560:PD9842a	BRCA	Nik-Zainal560	Breast	3201	3
+Sanger560:PD9843a	BRCA	Nik-Zainal560	Breast	2010	3
+Sanger560:PD9844a	BRCA	Nik-Zainal560	Breast	507	3
+Sanger560:PD9845a	BRCA	Nik-Zainal560	Breast	3147	3
+Sanger560:PD9847a	BRCA	Nik-Zainal560	Breast	2229	3
+Alexandrov507:001-0002-03TD	CLL	Alexandrov507	Chronic lymphocytic leukemia	838	4
+Alexandrov507:003-0005-09TD	CLL	Alexandrov507	Chronic lymphocytic leukemia	1009	4
+Alexandrov507:012-02-1TD	CLL	Alexandrov507	Chronic lymphocytic leukemia	886	4
+Alexandrov507:125	CLL	Alexandrov507	Chronic lymphocytic leukemia	1742	4
+Alexandrov507:128	CLL	Alexandrov507	Chronic lymphocytic leukemia	1626	4
+Alexandrov507:137	CLL	Alexandrov507	Chronic lymphocytic leukemia	1923	4
+Alexandrov507:141	CLL	Alexandrov507	Chronic lymphocytic leukemia	3143	4
+Alexandrov507:151	CLL	Alexandrov507	Chronic lymphocytic leukemia	2401	4
+Alexandrov507:178	CLL	Alexandrov507	Chronic lymphocytic leukemia	2909	4
+Alexandrov507:192	CLL	Alexandrov507	Chronic lymphocytic leukemia	3038	4
+Alexandrov507:26	CLL	Alexandrov507	Chronic lymphocytic leukemia	1791	4
+Alexandrov507:277	CLL	Alexandrov507	Chronic lymphocytic leukemia	522	4
+Alexandrov507:282	CLL	Alexandrov507	Chronic lymphocytic leukemia	1795	4
+Alexandrov507:294	CLL	Alexandrov507	Chronic lymphocytic leukemia	534	4
+Alexandrov507:306	CLL	Alexandrov507	Chronic lymphocytic leukemia	1637	4
+Alexandrov507:308	CLL	Alexandrov507	Chronic lymphocytic leukemia	2178	4
+Alexandrov507:318	CLL	Alexandrov507	Chronic lymphocytic leukemia	1244	4
+Alexandrov507:342	CLL	Alexandrov507	Chronic lymphocytic leukemia	1854	4
+Alexandrov507:343	CLL	Alexandrov507	Chronic lymphocytic leukemia	1607	4
+Alexandrov507:367	CLL	Alexandrov507	Chronic lymphocytic leukemia	2457	4
+Alexandrov507:393	CLL	Alexandrov507	Chronic lymphocytic leukemia	2073	4
+Alexandrov507:4101316	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	2254	6
+Alexandrov507:4105105	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	3399	6
+Alexandrov507:4108101	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	3163	6
+Alexandrov507:4112512	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	2040	6
+Alexandrov507:4116738	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	7710	6
+Alexandrov507:4119027	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	2368	6
+Alexandrov507:4121361	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	6008	6
+Alexandrov507:4125240	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	1977	6
+Alexandrov507:4133511	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	3537	6
+Alexandrov507:4135350	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	12903	6
+Alexandrov507:4142267	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	1502	6
+Alexandrov507:4158726	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	4121	6
+Alexandrov507:4159170	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	3282	6
+Alexandrov507:4175837	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	4462	6
+Alexandrov507:4177856	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	3532	6
+Alexandrov507:4182393	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	1511	6
+Alexandrov507:4189200	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	3466	6
+Alexandrov507:4189998	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	3471	6
+Alexandrov507:4190495	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	4660	6
+Alexandrov507:4193278	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	2650	6
+Alexandrov507:4194218	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	2065	6
+Alexandrov507:4194891	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	1691	6
+Alexandrov507:426980	AML	Alexandrov507	Acute myeloid leukemia	802	2
+Alexandrov507:467	CLL	Alexandrov507	Chronic lymphocytic leukemia	2867	4
+Alexandrov507:473	CLL	Alexandrov507	Chronic lymphocytic leukemia	2091	4
+Alexandrov507:477	CLL	Alexandrov507	Chronic lymphocytic leukemia	3010	4
+Alexandrov507:519	CLL	Alexandrov507	Chronic lymphocytic leukemia	1567	4
+Alexandrov507:523	CLL	Alexandrov507	Chronic lymphocytic leukemia	3339	4
+Alexandrov507:564	CLL	Alexandrov507	Chronic lymphocytic leukemia	763	4
+Alexandrov507:804168	AML	Alexandrov507	Acute myeloid leukemia	596	2
+Alexandrov507:869586	AML	Alexandrov507	Acute myeloid leukemia	1068	2
+Alexandrov507:APGI_1839	PRAD	Alexandrov507	Prostate	4936	13
+Alexandrov507:APGI_1840	PRAD	Alexandrov507	Prostate	11631	13
+Alexandrov507:APGI_1956	PRAD	Alexandrov507	Prostate	4625	13
+Alexandrov507:APGI_1992	PRAD	Alexandrov507	Prostate	9447	13
+Alexandrov507:APGI_2000	PRAD	Alexandrov507	Prostate	7537	13
+Alexandrov507:APGI_2051	PRAD	Alexandrov507	Prostate	4002	13
+Alexandrov507:APGI_2057	PRAD	Alexandrov507	Prostate	14999	13
+Alexandrov507:APGI_2060	PRAD	Alexandrov507	Prostate	6447	13
+Alexandrov507:APGI_2119	PRAD	Alexandrov507	Prostate	3734	13
+Alexandrov507:APGI_2137	PRAD	Alexandrov507	Prostate	11115	13
+Alexandrov507:APGI_2150	PRAD	Alexandrov507	Prostate	1096	13
+Alexandrov507:APGI_2157	PRAD	Alexandrov507	Prostate	6903	13
+Alexandrov507:APGI_2179	PRAD	Alexandrov507	Prostate	14630	13
+Alexandrov507:APGI_2202	PRAD	Alexandrov507	Prostate	3701	13
+Alexandrov507:APGI_2353	PRAD	Alexandrov507	Prostate	7265	13
+Alexandrov507:CLL4-ARTICLE	CLL	Alexandrov507	Chronic lymphocytic leukemia	932	4
+Alexandrov507:G1	DLBCL	Alexandrov507	Diffuse large B-cell lymphoma	7845	6
+Alexandrov507:HX10T	LIHC	Alexandrov507	Liver	9333	8
+Alexandrov507:HX11T	LIHC	Alexandrov507	Liver	8510	8
+Alexandrov507:HX12T	LIHC	Alexandrov507	Liver	14818	8
+Alexandrov507:HX13T	LIHC	Alexandrov507	Liver	21829	8
+Alexandrov507:HX14T	LIHC	Alexandrov507	Liver	10666	8
+Alexandrov507:HX15T	LIHC	Alexandrov507	Liver	7598	8
+Alexandrov507:HX16T	LIHC	Alexandrov507	Liver	6689	8
+Alexandrov507:HX17T	LIHC	Alexandrov507	Liver	21138	8
+Alexandrov507:HX18T	LIHC	Alexandrov507	Liver	7588	8
+Alexandrov507:HX19T	LIHC	Alexandrov507	Liver	12141	8
+Alexandrov507:HX20T	LIHC	Alexandrov507	Liver	5683	8
+Alexandrov507:HX21T	LIHC	Alexandrov507	Liver	14259	8
+Alexandrov507:HX22T	LIHC	Alexandrov507	Liver	3628	8
+Alexandrov507:HX23T	LIHC	Alexandrov507	Liver	3575	8
+Alexandrov507:HX25T	LIHC	Alexandrov507	Liver	4477	8
+Alexandrov507:HX28T	LIHC	Alexandrov507	Liver	8901	8
+Alexandrov507:HX30T	LIHC	Alexandrov507	Liver	10851	8
+Alexandrov507:HX33T	LIHC	Alexandrov507	Liver	14921	8
+Alexandrov507:HX35T	LIHC	Alexandrov507	Liver	10972	8
+Alexandrov507:HX4T	LIHC	Alexandrov507	Liver	6846	8
+Alexandrov507:HX5T	LIHC	Alexandrov507	Liver	8708	8
+Alexandrov507:HX9T	LIHC	Alexandrov507	Liver	8244	8
+Alexandrov507:LFS_MB1	MED	Alexandrov507	Medulloblastoma	2044	10
+Alexandrov507:LFS_MB2	MED	Alexandrov507	Medulloblastoma	1624	10
+Alexandrov507:LFS_MB4	MED	Alexandrov507	Medulloblastoma	1277	10
+Alexandrov507:LU-A08-43	LUAD	Alexandrov507	Lung adenocarcinoma	11407	9
+Alexandrov507:LUAD-2GUGK	LUAD	Alexandrov507	Lung adenocarcinoma	45126	9
+Alexandrov507:LUAD-5V8LT	LUAD	Alexandrov507	Lung adenocarcinoma	297589	9
+Alexandrov507:LUAD-AEIUF	LUAD	Alexandrov507	Lung adenocarcinoma	33208	9
+Alexandrov507:LUAD-D02326	LUAD	Alexandrov507	Lung adenocarcinoma	9287	9
+Alexandrov507:LUAD-E00934	LUAD	Alexandrov507	Lung adenocarcinoma	112732	9
+Alexandrov507:LUAD-E01014	LUAD	Alexandrov507	Lung adenocarcinoma	23375	9
+Alexandrov507:LUAD-E01278	LUAD	Alexandrov507	Lung adenocarcinoma	47821	9
+Alexandrov507:LUAD-E01317	LUAD	Alexandrov507	Lung adenocarcinoma	36180	9
+Alexandrov507:LUAD-FH5PJ	LUAD	Alexandrov507	Lung adenocarcinoma	36227	9
+Alexandrov507:LUAD-QY22Z	LUAD	Alexandrov507	Lung adenocarcinoma	70433	9
+Alexandrov507:LUAD-S00488	LUAD	Alexandrov507	Lung adenocarcinoma	74809	9
+Alexandrov507:LUAD-S01302	LUAD	Alexandrov507	Lung adenocarcinoma	127316	9
+Alexandrov507:LUAD-S01331	LUAD	Alexandrov507	Lung adenocarcinoma	44216	9
+Alexandrov507:LUAD-S01341	LUAD	Alexandrov507	Lung adenocarcinoma	15129	9
+Alexandrov507:LUAD-S01345	LUAD	Alexandrov507	Lung adenocarcinoma	39202	9
+Alexandrov507:LUAD-S01346	LUAD	Alexandrov507	Lung adenocarcinoma	83768	9
+Alexandrov507:LUAD-S01356	LUAD	Alexandrov507	Lung adenocarcinoma	69021	9
+Alexandrov507:LUAD-S01381	LUAD	Alexandrov507	Lung adenocarcinoma	28268	9
+Alexandrov507:LUAD-S01404	LUAD	Alexandrov507	Lung adenocarcinoma	34374	9
+Alexandrov507:LUAD-S01405	LUAD	Alexandrov507	Lung adenocarcinoma	49793	9
+Alexandrov507:LUAD-S01467	LUAD	Alexandrov507	Lung adenocarcinoma	46484	9
+Alexandrov507:LUAD-S01478	LUAD	Alexandrov507	Lung adenocarcinoma	79838	9
+Alexandrov507:LUAD-U6SJ7	LUAD	Alexandrov507	Lung adenocarcinoma	30733	9
+Alexandrov507:MB101	MED	Alexandrov507	Medulloblastoma	3855	10
+Alexandrov507:MB102	MED	Alexandrov507	Medulloblastoma	1674	10
+Alexandrov507:MB104	MED	Alexandrov507	Medulloblastoma	2220	10
+Alexandrov507:MB107	MED	Alexandrov507	Medulloblastoma	1528	10
+Alexandrov507:MB108	MED	Alexandrov507	Medulloblastoma	547	10
+Alexandrov507:MB110	MED	Alexandrov507	Medulloblastoma	3407	10
+Alexandrov507:MB112	MED	Alexandrov507	Medulloblastoma	1129	10
+Alexandrov507:MB113	MED	Alexandrov507	Medulloblastoma	1075	10
+Alexandrov507:MB114	MED	Alexandrov507	Medulloblastoma	503	10
+Alexandrov507:MB115	MED	Alexandrov507	Medulloblastoma	602	10
+Alexandrov507:MB117	MED	Alexandrov507	Medulloblastoma	928	10
+Alexandrov507:MB122	MED	Alexandrov507	Medulloblastoma	1057	10
+Alexandrov507:MB124	MED	Alexandrov507	Medulloblastoma	1587	10
+Alexandrov507:MB125	MED	Alexandrov507	Medulloblastoma	2995	10
+Alexandrov507:MB126	MED	Alexandrov507	Medulloblastoma	3312	10
+Alexandrov507:MB127	MED	Alexandrov507	Medulloblastoma	1754	10
+Alexandrov507:MB128	MED	Alexandrov507	Medulloblastoma	9239	10
+Alexandrov507:MB129	MED	Alexandrov507	Medulloblastoma	1209	10
+Alexandrov507:MB130	MED	Alexandrov507	Medulloblastoma	990	10
+Alexandrov507:MB131	MED	Alexandrov507	Medulloblastoma	1160	10
+Alexandrov507:MB134	MED	Alexandrov507	Medulloblastoma	660	10
+Alexandrov507:MB15	MED	Alexandrov507	Medulloblastoma	895	10
+Alexandrov507:MB17	MED	Alexandrov507	Medulloblastoma	672	10
+Alexandrov507:MB18	MED	Alexandrov507	Medulloblastoma	1108	10
+Alexandrov507:MB19	MED	Alexandrov507	Medulloblastoma	663	10
+Alexandrov507:MB20	MED	Alexandrov507	Medulloblastoma	855	10
+Alexandrov507:MB23	MED	Alexandrov507	Medulloblastoma	2053	10
+Alexandrov507:MB26	MED	Alexandrov507	Medulloblastoma	805	10
+Alexandrov507:MB3	MED	Alexandrov507	Medulloblastoma	989	10
+Alexandrov507:MB31	MED	Alexandrov507	Medulloblastoma	1663	10
+Alexandrov507:MB32	MED	Alexandrov507	Medulloblastoma	558	10
+Alexandrov507:MB34	MED	Alexandrov507	Medulloblastoma	3276	10
+Alexandrov507:MB36	MED	Alexandrov507	Medulloblastoma	1251	10
+Alexandrov507:MB38	MED	Alexandrov507	Medulloblastoma	687	10
+Alexandrov507:MB45	MED	Alexandrov507	Medulloblastoma	1637	10
+Alexandrov507:MB46	MED	Alexandrov507	Medulloblastoma	700	10
+Alexandrov507:MB49	MED	Alexandrov507	Medulloblastoma	714	10
+Alexandrov507:MB5	MED	Alexandrov507	Medulloblastoma	577	10
+Alexandrov507:MB50	MED	Alexandrov507	Medulloblastoma	1179	10
+Alexandrov507:MB518	MED	Alexandrov507	Medulloblastoma	1097	10
+Alexandrov507:MB53	MED	Alexandrov507	Medulloblastoma	1546	10
+Alexandrov507:MB56	MED	Alexandrov507	Medulloblastoma	2643	10
+Alexandrov507:MB57	MED	Alexandrov507	Medulloblastoma	744	10
+Alexandrov507:MB58	MED	Alexandrov507	Medulloblastoma	1628	10
+Alexandrov507:MB59	MED	Alexandrov507	Medulloblastoma	2215	10
+Alexandrov507:MB6	MED	Alexandrov507	Medulloblastoma	1072	10
+Alexandrov507:MB60	MED	Alexandrov507	Medulloblastoma	1208	10
+Alexandrov507:MB61	MED	Alexandrov507	Medulloblastoma	2533	10
+Alexandrov507:MB63	MED	Alexandrov507	Medulloblastoma	1908	10
+Alexandrov507:MB64	MED	Alexandrov507	Medulloblastoma	897	10
+Alexandrov507:MB66	MED	Alexandrov507	Medulloblastoma	1850	10
+Alexandrov507:MB67	MED	Alexandrov507	Medulloblastoma	937	10
+Alexandrov507:MB69	MED	Alexandrov507	Medulloblastoma	2052	10
+Alexandrov507:MB7	MED	Alexandrov507	Medulloblastoma	721	10
+Alexandrov507:MB70	MED	Alexandrov507	Medulloblastoma	1612	10
+Alexandrov507:MB74	MED	Alexandrov507	Medulloblastoma	2167	10
+Alexandrov507:MB75	MED	Alexandrov507	Medulloblastoma	2045	10
+Alexandrov507:MB77	MED	Alexandrov507	Medulloblastoma	1631	10
+Alexandrov507:MB78	MED	Alexandrov507	Medulloblastoma	2956	10
+Alexandrov507:MB79	MED	Alexandrov507	Medulloblastoma	1642	10
+Alexandrov507:MB8	MED	Alexandrov507	Medulloblastoma	743	10
+Alexandrov507:MB800	MED	Alexandrov507	Medulloblastoma	1045	10
+Alexandrov507:MB81	MED	Alexandrov507	Medulloblastoma	4040	10
+Alexandrov507:MB82	MED	Alexandrov507	Medulloblastoma	1567	10
+Alexandrov507:MB83	MED	Alexandrov507	Medulloblastoma	786	10
+Alexandrov507:MB84	MED	Alexandrov507	Medulloblastoma	1042	10
+Alexandrov507:MB89	MED	Alexandrov507	Medulloblastoma	517	10
+Alexandrov507:MB9	MED	Alexandrov507	Medulloblastoma	501	10
+Alexandrov507:MB91	MED	Alexandrov507	Medulloblastoma	925	10
+Alexandrov507:MB92	MED	Alexandrov507	Medulloblastoma	1658	10
+Alexandrov507:MB94	MED	Alexandrov507	Medulloblastoma	1986	10
+Alexandrov507:MB98	MED	Alexandrov507	Medulloblastoma	877	10
+Alexandrov507:MB99	MED	Alexandrov507	Medulloblastoma	659	10
+Alexandrov507:PD3851a	BRCA	Alexandrov507	Breast	1561	3
+Alexandrov507:PD3904a	BRCA	Alexandrov507	Breast	5379	3
+Alexandrov507:PD3905a	BRCA	Alexandrov507	Breast	4272	3
+Alexandrov507:PD3945a	BRCA	Alexandrov507	Breast	9934	3
+Alexandrov507:PD3989a	BRCA	Alexandrov507	Breast	2080	3
+Alexandrov507:PD4005a	BRCA	Alexandrov507	Breast	5773	3
+Alexandrov507:PD4006a	BRCA	Alexandrov507	Breast	8711	3
+Alexandrov507:PD4020a	ALL	Alexandrov507	Acute lymphocytic leukemia	7741	1
+Alexandrov507:PD4069a	BRCA	Alexandrov507	Breast	2069	3
+Alexandrov507:PD4072a	BRCA	Alexandrov507	Breast	26885	3
+Alexandrov507:PD4080a	BRCA	Alexandrov507	Breast	1747	3
+Alexandrov507:PD4085a	BRCA	Alexandrov507	Breast	2438	3
+Alexandrov507:PD4086a	BRCA	Alexandrov507	Breast	1929	3
+Alexandrov507:PD4088a	BRCA	Alexandrov507	Breast	1576	3
+Alexandrov507:PD4103a	BRCA	Alexandrov507	Breast	5042	3
+Alexandrov507:PD4109a	BRCA	Alexandrov507	Breast	9405	3
+Alexandrov507:PD4115a	BRCA	Alexandrov507	Breast	9548	3
+Alexandrov507:PD4116a	BRCA	Alexandrov507	Breast	7682	3
+Alexandrov507:PD4120a	BRCA	Alexandrov507	Breast	67364	3
+Alexandrov507:PD4192a	BRCA	Alexandrov507	Breast	3439	3
+Alexandrov507:PD4194a	BRCA	Alexandrov507	Breast	1241	3
+Alexandrov507:PD4198a	BRCA	Alexandrov507	Breast	4180	3
+Alexandrov507:PD4199a	BRCA	Alexandrov507	Breast	6524	3
+Alexandrov507:PD4224a	BRCA	Alexandrov507	Breast	7955	3
+Alexandrov507:PD4248a	BRCA	Alexandrov507	Breast	2188	3
+Alexandrov507:PD4604a	BRCA	Alexandrov507	Breast	8585	3
+Alexandrov507:PD4605a	BRCA	Alexandrov507	Breast	2450	3
+Alexandrov507:PD4607a	BRCA	Alexandrov507	Breast	25464	3
+Alexandrov507:PD4608a	BRCA	Alexandrov507	Breast	2306	3
+Alexandrov507:PD4613a	BRCA	Alexandrov507	Breast	1986	3
+Alexandrov507:PD4954a	BRCA	Alexandrov507	Breast	5341	3
+Alexandrov507:PD4957a	BRCA	Alexandrov507	Breast	2961	3
+Alexandrov507:PD4958a	BRCA	Alexandrov507	Breast	8332	3
+Alexandrov507:PD4959a	BRCA	Alexandrov507	Breast	4234	3
+Alexandrov507:PD4962a	BRCA	Alexandrov507	Breast	5542	3
+Alexandrov507:PD4963a	BRCA	Alexandrov507	Breast	1481	3
+Alexandrov507:PD4966a	BRCA	Alexandrov507	Breast	1043	3
+Alexandrov507:PD4968a	BRCA	Alexandrov507	Breast	4206	3
+Alexandrov507:PD4970a	BRCA	Alexandrov507	Breast	2170	3
+Alexandrov507:PD4971a	BRCA	Alexandrov507	Breast	2520	3
+Alexandrov507:PD4972a	BRCA	Alexandrov507	Breast	1054	3
+Alexandrov507:PD4975a	BRCA	Alexandrov507	Breast	6867	3
+Alexandrov507:PD4976a	BRCA	Alexandrov507	Breast	5640	3
+Alexandrov507:PD4983a	BRCA	Alexandrov507	Breast	1614	3
+Alexandrov507:PD4985a	BRCA	Alexandrov507	Breast	1821	3
+Alexandrov507:PD4986a	BRCA	Alexandrov507	Breast	1803	3
+Alexandrov507:PD5928a	BRCA	Alexandrov507	Breast	6494	3
+Alexandrov507:PD5936a	BRCA	Alexandrov507	Breast	2562	3
+Alexandrov507:PD5947a	BRCA	Alexandrov507	Breast	1659	3
+Alexandrov507:PD6018a	BRCA	Alexandrov507	Breast	2732	3
+Alexandrov507:PD6041a	BRCA	Alexandrov507	Breast	1614	3
+Alexandrov507:PD6042a	BRCA	Alexandrov507	Breast	6547	3
+Alexandrov507:PD6043a	BRCA	Alexandrov507	Breast	22454	3
+Alexandrov507:PD6044a	BRCA	Alexandrov507	Breast	2463	3
+Alexandrov507:PD6045a	BRCA	Alexandrov507	Breast	2080	3
+Alexandrov507:PD6049a	BRCA	Alexandrov507	Breast	7268	3
+Alexandrov507:PD6409a	BRCA	Alexandrov507	Breast	6133	3
+Alexandrov507:PD6410a	BRCA	Alexandrov507	Breast	7132	3
+Alexandrov507:PD6417a	BRCA	Alexandrov507	Breast	1442	3
+Alexandrov507:PD6418a	BRCA	Alexandrov507	Breast	1924	3
+Alexandrov507:PD6422a	BRCA	Alexandrov507	Breast	4675	3
+Alexandrov507:PD6466b	BRCA	Alexandrov507	Breast	1510	3
+Alexandrov507:PD6719a	BRCA	Alexandrov507	Breast	4593	3
+Alexandrov507:PD6720a	BRCA	Alexandrov507	Breast	1876	3
+Alexandrov507:PD6721a	BRCA	Alexandrov507	Breast	2053	3
+Alexandrov507:PD7199a	BRCA	Alexandrov507	Breast	1081	3
+Alexandrov507:PD7201a	BRCA	Alexandrov507	Breast	1462	3
+Alexandrov507:PD7207a	BRCA	Alexandrov507	Breast	2584	3
+Alexandrov507:PD7208a	BRCA	Alexandrov507	Breast	2271	3
+Alexandrov507:PD7209a	BRCA	Alexandrov507	Breast	1533	3
+Alexandrov507:PD7210a	BRCA	Alexandrov507	Breast	1278	3
+Alexandrov507:PD7212a	BRCA	Alexandrov507	Breast	1886	3
+Alexandrov507:PD7216a	BRCA	Alexandrov507	Breast	1537	3
+Alexandrov507:PD7221a	BRCA	Alexandrov507	Breast	1873	3
+Alexandrov507:PD7404a	BRCA	Alexandrov507	Breast	12665	3
+Alexandrov507:PD7409a	BRCA	Alexandrov507	Breast	7733	3
+Alexandrov507:PD7431a	BRCA	Alexandrov507	Breast	3950	3
+Alexandrov507:PD7433a	BRCA	Alexandrov507	Breast	2013	3
+Alexandrov507:PD8618a	BRCA	Alexandrov507	Breast	1357	3
+Alexandrov507:PD8622a	BRCA	Alexandrov507	Breast	1733	3
+Alexandrov507:PD8623a	BRCA	Alexandrov507	Breast	1694	3
+Alexandrov507:RK001_C01	LIHC	Alexandrov507	Liver	19332	8
+Alexandrov507:RK002_C01	LIHC	Alexandrov507	Liver	12617	8
+Alexandrov507:RK003_C01	LIHC	Alexandrov507	Liver	6791	8
+Alexandrov507:RK004_C01	LIHC	Alexandrov507	Liver	15269	8
+Alexandrov507:RK005_C01	LIHC	Alexandrov507	Liver	2390	8
+Alexandrov507:RK006_C01	LIHC	Alexandrov507	Liver	16801	8
+Alexandrov507:RK006_C02	LIHC	Alexandrov507	Liver	18535	8
+Alexandrov507:RK007_C01	LIHC	Alexandrov507	Liver	11014	8
+Alexandrov507:RK010_C01	LIHC	Alexandrov507	Liver	6710	8
+Alexandrov507:RK012_C01	LIHC	Alexandrov507	Liver	6869	8
+Alexandrov507:RK015_C01	LIHC	Alexandrov507	Liver	12628	8
+Alexandrov507:RK016_C01	LIHC	Alexandrov507	Liver	7584	8
+Alexandrov507:RK018_C01	LIHC	Alexandrov507	Liver	1349	8
+Alexandrov507:RK019_C01	LIHC	Alexandrov507	Liver	15721	8
+Alexandrov507:RK020_C01	LIHC	Alexandrov507	Liver	4951	8
+Alexandrov507:RK021_C01	LIHC	Alexandrov507	Liver	15783	8
+Alexandrov507:RK022_C01	LIHC	Alexandrov507	Liver	12095	8
+Alexandrov507:RK023_C01	LIHC	Alexandrov507	Liver	19017	8
+Alexandrov507:RK024_C01	LIHC	Alexandrov507	Liver	4649	8
+Alexandrov507:RK025_C01	LIHC	Alexandrov507	Liver	8049	8
+Alexandrov507:RK026_C01	LIHC	Alexandrov507	Liver	5784	8
+Alexandrov507:RK027_C01	LIHC	Alexandrov507	Liver	22631	8
+Alexandrov507:RK029_C01	LIHC	Alexandrov507	Liver	6978	8
+Alexandrov507:RK031_C01	LIHC	Alexandrov507	Liver	6649	8
+Alexandrov507:RK032_C01	LIHC	Alexandrov507	Liver	10691	8
+Alexandrov507:RK033_C01	LIHC	Alexandrov507	Liver	3704	8
+Alexandrov507:RK034_C01	LIHC	Alexandrov507	Liver	4665	8
+Alexandrov507:RK035_C01	LIHC	Alexandrov507	Liver	25132	8
+Alexandrov507:RK036_C01	LIHC	Alexandrov507	Liver	4448	8
+Alexandrov507:RK037_C01	LIHC	Alexandrov507	Liver	4892	8
+Alexandrov507:RK041_C01	LIHC	Alexandrov507	Liver	19589	8
+Alexandrov507:RK042_C01	LIHC	Alexandrov507	Liver	8073	8
+Alexandrov507:RK046_C01	LIHC	Alexandrov507	Liver	8581	8
+Alexandrov507:RK046_C02	LIHC	Alexandrov507	Liver	10907	8
+Alexandrov507:RK047_C01	LIHC	Alexandrov507	Liver	7924	8
+Alexandrov507:RK048_C01	LIHC	Alexandrov507	Liver	13815	8
+Alexandrov507:RK049_C01	LIHC	Alexandrov507	Liver	2170	8
+Alexandrov507:RK050_C01	LIHC	Alexandrov507	Liver	8547	8
+Alexandrov507:RK051_C01	LIHC	Alexandrov507	Liver	11496	8
+Alexandrov507:RK054_C01	LIHC	Alexandrov507	Liver	6114	8
+Alexandrov507:RK055_C01	LIHC	Alexandrov507	Liver	1809	8
+Alexandrov507:RK056_C01	LIHC	Alexandrov507	Liver	16607	8
+Alexandrov507:RK063_C01	LIHC	Alexandrov507	Liver	6064	8
+Alexandrov507:RK067_C01	LIHC	Alexandrov507	Liver	13893	8
+Alexandrov507:RK068_C01	LIHC	Alexandrov507	Liver	2194	8
+Alexandrov507:RK069_C01	LIHC	Alexandrov507	Liver	4442	8
+Alexandrov507:RK075_C01	LIHC	Alexandrov507	Liver	8669	8
+Alexandrov507:RK079_C01	LIHC	Alexandrov507	Liver	12226	8
+Alexandrov507:RK083_C01	LIHC	Alexandrov507	Liver	8386	8
+Alexandrov507:RK084_C01	LIHC	Alexandrov507	Liver	8687	8
+Alexandrov507:RK086_C01	LIHC	Alexandrov507	Liver	14355	8
+Alexandrov507:RK089_C01	LIHC	Alexandrov507	Liver	9513	8
+Alexandrov507:RK092_C01	LIHC	Alexandrov507	Liver	10762	8
+Alexandrov507:RK098_C01	LIHC	Alexandrov507	Liver	6238	8
+Alexandrov507:RK099_C01	LIHC	Alexandrov507	Liver	6676	8
+Alexandrov507:RK100_C01	LIHC	Alexandrov507	Liver	8526	8
+Alexandrov507:RK106_C01	LIHC	Alexandrov507	Liver	12017	8
+Alexandrov507:RK107_C01	LIHC	Alexandrov507	Liver	11638	8
+Alexandrov507:RK108_C01	LIHC	Alexandrov507	Liver	6710	8
+Alexandrov507:RK109_C01	LIHC	Alexandrov507	Liver	5340	8
+Alexandrov507:RK126_C01	LIHC	Alexandrov507	Liver	17771	8
+Alexandrov507:RK130_C01	LIHC	Alexandrov507	Liver	4717	8
+Alexandrov507:RK133_C01	LIHC	Alexandrov507	Liver	5746	8
+Alexandrov507:RK137_C01	LIHC	Alexandrov507	Liver	8024	8
+Alexandrov507:RK138_C01	LIHC	Alexandrov507	Liver	2541	8
+Alexandrov507:RK141_C01	LIHC	Alexandrov507	Liver	4864	8
