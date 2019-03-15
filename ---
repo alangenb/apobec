@@ -1704,4 +1704,65 @@ end
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% TABLES FOR EXCEL SHEETS (SUPP TABLES)
+
+% 63 BASIC LOOP TYPES
+load('FINAL.Qs.v3a.1.mat','Qs'); 
+
+Z=[];z=0;
+for looplen=3:11, for looppos=1:looplen, Q=Qs{looplen-2}; z=z+1; Z.looplen(z,1)=looplen; Z.looppos(z,1)=looppos;
+  for qi=1:slength(Q)-1, Z.(['n' num2str(Q.min(qi))])(z,1) = Q.n(qi,looppos); end
+  for qi=1:slength(Q)-1, Z.(['N' num2str(Q.min(qi))])(z,1) = Q.N(qi,looppos); end
+  for qi=1:slength(Q)-1, Z.(['rmf' num2str(Q.min(qi))])(z,1) = Q.relrate(qi,looppos); end
+end,end
+pr(Z)  % --> transfer to Excel sheet
+
+% SEQUENCE CONTEXT
+
+load('FINAL.Qs2.v3a.1.mat','QL3','Q4','Q3','contextL3','context3','context4','Z3','Z4','ZL3','ZL3all');
+rc='';rc('ACGT')='TGCA';
+for i=1:slength(contextL3),contextL3.name{i}=[rc(contextL3.name{i}(4)) '(' contextL3.name{i}(1:3) ')' contextL3.name{i}(4)];end
+for i=1:slength(context3),context3.name{i}=[context3.name{i}(1) '(' context3.name{i}(2:5) ')' rc(context3.name{i}(1))];end
+for i=1:slength(context4),context4.name{i}=[rc(context4.name{i}(5)) '(' context4.name{i}(1:4) ')' context4.name{i}(5)];end
+
+% 16 SUBTYPES OF 3/3 LOOPS
+Q=QL3;
+Z=[];
+for z=1:slength(contextL3)
+  Z.looptype{z,1}=contextL3.name{z};
+  for qi=1:slength(Q), Z.(['n' num2str(Q.min(qi))])(z,1) = Q.n(qi,z); end
+  for qi=1:slength(Q), Z.(['N' num2str(Q.min(qi))])(z,1) = Q.N(qi,z); end
+  for qi=1:slength(Q), Z.(['rmf' num2str(Q.min(qi))])(z,1) = Q.relrate(qi,z); end
+end
+pr(Z)
+
+% 64 SUBTYPES OF 3/4 LOOPS
+Q=Q3;
+Z=[];
+for z=1:slength(context3)
+  Z.looptype{z,1}=context3.name{z};
+  for qi=1:slength(Q), Z.(['n' num2str(Q.min(qi))])(z,1) = Q.n(qi,z); end
+  for qi=1:slength(Q), Z.(['N' num2str(Q.min(qi))])(z,1) = Q.N(qi,z); end
+  for qi=1:slength(Q), Z.(['rmf' num2str(Q.min(qi))])(z,1) = Q.relrate(qi,z); end
+end
+Z3=Z;
+
+% 64 SUBTYPES OF 4/4 LOOPS
+Q=Q4;
+Z=[];
+for z=1:slength(context4)
+  Z.looptype{z,1}=context4.name{z};
+  for qi=1:slength(Q), Z.(['n' num2str(Q.min(qi))])(z,1) = Q.n(qi,z); end
+  for qi=1:slength(Q), Z.(['N' num2str(Q.min(qi))])(z,1) = Q.N(qi,z); end
+  for qi=1:slength(Q), Z.(['rmf' num2str(Q.min(qi))])(z,1) = Q.relrate(qi,z); end
+end
+Z4=Z;
+
+Z=concat_structs({Z3,Z4});
+pr(Z)
+
+
+
 
