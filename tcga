@@ -25,7 +25,7 @@ save('FINAL_DATASET.MIN.v3.2.mat','X');
 %
 % GENOMEWIDE SURVEY FOR HAIRPIN SITES
 %
-% --> This code is slow, takes 24 hours per chromosome.
+% --> This code is slow, takes ~24 hours per chromosome.
 % --> Instead of optimizing it, we submitted 24 jobs in parallel.
 %
 % It can either be run as a loop, or else "compiled" and run in parallel.
@@ -83,9 +83,6 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % optional: COMPILE AND RUN IN PARALEL
-%    this step can be skipped to avoid compiling/submission compatability issues, if they arise.
-%    the resulting annotation file is included in the github repo, and can be used downstream
-%    continue below to skip this step.
 
 % COMPILE
 
@@ -158,17 +155,11 @@ save([indir '/all.TpCs_only.mat'],'X','-v7.3');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for reference:
 %
-% NMF ON FINAL COHORT
-%
-% k=8, NMF on rates
+% Sanger signatures 1-30
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SANGER signatures 1-30
 S = load_struct('sanger30.txt');
 S = parsein(S,'channel','^(.)\[(.)>(.)\](.)$',{'l','f','t','r'});
 bases = {'A','C','G','T'};S.f=listmap(S.f,bases); S.l=listmap(S.l,bases); S.r=listmap(S.r,bases); S.t=listmap(S.t,bases);
@@ -178,9 +169,19 @@ broad = generate_lego_96names(); S.ord = listmap(S.catname,broad); S = sort_stru
 X = {}; for i=1:30, X{i}=str2double(S.(['sig' num2str(i)]));end
 save('sanger30.mat','X');
 %%%
+
+% show Lego plots of Sanger signatures 1-30
+
 load('sanger30.mat','X');
 legos(X,prefix(num2cellstr(1:30),'Signature '));
 %%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% NMF ON FINAL COHORT
+%
+% k=8, NMF on rates
 
 load('FINAL_DATASET.MIN.v3.2.mat','X');
 
@@ -196,11 +197,11 @@ end
 X.nmf_input_rates.pat.nchan_counts = X.nmf_input_rates.pat.nchan;
 X.nmf_input_rates.pat.nchan = bsxfun(@rdivide,X.nmf_input_rates.pat.nchan,X.nmf_input_rates.chan.terr');
 
-k=8; randseed=196; X.nmf_rates = perform_nmf(X.nmf_input_rates,k,randseed);
+k=8; randseed=1; X.nmf_rates = perform_nmf(X.nmf_input_rates,k,randseed);
 
-figure(1);clf,display_nmf_legos(X.nmf_rates)  % manually inspect signatures
-names = {'APOBEC';'UV';'MSI';'smoking';'ESO';'aging';'POLE';'BRCA'};	% the FULL cohort had all of these signatures
-ord = [5 1 8 3 7 2 4 6];						                                  % Note: POLE signature is absent from the LANZ cohort
+figure(1);clf,display_nmf_legos(X.nmf_rates)                          % Manually inspect signatures...
+names = {'APOBEC';'UV';'MSI';'smoking';'ESO';'aging';'POLE';'BRCA'};	% The FULL cohort had these 8 signatures.  Yours may vary.
+ord = [1:8];						                                              % Note: POLE signature is absent from the LANZ cohort
 X.nmf.factor.name = as_column(names);
 X.nmf.chan = X.nmf_rates.chan;
 X.nmf.chan.nmf = X.nmf_rates.chan.nmf(:,ord);
@@ -213,11 +214,11 @@ X=rmfield(X,{'nmf_input','nmf_input_rates','nmf_rates'});
 X.pat=keep_fields(X.pat,{'name','cohort','ttype','ttype_long','ttype_idx','nmut','nchan_counts','nchan_rates','nmf','nmf_norm'});
 X.pat.frac_apobec = X.pat.nmf_norm(:,1);
 X.pat.frac_uv = X.pat.nmf_norm(:,2);
-X.pat.frac_pole = X.pat.nmf_norm(:,3);
-X.pat.frac_msi = X.pat.nmf_norm(:,4);
-X.pat.frac_smoking = X.pat.nmf_norm(:,5);
-X.pat.frac_eso = X.pat.nmf_norm(:,6);
-X.pat.frac_aging = X.pat.nmf_norm(:,7);
+X.pat.frac_msi = X.pat.nmf_norm(:,3);
+X.pat.frac_smoking = X.pat.nmf_norm(:,4);
+X.pat.frac_eso = X.pat.nmf_norm(:,5);
+X.pat.frac_aging = X.pat.nmf_norm(:,6);
+X.pat.frac_pole = X.pat.nmf_norm(:,7);
 X.pat.frac_brca = X.pat.nmf_norm(:,8);
 
 figure(1);clf,display_nmf_legos(X.nmf)
