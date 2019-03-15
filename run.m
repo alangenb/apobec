@@ -10,7 +10,7 @@ cd(srcpath);
 %
 % GENOMEWIDE SURVEY FOR HAIRPIN SITES
 %
-% --> Note, this code is slow, takes many hours per chromosome.
+% --> Note, this code is slow, takes hours per chromosome.
 % --> Instead of optimizing it, we submitted 24 jobs in parallel.
 %
 % It can either be run as a loop, or else "compiled" and run in parallel.
