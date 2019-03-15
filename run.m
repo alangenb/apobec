@@ -202,7 +202,7 @@ k=8; randseed=1; X.nmf_rates = perform_nmf(X.nmf_input_rates,k,randseed);
 
 figure(1);clf,display_nmf_legos(X.nmf_rates)                          % Manually inspect signatures...
 names = {'APOBEC';'UV';'MSI';'smoking';'ESO';'aging';'POLE';'BRCA'};	% The FULL cohort had these 8 signatures.  Yours may vary.
-ord = [1:8];						                                              % Note: POLE signature is absent from the LANZ cohort
+ord = [1:8]                                                           % Note: POLE signature is absent from the LANZ cohort
 X.nmf.factor.name = as_column(names);
 X.nmf.chan = X.nmf_rates.chan;
 X.nmf.chan.nmf = X.nmf_rates.chan.nmf(:,ord);
