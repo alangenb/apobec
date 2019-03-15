@@ -83,11 +83,22 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % optional: COMPILE AND RUN IN PARALEL
+%    this step can be skipped to avoid compiling/submission compatability issues, if they arise.
+%    the resulting annotation file is included in the github repo, and can be used downstream
+%    continue below to skip this step.
 
 % COMPILE
 
-%   Insert instrutions here how to compile survey_hairpins.m,
-%   analogous to the instructions below for process_hairpin_block.m
+% from bash shell:
+%   mkdir mcc
+%   mkdir mcc/shp
+%   mkdir mcc/shp/v7
+%   cd mcc/shp/v7
+%   cp /full/path/to/github/repo/directory/shp/v7/run_matlab.py .		%change to full path to repo directory
+%   echo "-Xmx16g" > java.opts
+%   reuse .matlab-2016b							%change depending on environment; add matlab to environment path
+%   mcc -m -C -I /full/path/to/github/repo/directory/ -I /full/path/to/github/repo/directory/ref \	%change to full path to repo directory
+%       -d /full/path/to/github/repo/directory/shp/v7 survey_hairpins								%change to full path to current directory
 
 % RUN IN PARALLEL
 
@@ -106,6 +117,8 @@ qcmd = [qcmd ' --pre=". /broad/software/scripts/useuse;reuse .matlab-2016b;cd ' 
 qcmd = [qcmd ' -cwd -N ' banner ' -j y -l h_rt=48:00:00 -l h_vmem=' mem]; qcmd = [qcmd ' -o ' outdir];
 qcmd = [qcmd char(10)]; qcmdfile = [outdir '/qcmd.txt']; save_textfile(qcmd,qcmdfile);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  Continue here after running loop or parallel jobs:
 
 % COLLAPSE AMBIGUOUS STRUCTURES
 % collapse each position to its strongest stem (defined by 3GC+1AT), using shortest loop as tiebreaker
@@ -383,7 +396,7 @@ clf,legomaf(mut_apobec_most_a3a,P);print_to_file('finalfigs/sampledata/v1/lego.c
 % --> This code is slow, takes 24 hours per chromosome.
 % --> Instead of optimizing it, we submitted 24 jobs in parallel.
 %
-% It can either be run as a loop, or else "compiled" and run in parallel.
+% It can either be run as a loop, as below, or else "compiled" and run in parallel.
 %
 
 mutfile = 'FINAL_DATASET.v2.2.mat';
@@ -396,7 +409,7 @@ outdir = 'wgs/v3/run12'; ede(outdir);
 tic; load(mutfile,'X'); toc
 Xo=X
 
-load('hg19_genome_blocks.v1.0.mat','B');           % <------------------- 
+load('hg19_genome_blocks.v1.0.mat','B');      
 
 for blockno=1:32
 
@@ -415,7 +428,7 @@ tic; X.mut.zidx = listmap(X.mut.pos,Z.site.pos); toc
 % ANNOTATE with replication timing, from hg19 windows reference file
 %   (should have done this in survey_hairpins)
 Z.site.reptime = nan(slength(Z.site),1);
-load('/cga/tcga-gsc/home/lawrence/mut/analysis/20110909_pancan/alltracks_hg19_100kb.v2.mat','Q','window');
+load('alltracks_hg19_100kb.v2.mat','Q','window');
 if chr<24 % (don't have replication timing info for chrY
   W=Q{chr};
   W.chr = repmat(chr,slength(W),1);
@@ -423,8 +436,6 @@ if chr<24 % (don't have replication timing info for chrY
   tic; Z.site.widx = mmw(Z.site,W); toc
   Z.site.reptime = nansub(W.rt_extra1,Z.site.widx);
 end
-
-% --> optionally restrict to 50-60% (or 40-60%) GC in 100bp windows
 
 if gcmin>0 || gcmax<1
   % compute GC content in 100bp windows
@@ -438,7 +449,7 @@ end
 % STEM STRENGTH = 3GC + 1AT
 Z.site.stemstrength = Z.site.nbp + 2*Z.site.ngc;
 
-% PATIENT SUBSETS (some are assoiated with a "patient-specific LEGO region")
+% PATIENT SUBSETS 
 subsets = {'apobec';'uv';'pole';'msi';'eso';'aging';'smoking';'brca';'cohort_nonapobec';'cohort_apobec';'cohort_A3A';'cohort_A3B'};
 ns = length(subsets);
 
@@ -542,36 +553,14 @@ save(outfile,'N','n','Q','subsets');
 end % next block
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% optional: COMPILE AND RUN IN PARALEL
+%   this step can be skipped to avoid compiling/submission compatability issues, if they arise.
+%   the resulting annotation file is included in the github repo, and can be used downstream
+%   continue from line 309 to skip this step.
 
+% COMPILE
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%					%%%NOTE:%%%
-%  this step can be skipped to avoid compiling/submission compatability issues, if they arise.
-%  the resulting annotation file is included in the github repo, and can be used downstream
-%  continue from line 309 to skip this step.
-
-% COMPILE MATLAB CODE FOR SUBMITTING PARALLEL JOBS
 % from bash shell:
 %   mkdir mcc
 %   mkdir mcc/phb
@@ -583,7 +572,8 @@ end % next block
 %   mcc -m -C -I /full/path/to/github/repo/directory/ -I /full/path/to/github/repo/directory/ref \	%change to full path to repo directory
 %       -d /full/path/to/github/repo/directory/phb/v7 process_hairpin_block_v7								%change to full path to current directory
 
-% run
+% RUN IN PARALLEL
+
 mutfile = 'FINAL_DATASET.v2.2.mat';
 survdir = [srcdir 'wgs/v3/run12/'];
 gcmin=0.4; gcmax=0.6;
@@ -598,6 +588,11 @@ cmdfile = [outdir '/cmd.txt']; save_lines(cmds,cmdfile); qcmd = ['qsubb ' cmdfil
 qcmd = [qcmd ' --pre="reuse .matlab-2016b;cd ' mccdir '"']; 	%change arguments to suit your cluster
 qcmd = [qcmd ' -cwd -N ' banner ' -j y -l h_rt=2:00:00 -l h_vmem=40g']; qcmd = [qcmd ' -o ' outdir];  % failed with 15g.  jobs sometimes go >1hr
 qcmd = [qcmd char(10)]; qcmdfile = [outdir '/qcmd.txt']; save_textfile(qcmd,qcmdfile);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%  Continue here after running loop or parallel jobs:
 
 % gather
 n=0;N=0;Q=[];nn=[];NN=[]; sss=[0:26]';
@@ -689,7 +684,6 @@ pr(subsets,log2(effs),corrs,pvals);
 %
 % MAP MUTATIONS TO LIST OF TpCs
 
-% hairpins list v3b (looppos = 1 - looplen)
 tpcfile = 'all.TpCs_only.mat';
 mutfile = 'FINAL_DATASET.v2.2.mat';
 tic;load(tpcfile,'X');toc % 40 sec
@@ -701,19 +695,6 @@ X.mut.sidx(X.mut.sidx==0)=NaN;
 %fld1=fieldnames(X.mut); fld2=setdiff(fieldnames(X.site),fld1);
 %for j=1:length(fld2) X.mut.(fld2{j})=repmat(NaN,slength(X.mut),1); X.mut.(fld2{j})(lia)=X.site.(fld2{j})(locb(lia)); end
 save('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X','-v7.3');
-
-% hairpins list v3b (looppos = 0 - looplen+1)
-tpcfile = 'all.TpCs_only.mat';
-mutfile = 'FINAL_DATASET.v2.2.mat';
-tic;load(tpcfile,'X');toc % 40 sec
-tic;tmp=load(mutfile);toc % 10 sec
-fs={'pat','ttype','nmf','mut'};for fi=1:length(fs),f=fs{fi};X.(f)=tmp.X.(f);end
-%tic;X.mut.sidx = multimap(X.mut,X.site,{'chr','pos'});toc % 12 min
-[lia,X.mut.sidx]=ismember(table([X.mut.chr X.mut.pos]),table([double(X.site.chr) double(X.site.pos)]),'rows');
-X.mut.sidx(X.mut.sidx==0)=NaN;
-%fld1=fieldnames(X.mut); fld2=setdiff(fieldnames(X.site),fld1);
-%for j=1:length(fld2) X.mut.(fld2{j})=repmat(NaN,slength(X.mut),1); X.mut.(fld2{j})(lia)=X.site.(fld2{j})(locb(lia)); end
-save('FINAL_DATASET.with_TpCs_v3b.v2.2.mat','X','-v7.3');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -822,7 +803,7 @@ ZL3all = reorder_struct(ZL3,listmap({'G(GTC)C';'G(ATC)C';'T(ATC)A';'T(GTC)A';'A(
 ZL3 = reorder_struct(ZL3,listmap({'G(GTC)C';'T(GTC)A';'A(GTC)T';'C(TTC)G'},ZL3.context));
 save('FINAL.Qs2.v3a.1.mat','QL3','Q4','Q3','contextL3','context3','context4','Z3','Z4','ZL3','ZL3all');
 
-%  check numbers
+% print results
 pr(Z4);pr(Z3);pr(ZL3);pr(ZL3all)
 %%%
 
@@ -875,16 +856,6 @@ print_to_file('finalfigs/sampledata/v1/fig.3f.pdf');
 %
 % WXS hotspots
 % from MC3
-%
-
-% this was the link we downloaded from:
-%https://cancer.sanger.ac.uk/cosmic/census/all?home=y&name=all&tier=&sEcho=1&iColumns=20&sColumns=&iDisplayStart=0&iDisplayLength=25&mDataProp_0=0&sSearch_0=&bRegex_0=false&bSearchable_0=true&bSortable_0=true&mDataProp_1=1&sSearch_1=&bRegex_1=false&bSearchable_1=true&bSortable_1=true&mDataProp_2=2&sSearch_2=&bRegex_2=false&bSearchable_2=true&bSortable_2=true&mDataProp_3=3&sSearch_3=&bRegex_3=false&bSearchable_3=true&bSortable_3=true&mDataProp_4=4&sSearch_4=&bRegex_4=false&bSearchable_4=true&bSortable_4=true&mDataProp_5=5&sSearch_5=&bRegex_5=false&bSearchable_5=true&bSortable_5=true&mDataProp_6=6&sSearch_6=&bRegex_6=false&bSearchable_6=true&bSortable_6=true&mDataProp_7=7&sSearch_7=&bRegex_7=false&bSearchable_7=true&bSortable_7=true&mDataProp_8=8&sSearch_8=&bRegex_8=false&bSearchable_8=true&bSortable_8=true&mDataProp_9=9&sSearch_9=&bRegex_9=false&bSearchable_9=true&bSortable_9=true&mDataProp_10=10&sSearch_10=&bRegex_10=false&bSearchable_10=true&bSortable_10=true&mDataProp_11=11&sSearch_11=&bRegex_11=false&bSearchable_11=true&bSortable_11=true&mDataProp_12=12&sSearch_12=&bRegex_12=false&bSearchable_12=true&bSortable_12=true&mDataProp_13=13&sSearch_13=&bRegex_13=false&bSearchable_13=true&bSortable_13=true&mDataProp_14=14&sSearch_14=&bRegex_14=false&bSearchable_14=true&bSortable_14=true&mDataProp_15=15&sSearch_15=&bRegex_15=false&bSearchable_15=true&bSortable_15=true&mDataProp_16=16&sSearch_16=&bRegex_16=false&bSearchable_16=true&bSortable_16=true&mDataProp_17=17&sSearch_17=&bRegex_17=false&bSearchable_17=true&bSortable_17=true&mDataProp_18=18&sSearch_18=&bRegex_18=false&bSearchable_18=true&bSortable_18=true&mDataProp_19=19&sSearch_19=&bRegex_19=false&bSearchable_19=true&bSortable_19=true&sSearch=&bRegex=false&iSortCol_0=0&sSortDir_0=asc&iSortingCols=1&export=tsv
-
-% this link also works:
-%https://cancer.sanger.ac.uk/cosmic/census/all?home=y&name=all&export=tsv
-
-%   original citation was: https://www.nature.com/articles/nrc1299
-% --> downloaded Census_allTue Mar  5 12_59_32 2019.tsv
 
 load('all_12086_WXS_hotspots.2.3.mat','S');
 f=grep('relrate|qidx|column',fieldnames(S));S=rename_fields(S,f,prefix(f,'old_'));
@@ -917,10 +888,7 @@ X.mut.muttype((X.mut.ref==2 & X.mut.alt==4)|(X.mut.ref==3 & X.mut.alt==1))=3; % 
 C=[];C.name={}; C.puse=[]; pat=X.pat; pat.idx=(1:slength(pat))';
 pat = reorder_struct(pat,pat.msupe_neg); % exclude patients with >10% of MSI, smoking, UV, POLE, or ESO.
 pat=sort_struct(pat,'frac_apobec',-1);
-C.name{end+1,1}='APOBEC>=90%'; C.puse(end+1,:)=ismember((1:slength(X.pat)),pat.idx(pat.frac_apobec>=0.9));
-C.name{end+1,1}='APOBEC>=50%'; C.puse(end+1,:)=ismember((1:slength(X.pat)),pat.idx(pat.frac_apobec>=0.5));
 C.name{end+1,1}='APOBEC>=10%'; C.puse(end+1,:)=ismember((1:slength(X.pat)),pat.idx(pat.frac_apobec>=0.1));
-C.name{end+1,1}='APOBEC>=3%'; C.puse(end+1,:)=ismember((1:slength(X.pat)),pat.idx(pat.frac_apobec>=0.03));
 C.npat = sum(C.puse,2);
 for ci=1:length(C.name),fprintf('%d/%d ',ci,length(C.name));
   C.muse{ci,1} = C.puse(ci,X.mut.pat_idx)==1; C.nmut(ci,1) = sum(C.muse{ci});
@@ -928,7 +896,7 @@ end,fprintf('\n');pr(C)
 
 % TABULATE 
 tic
-maxlooplen=11; maxssbin=20; nq = round(1.1*sum(3:maxlooplen)*(4.^4));
+maxlooplen=11; maxssbin=20; nq = round(1.1*sum(3:maxlooplen)*(4.^4)); % overestimte size of array to allocate
 mo = keep_fields(X.mut,{'sidx','muttype'});
 So = keep_fields(X.site,{'zone','looplen','looppos','minus2','minus1','plus1','plus2','ssbin'});
 for ci=1:length(C.name),fprintf('cohort %d/%d:',ci,length(C.name));
@@ -968,7 +936,7 @@ save('FINAL_cohorts_vs_looptypes.tabulated.1.0.mat','Z');
 % CURVE FITTING FOR EACH SERIES
 
 tmp=load('FINAL_cohorts_vs_looptypes.tabulated.1.0.mat','Z');X=tmp.Z; % ~5 sec to load
-minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=0.45;
+minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60];
 ssmin = X.stem.ssmin; nss=length(ssmin); x = ssmin; measurepoint=find(x==20);
 for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); npat=X.cohort.npat(ci);
   Q=X.loop; fs={'n3','n','rate','sd'};for fi=1:length(fs),f=fs{fi};Q.(f)=Q.(f)(:,:,ci,:); end;
@@ -994,7 +962,7 @@ save('FINAL_cohorts_vs_looptypes.tabulated.model.1.2.mat','X');
 % on triangular arrangement of subplots
 
 load('FINAL_cohorts_vs_looptypes.tabulated.model.1.2.mat','X');
-ci=4; Q=X.cohort.Q{ci}; npat=X.cohort.npat(ci);r0 = 1e6*sum(Q.n)/sum(Q.N)/npat;
+ci=1; Q=X.cohort.Q{ci}; npat=X.cohort.npat(ci);r0 = 1e6*sum(Q.n)/sum(Q.N)/npat;
 figure(3),clf;nrow=9;ncol=11;minmut=10; x=X.stem.ssmin;
 for looplen=3:11, for looppos=1:looplen, qi=find(Q.looplen==looplen & Q.looppos==looppos & Q.minus2==0 & Q.minus1==0 & Q.plus1==0 & Q.plus2==0);
   tpos = looppos-(looplen/2); row=looplen-2; col=(ncol/2)+tpos; xgap=0.018; ygap=0.028; width=(1/(0.7+ncol)); height=(1/(0.5+nrow));
@@ -1017,9 +985,6 @@ end,end
 %
 % APPLY MODEL TO WXS HOTSPOTS TO DISTINGUISH
 % PASSENGERS VS. DRIVERS
-%
-% --> annotate the list of MC3 hotspots with relrate_exp from the model.
-% --> If there's enough data, use plus1/minus1 to refine relrate_exp.  Otherwise just use looplen/looppos.
 
 load('all_12086_WXS_hotspots.2.4.mat','S');
 
@@ -1041,14 +1006,6 @@ prn(S,{'minus1','plus1','dG3','looplen','looppos','old_relrate_exp','relrate_exp
 
 save('FINAL.all_12086_WXS_hotspots.3.0.mat','S');
 %%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% update Table S1
-load('FINAL.all_12086_WXS_hotspots.3.0.mat','S');
-save_struct(keep_fields(S,{'gene','cgc','relrate_exp'}),'FINAL.all_12086_WXS_hotspots.3.0.for_TableS1.txt');
-% --> integrated CGC membership and relrate_exp into existing table
-%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -1073,7 +1030,7 @@ S.showname = ((S.ct>=7 & S.relrate_exp<4) | (S.ct>=6 & S.relrate_exp>=4)); fsz=r
 tested = ismember(S.gene,{'TBC1D12','MB21D2','C3orf70','MROH2B','RARS2','NUP93'}); fsz(tested)=14;
 idx=find(tested);scatter(x(idx),y(idx),100,clr(idx,:),'filled'); scatter(x(idx),y(idx),220,[0 0 0],'linewidth',1.5); S.showname(idx)=true;
 feature = (~S.cgc & S.relrate_exp<4 & S.ct>=7); idx=find(feature);scatter(x(idx),y(idx),50,clr(idx,:),'filled');S.showname(idx)=true; fsz(idx)=14;
-S.showname(grepm('HIST',S.gene))=0;P=[];P.xpad=1; P.ypad=1;
+P=[];P.xpad=1; P.ypad=1;
 idx=find(S.showname); textfit(x(idx)+(0.010+0.004*tested(idx))*diff(xlim),y(idx),S.gene(idx),'fontsize',fsz(idx),'fontcolor',clr(idx,:),P);
 % --> NOTE: need to manually enlarge figure window and then repeat rendering, to get textit spacing right, *then* write to PDF.
 set(gcf,'papersize',[12 10],'paperposition',[0.2 0.2 12-0.4 10-0.4]);
@@ -1112,27 +1069,9 @@ save('FINAL_DATASET.with_TpCs.with_model.v1.0.mat','X','-v7.3');
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% List of top A3A hairpin sites for Adam's chrfig plots
-%
-load('FINAL_DATASET.with_TpCs.with_model.v1.0.mat','X');
-S=X.site;
-puse=(X.pat.apobec); muse=puse(X.mut.pat_idx); % msupe- apo+
-S.ct_apobec_wgs = histc(X.mut.sidx(muse),1:slength(S));
-S.idx_orig = (1:slength(S))'; S=off(S,'idx_orig');
-S = reorder_struct(S,S.relrate_exp>=10);
-save('FINAL_DATASET.top_hairpins.v1.0.mat','S');
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%% CURVE FITTING 
 
-
-
-
-
-
-
-%%%%%%%%%%%%% CURVE FITTING CODE %%%%%%%%%%%%%%
 tmp=load('FINAL_cohorts_vs_looptypes.tabulated.1.0.mat','Z');X=tmp.Z; % ~5 sec to load
 minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=0.45;
 ssmin = X.stem.ssmin; nss=length(ssmin); x = ssmin; measurepoint=find(x==20);
@@ -1153,26 +1092,6 @@ for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); n
   end,fprintf('\n'); [tmp wi] = min(W.err); X.cohort.mhp(ci,1)=W.mhp(wi); X.cohort.Q{ci,1}=W.Q{wi};
 end % ~10 sec per cohort
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1231,28 +1150,6 @@ V{2}=bin;
 
 save('validation.tabulated.v1.0.mat','V');
 
-% more conservative version: go out to just 50
-V={};
-
-bin=[]; bin.min=[0.2:0.1:2 3:1:10 12 15 20 30 50]'; bin.max=[bin.min(2:end);inf];
-for i=1:slength(bin)
-  ii = (Sx.relrate_exp>=bin.min(i) & Sx.relrate_exp<bin.max(i));
-  bin.N(i,1)=sum(ii); bin.n(i,1)=sum(Sx.ct_apobec_wgs(ii));
-end, [bin.rate bin.sd]  = ratio_and_sd(bin.n,bin.N);
-r0 = mean(Sx.ct_apobec_wgs); bin.relrate = bin.rate/r0; bin.relsd = bin.sd/r0;
-
-V{1}=bin;
-
-bin=[]; bin.min=[0.2:0.1:3 3.5:0.5:10 12:1:20 25 30 50]'; bin.max=[bin.min(2:end);inf];
-for i=1:slength(bin)
-  ii = (Sx.relrate_exp>=bin.min(i) & Sx.relrate_exp<bin.max(i));
-  bin.N(i,1)=sum(ii); bin.n(i,1)=sum(Sx.ct_apobec_wxs(ii));
-end, [bin.rate bin.sd]  = ratio_and_sd(bin.n,bin.N);
-r0 = mean(Sx.ct_apobec_wxs); bin.relrate = bin.rate/r0; bin.relsd = bin.sd/r0;
-
-V{2}=bin;
-
-save('validation.tabulated_to_50x.v1.0.mat','V');
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1277,13 +1174,10 @@ pat = reorder_struct(pat,pat.apobec); % msupe- (<10%) apo+ (>=10%)
 pat = sort_struct(pat,'nmut',-1);
 pat.odd = mod((1:slength(pat))',2)==1;
 pat.even = mod((1:slength(pat))',2)==0;
-X.mut.odd = mod(X.mut.pos,2)==1;
-X.mut.even = mod(X.mut.pos,2)==0;
 
 C=[];C.name={};
 ci=1; C.name{ci,1}='APOBEC>=10% (odd patients)'; C.puse(ci,:)=ismember((1:slength(X.pat)),pat.idx(pat.odd)); C.muse(ci,:)=C.puse(ci,X.mut.pat_idx);
 C.npat = sum(C.puse,2); C.nmut = sum(C.muse,2); pr(C)
-
 
 % TABULATE
 tic
@@ -1407,8 +1301,6 @@ line(xlim,xlim);
 % --> looks perfect!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% NEXT: do the even/odd sites test properly 
-% (did even/odd mutations last time, wasn't thinking clearly)
 
 % (4) predict even sites from odd sites
 
@@ -1555,51 +1447,233 @@ line(xlim,xlim);
 % --> looks great!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% combine all four validation curves into one file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% (5) make model based on a single patient's mutations
+
+% name_________________ ttype nmut  frac_apobec
+% Sanger560:PD13604a    BRCA  93102 0.90
+% Alexandrov507:PD4120a BRCA  67364 0.94
+
+tic;load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
+X.site.ss = X.site.nbp+2*X.site.ngc; ssmin = [0 4:22]; X.site.ssbin=min(max(1,X.site.ss-3),length(ssmin));
+X.mut=reorder_struct(X.mut,~isnan(X.mut.sidx));
+X.mut.muttype = nan(slength(X.mut),1);
+X.mut.muttype((X.mut.ref==2 & X.mut.alt==3)|(X.mut.ref==3 & X.mut.alt==2))=1; % C->G
+X.mut.muttype((X.mut.ref==2 & X.mut.alt==1)|(X.mut.ref==3 & X.mut.alt==4))=2; % C->A
+X.mut.muttype((X.mut.ref==2 & X.mut.alt==4)|(X.mut.ref==3 & X.mut.alt==1))=3; % C->T
+
+% COHORT definition
+
+pat=X.pat; pat.idx=(1:slength(pat))';
+pat = reorder_struct(pat,pat.apobec); % msupe- (<10%) apo+ (>=10%)
+pat = sort_struct(pat,'nmut',-1);
+
+C=[];C.name={};
+ci=1; C.name{ci,1}='top APOBEC patient'; C.puse(ci,:)=ismember((1:slength(X.pat)),pat.idx(1)); C.muse(ci,:)=C.puse(ci,X.mut.pat_idx);
+ci=2; C.name{ci,1}='second APOBEC patient'; C.puse(ci,:)=ismember((1:slength(X.pat)),pat.idx(2)); C.muse(ci,:)=C.puse(ci,X.mut.pat_idx);
+C.npat = sum(C.puse,2); C.nmut = sum(C.muse,2); pr(C)
+
+name_________________ puse  muse  npat nmut
+top APOBEC patient    {...} {...} 1    81747
+second APOBEC patient {...} {...} 1    61352
+
+% TABULATE
+tic
+maxlooplen=11; maxssbin=20; nq = round(1.1*sum(3:maxlooplen)*(4.^4));
+mo = keep_fields(X.mut,{'sidx','muttype'});
+So = keep_fields(X.site,{'zone','looplen','looppos','minus2','minus1','plus1','plus2','ssbin'});
+for ci=1:length(C.name),fprintf('cohort %d/%d:',ci,length(C.name));
+  m = reorder_struct(mo,C.muse(ci,:)); S = So; S.ct = hist2d_fast_wrapper(m.sidx,m.muttype,1,slength(S),1,3);
+  S = reorder_struct(rmfield(S,'zone'),S.zone<3); % exclude exons+spliceflank=20
+  % TABULATE n and N across (looplen=3-maxlooplen, looppos=1-looplen, minus2=1-4, minus1=1-4, plus1=1-4, plus2=1-4, ssbin=1-maxssbin, muttype=1-3)
+  N = nan(9,maxlooplen,4,4,4,4,maxssbin); n = nan(9,maxlooplen,4,4,4,4,maxssbin,3); fprintf(' looptype');
+  for looplen=3:maxlooplen, S1 = reorder_struct(rmfield(S,'looplen'),S.looplen==looplen);
+    for looppos=1:looplen, S2 = reorder_struct(rmfield(S1,'looppos'),S1.looppos==looppos); fprintf(' %d/%d',looppos,looplen);
+      for minus2=1:4, S3=reorder_struct(rmfield(S2,'minus2'),S2.minus2==minus2);
+        for minus1=1:4, S4=reorder_struct(rmfield(S3,'minus1'),S3.minus1==minus1);
+          for plus1=1:4, S5=reorder_struct(rmfield(S4,'plus1'),S4.plus1==plus1);
+            for plus2=1:4, S6=reorder_struct(rmfield(S5,'plus2'),S5.plus2==plus2);
+              for ssbin=1:maxssbin, S7=reorder_struct(rmfield(S6,'ssbin'),S6.ssbin==ssbin);
+                N(looplen-2,looppos,minus2,minus1,plus1,plus2,ssbin) = slength(S7);
+                n(looplen-2,looppos,minus2,minus1,plus1,plus2,ssbin,:) = sum(S7.ct,1);
+  end,end,end,end,end,end,end,fprintf('\n');
+  % SECOND LEVEL OF TABULATION: make list Q of stemstrength series for each looptype+context
+  Q=[];qi=0; fs={'looplen','looppos','minus2','minus1','plus1','plus2'}; for fi=1:length(fs),f=fs{fi};Q.(f)=nan(nq,1); end; Q.N=nan(nq,maxssbin); Q.n3=nan(nq,maxssbin,3);
+  for looplen=3:maxlooplen, N1=squeeze(N(looplen-2,:,:,:,:,:,:)); n1=squeeze(n(looplen-2,:,:,:,:,:,:,:));
+    for looppos=1:looplen, N2=squeeze(N1(looppos,:,:,:,:,:)); n2=squeeze(n1(looppos,:,:,:,:,:,:));
+      for minus2=0:4, if minus2==0, N3=squeeze(sum(N2,1)); n3=squeeze(sum(n2,1)); else N3=squeeze(N2(minus2,:,:,:,:)); n3=squeeze(n2(minus2,:,:,:,:,:)); end
+        for minus1=0:4, if minus1==0, N4=squeeze(sum(N3,1)); n4=squeeze(sum(n3,1)); else N4=squeeze(N3(minus1,:,:,:)); n4=squeeze(n3(minus1,:,:,:,:)); end
+          for plus1=0:4, if plus1==0, N5=squeeze(sum(N4,1)); n5=squeeze(sum(n4,1)); else N5=squeeze(N4(plus1,:,:)); n5=squeeze(n4(plus1,:,:,:)); end
+            for plus2=0:4, if plus2==0, N6=squeeze(sum(N5,1)); n6=squeeze(sum(n5,1)); else N6=squeeze(N5(plus2,:)); n6=squeeze(n5(plus2,:,:)); end
+              qi=qi+1; for fi=1:length(fs),f=fs{fi};Q.(f)(qi)=eval(f);end; Q.N(qi,:)=N6; Q.n3(qi,:,:)=n6;
+  end,end,end,end,end,end, Q=reorder_struct(Q,1:qi); Q.n=sum(Q.n3,3); [Q.rate Q.sd] = ratio_and_sd(Q.n,Q.N); C.Q{ci,1}=Q;
+end,toc % 10 min per cohort
+% REFORMAT AND SAVE
+Z=[]; Z.cohort=rmfield(C,'Q'); Z.stem.ssmin=as_column(ssmin); Z.muttype.name={'C->G';'C->A';'C->T'};
+fs={'n3','n','rate','sd'}; Z.loop=rmfield(C.Q{1},fs); for fi=1:length(fs),f=fs{fi};for ci=1:slength(C); Z.loop.(f)(:,:,ci,:)=C.Q{ci}.(f);end,end
+save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');
+
+
+
+
+% CURVE FITTING
+tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');X=tmp.Z; % ~5 sec to load
+minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60]; %mhps=0.45;
+ssmin = X.stem.ssmin; nss=length(ssmin); x = ssmin; measurepoint=find(x==20);
+for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); npat=X.cohort.npat(ci);
+  Q=X.loop; fs={'n3','n','rate','sd'};for fi=1:length(fs),f=fs{fi};Q.(f)=Q.(f)(:,:,ci,:); end;
+  W=[]; W.mhp=as_column(mhps); Q.rate=1e6*Q.rate/npat;Q.sd=1e6*Q.sd/npat;
+  for wi=1:slength(W),fprintf('%d/%d ',wi,length(W.mhp)); mhp=W.mhp(wi); r0 = 1e6*sum(Q.n)/sum(Q.N)/npat;
+    rhp = nan(length(x),length(xas)); for xai=1:length(xas), rhp(:,xai) = r0*2.^(mhp*(x-xas(xai))); end
+    for qi=slength(Q):-1:1
+      robs = as_column(Q.rate(qi,:)); sdobs = as_column(Q.sd(qi,:)); robs(Q.n(qi,:)<minmut)=nan;
+      rinit = robs(1); Q.rinit(qi,1)=rinit; rexp = rinit+rhp; yobs = log10(0.0001+robs); yexp = log10(0.0001+rexp);
+      yerr = nansum(bsxfun(@minus,yexp,yobs).^2,1); [err xai] = min(yerr);
+      Q.err(qi,1)=err; Q.xa(qi,1)=xas(xai); Q.rexp(qi,:) = rexp(:,xai);
+      lastdata = find(~isnan(robs),1,'last'); if isempty(lastdata), lastdata=1; end % cap predictions where data runs out
+      Q.rexp(qi,lastdata+1:end)=Q.rexp(qi,lastdata); Q.relrate_exp(qi,:) = Q.rexp(qi,:)/r0; Q.rr = Q.relrate_exp(:,measurepoint);
+      Q.rexp(qi,lastdata+1:end)=nan; Q.lastdata(qi,1)=lastdata;
+    end,W.err(wi,1)=sum(Q.err); W.Q{wi,1}=Q;
+  end,fprintf('\n'); [tmp wi] = min(W.err); X.cohort.mhp(ci,1)=W.mhp(wi); X.cohort.Q{ci,1}=W.Q{wi};
+end
+save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation_cohorts_vs_looptypes.tabulated.model.4.0.mat','X');
+
+% Apply model genomewide
+tic;load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
+MODEL=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation_cohorts_vs_looptypes.tabulated.model.4.0.mat','X'); MODEL=MODEL.X;
+X.site.ss=X.site.nbp+2*X.site.ngc; nssbin=slength(MODEL.stem); X.site.ssbin=min(nssbin,max(1,X.site.ss-3));
+X.site.relrate_exp_cohorts = nan(slength(X.site),slength(MODEL.cohort),'single');
+for ci=1:slength(MODEL.cohort), fprintf('COHORT %d ',ci); tic
+  Q=MODEL.cohort.Q{ci}; Q = reorder_struct(rmfield(Q,{'minus2','plus2'}),Q.minus2==0 & Q.plus2==0);
+  rr0=nan(slength(X.site),1,'single'); rr1=rr0;
+  for looplen=3:11, i1=find(X.site.looplen==looplen);q1=find(Q.looplen==looplen);
+    for looppos=1:looplen, i2=i1(X.site.looppos(i1)==looppos);q2=q1(Q.looppos(q1)==looppos); fprintf('%d/%d ',looppos,looplen);
+      for ssbin=1:nssbin, i3=i2(X.site.ssbin(i2)==ssbin);q3=q2(Q.minus1(q2)==0 & Q.plus1(q2)==0); x=ssbin;
+        y=q3; rr0(i3)=Q.relrate_exp(y,x);
+        for minus1=1:4, i4=i3(X.site.minus1(i3)==minus1);q4=q2(Q.minus1(q2)==minus1);
+          for plus1=1:4, i5=i4(X.site.plus1(i4)==plus1);q5=q4(Q.plus1(q4)==plus1);
+            y=q5; rr1(i5)=Q.relrate_exp(y,x);
+  end,end,end,end,end, fprintf('\n'); toc % ~15 min
+  X.site.relrate_exp_cohorts(:,ci) = rr1; idx=find(isnan(rr1)); X.site.relrate_exp_cohorts(idx,ci)=rr0(idx);
+end % ~6 min per cohort
+save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs.with_validation_models.v4.0.mat','X','-v7.3');
+%%%
+
+% how well does model work? (predict rest of patients from just 1 patient)
+
+load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs.with_validation_models.v4.0.mat','X');
+pat=X.pat; pat.idx=(1:slength(pat))';
+pat = reorder_struct(pat,pat.apobec); % msupe- (<10%) apo+ (>=10%)
+pat = sort_struct(pat,'nmut',-1);
+
+X.site.relrate_exp_pat1 = X.site.relrate_exp_cohorts(:,1);  % rate predicted from #1 apobec patient
+X.site.relrate_exp_pat2 = X.site.relrate_exp_cohorts(:,2);  % rate predicted from #2 apobec patient
+puse=ismember((1:slength(X.pat))',pat.idx(3:end)); muse=puse(X.mut.pat_idx);
+X.site.ct_apobec_wgs = histc(X.mut.sidx(muse),1:slength(X.site));  % rate observed at all besides #1+#2
+
+bin=[]; bin.min=[0.2:0.1:2 3:1:10 12 15 20 30 50 70 100]'; bin.max=[bin.min(2:end);inf];
+for i=1:slength(bin)
+  ii = (X.site.relrate_exp_pat1>=bin.min(i) & X.site.relrate_exp_pat1<bin.max(i));
+  bin.N(i,1)=sum(ii); bin.n(i,1)=sum(X.site.ct_apobec_wgs(ii));
+end, [bin.rate bin.sd]  = ratio_and_sd(bin.n,bin.N);
+r0 = mean(X.site.ct_apobec_wgs); bin.relrate = bin.rate/r0; bin.relsd = bin.sd/r0;
+bin1=bin;
+bin=[]; bin.min=[0.2:0.1:2 3:1:10 12 15 20 30 50 70 100]'; bin.max=[bin.min(2:end);inf];
+for i=1:slength(bin)
+  ii = (X.site.relrate_exp_pat2>=bin.min(i) & X.site.relrate_exp_pat2<bin.max(i));
+  bin.N(i,1)=sum(ii); bin.n(i,1)=sum(X.site.ct_apobec_wgs(ii));
+end, [bin.rate bin.sd]  = ratio_and_sd(bin.n,bin.N);
+r0 = mean(X.site.ct_apobec_wgs); bin.relrate = bin.rate/r0; bin.relsd = bin.sd/r0;
+bin2=bin;
+
+pr(bin1);pr(bin2);
+
+V={}; V{5}=bin1; V{6}=bin2;
+save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v4.0.mat','V');
+%%%
+
+load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v4.0.mat','V');
+
+figure(1)
+subplot(1,2,1),cla,hold on
+  bin=V{5};
+  x = bin.min; y = bin.relrate; ylo = bin.relrate-1.96*bin.relsd; yhi = bin.relrate+1.96*bin.relsd;
+  scatter(bin.min,bin.relrate,50,[0 0 0],'filled');ff
+  ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linewidth',1);line(x(j)+[-1 1]*ebw,[1;1]*[yhi(j) ylo(j)],'color',[0 0 0],'linewidth',1);end
+  xlabel('relative mutation rate (predicted, WGS noncoding, patient #1)','fontsize',20);
+  ylabel('relative mutation rate (observed, WGS noncoding, patients #3-178)','fontsize',20);
+  line(xlim,xlim);
+subplot(1,2,2),cla,hold on
+  bin=V{6};
+  x = bin.min; y = bin.relrate; ylo = bin.relrate-1.96*bin.relsd; yhi = bin.relrate+1.96*bin.relsd;
+  scatter(bin.min,bin.relrate,50,[0 0 0],'filled');ff
+  ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linewidth',1);line(x(j)+[-1 1]*ebw,[1;1]*[yhi(j) ylo(j)],'color',[0 0 0],'linewidth',1);end
+  xlabel('relative mutation rate (predicted, WGS noncoding, patient #2)','fontsize',20);
+  ylabel('relative mutation rate (observed, WGS noncoding, patients #3-178)','fontsize',20);
+  line(xlim,xlim);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% combine all six validation curves into one file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 V={};
-tmp=load('validation.tabulated.v1.0.mat','V');V(1:2)=tmp.V(1:2);
-tmp=load('validation.tabulated.v2.0.mat','V');V(3)=tmp.V(3);
-tmp=load('validation.tabulated.v3.0.mat','V');V(4)=tmp.V(4);
-save('validation.tabulated.1-4.v4.0.mat','V');
+tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v1.0.mat','V');V(1:2)=tmp.V(1:2);
+tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v2.0.mat','V');V(3)=tmp.V(3);
+tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v3.0.mat','V');V(4)=tmp.V(4);
+tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v4.0.mat','V');V(5:6)=tmp.V(5:6);
+save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.1-6.v4.0.mat','V');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% FIG S9
+% make combined version for new Fig.S9 that has all six validation curves
 
-% make combined version for new Fig.S8 that has all four validation curves
+% V#                                          __display_order__
+% (1) predict WGS coding from WGS noncoding    bottom row left
+% (2) predict WXS coding from WGS noncoding    bottom row right
+% (3) predict WGS even patients from odd       top row left
+% (4) predict WGS even sites from odd          top row right
+% (5) predict WGS patients #3-178 from pat #1  middle row left
+% (6) predict WGS patients #3-178 from pat #2  middle row right
 
-load('validation.tabulated.1-4.v4.0.mat','V');
-
+load('validation.tabulated.1-6.v4.0.mat','V');
 figure(1),clf
-subplot(2,2,1),bin=V{1};
-  x = bin.min; y = bin.relrate; ylo = bin.relrate-1.96*bin.relsd; yhi = bin.relrate+1.96*bin.relsd;
-  scatter(bin.min,bin.relrate,50,[0 0 0],'filled');ff;set(gca,'fontsize',16);
+for i=1:6
+  if     i==1, vi=3; xlab='WGS odd patients'; ylab='WGS even patients';
+  elseif i==2, vi=4; xlab='WGS odd sites';    ylab='WGS even sites';
+  elseif i==3, vi=5; xlab='WGS patient #1';   ylab='WGS patients #3-178';
+  elseif i==4, vi=6; xlab='WGS patient #2';   ylab='WGS patients #3-178';
+  elseif i==5, vi=1; xlab='WGS noncoding';    ylab='WGS coding';
+  elseif i==6, vi=2; xlab='WGS noncoding';    ylab='WXS coding';
+  else error('?'); end
+  subplot(3,2,i); bin=V{vi};
+  rexp=bin.min; robs=bin.relrate; sdobs=bin.relsd;
+  x = log2(rexp); y = log2(robs); clr = nansub([0 0 0;1 0 0],1+(x>2|y>2));
+  rlo=robs-1.96*sdobs; rhi=robs+1.96*sdobs; idx=find(rlo<0); rlo(idx)=0.1*robs(idx);
+  ylo = log2(rlo); yhi = log2(rhi);
+  scatter(x,y,50,clr,'filled');ff;set(gca,'fontsize',16);line(xlim,xlim,'color',[0 0 0]);
   ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linewidth',1);line(x(j)+[-1 1]*ebw,[1;1]*[yhi(j) ylo(j)],'color',[0 0 0],'linewidth',1);end
-  xlabel('predicted rate, WGS noncoding','fontsize',20);
-  ylabel('observed rate, WGS coding','fontsize',20);
-  line(xlim,xlim,'color',[0 0 0]);ylim([0 100]);
-subplot(2,2,2),bin = V{2};
-  x = bin.min; y = bin.relrate; ylo = bin.relrate-1.96*bin.relsd; yhi = bin.relrate+1.96*bin.relsd;
-  scatter(bin.min,bin.relrate,50,[0 0 0],'filled');ff;set(gca,'fontsize',16);
-  ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linewidth',1);line(x(j)+[-1 1]*ebw,[1;1]*[yhi(j) ylo(j)],'color',[0 0 0],'linewidth',1);end
-  xlabel('predicted rate, WGS noncoding','fontsize',20);
-  ylabel('observed rate, WXS coding','fontsize',20);
-  line(xlim,xlim,'color',[0 0 0]);ylim([0 180]);
-subplot(2,2,3),bin=V{3};
-  x = bin.min; y = bin.relrate; ylo = bin.relrate-1.96*bin.relsd; yhi = bin.relrate+1.96*bin.relsd;
-  scatter(bin.min,bin.relrate,50,[0 0 0],'filled');ff;set(gca,'fontsize',16);
-  ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linewidth',1);line(x(j)+[-1 1]*ebw,[1;1]*[yhi(j) ylo(j)],'color',[0 0 0],'linewidth',1);end
-  xlabel('predicted rate, WGS odd patients','fontsize',20);
-  ylabel('observed rate, WGS even patients','fontsize',20);
-  line(xlim,xlim,'color',[0 0 0]);
-subplot(2,2,4),bin=V{4};
-  x = bin.min; y = bin.relrate; ylo = bin.relrate-1.96*bin.relsd; yhi = bin.relrate+1.96*bin.relsd;
-  scatter(bin.min,bin.relrate,50,[0 0 0],'filled');ff;set(gca,'fontsize',16);
-  ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linewidth',1);line(x(j)+[-1 1]*ebw,[1;1]*[yhi(j) ylo(j)],'color',[0 0 0],'linewidth',1);end
-  xlabel('predicted rate, WGS odd sites','fontsize',20);
-  ylabel('observed rate, WGS even sites','fontsize',20);
-  line(xlim,xlim,'color',[0 0 0]);
-
+  xlabel(xlab,'fontsize',20); ylabel(ylab,'fontsize',20);xlim([-3 8 ]);ylim([-3 8]);
+  t=[0.3 1 2 4 10 30 100]; lt=log2(t); set(gca,'xtick',lt,'xticklabel',t,'ytick',lt','yticklabel',t);
+  line(xlim,[2 2],'color',[1 0 0]); line([2 2],ylim,'color',[1 0 0]);
+  text(2.3,7.2,{'optimal','hairpins'},'color',[1 0 0],'fontsize',16);
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
 
 
