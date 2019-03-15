@@ -21,6 +21,135 @@ save('FINAL_DATASET.MIN.v3.2.mat','X');
 
 %%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% GENOMEWIDE SURVEY FOR HAIRPIN SITES
+%
+% --> This code is slow, takes 24 hours per chromosome.
+% --> Instead of optimizing it, we submitted 24 jobs in parallel.
+
+% It can either be run as a loop, directly as follows:
+
+spliceflank=20;
+outdir = 'v3a'; ede(outdir);
+X=[]; tmp=load('hg19_genome_blocks.v1.0.mat','B'); X.block=tmp.B; X.gene = load_genes('hg19gencode',spliceflank);
+X.loop=[];
+X.loop.len = uint8([repmat(3,1,3) repmat(4,1,4) repmat(5,1,5) repmat(6,1,6) repmat(7,1,7) repmat(8,1,8) repmat(9,1,9) repmat(10,1,10) repmat(11,1,11)]');
+X.loop.pos = uint8([1:3 1:4 1:5 1:6 1:7 1:8 1:9 1:10 1:11]');
+X.loop.pos_flip = X.loop.len+1-X.loop.pos; X.loop.flip_idx = multimap(X.loop,X.loop,{'len','pos'},{'len','pos_flip'});
+X.loop.tpos = (double(X.loop.pos)-1)-(double((X.loop.len+1))/2); X.loop.good = (abs(X.loop.tpos)<=0.5);
+X.loop.pos_double = double(X.loop.pos); X.loop.len_double = double(X.loop.len); maxstem=250; window=maxstem+max(X.loop.len_double);
+for bi=1:slength(X.block)
+  outfile = [outdir '/block' num2str(bi) '.mat']; if exist(outfile,'file'), continue; end
+  write_textfile('IN_PROGRESS',outfile);
+  fprintf('BLOCK %d\n',bi);
+  X.block.this = (1:slength(X.block))'==bi; chr=X.block.chr(bi); st=X.block.st(bi); en=X.block.en(bi); len=en-st+1;
+  X.site=[]; X.site.pos=uint32((st:en)'); X.site.ref=uint8(listmap(upper(genome_region(chr,st,en,'hg19'))','ACGT'));
+  X.site.gene = zeros(len,1,'uint16'); X.site.zone = zeros(len,1,'uint8'); % 0=IGR 1=intron 2=UTR 3=exon
+  X.site.minus3  = [0;0;0;0;X.site.ref(1:end-4)];
+  X.site.minus2  = [0;0;0;X.site.ref(1:end-3)];
+  X.site.minus1  = [0;0;X.site.ref(1:end-2)];
+  X.site.minus0  = [0;X.site.ref(1:end-1)];
+  X.site.plus1   = [X.site.ref(2:end);0];
+  X.site.plus2   = [X.site.ref(3:end);0;0];
+  X.site.plus3   = [X.site.ref(4:end);0;0;0];
+  X.site.plus4   = [X.site.ref(5:end);0;0;0;0];
+  X.site.tpc = (X.site.ref==2 & X.site.minus0==4) | (X.site.ref==3 & X.site.plus1==1);
+  for gi=1:slength(X.gene),if X.gene.chr(gi)~=chr, continue; end
+    dst = max(1,X.gene.tx_start(gi)-st+1); den = min(len,X.gene.tx_end(gi)-st+1); X.site.gene(dst:den)=gi; X.site.zone(dst:den)=2;
+    dst = max(1,X.gene.code_start(gi)-st+1); den = min(len,X.gene.code_end(gi)-st+1); X.site.gene(dst:den)=gi; X.site.zone(dst:den)=1;
+  end
+  for gi=1:slength(X.gene),if X.gene.chr(gi)~=chr, continue; end
+    for ei=1:X.gene.n_exons(gi)
+      dst = max(1,X.gene.exon_starts{gi}(ei)-st+1); den = min(len,X.gene.exon_ends{gi}(ei)-st+1); X.site.gene(dst:den)=gi; X.site.zone(dst:den)=3;
+  end,end
+  X.site.nbp = zeros(len,slength(X.loop),'uint8'); X.site.ngc = X.site.nbp;
+  fprintf('Mb:');
+  for i=window+1:len-window, if ~mod(i,1e6), fprintf(' %d/%d',i/1e6,ceil(len/1e6)); end
+    for li=1:slength(X.loop), l = i-X.loop.pos_double(li); r = l+X.loop.len_double(li)+1; nbp=0; ngc=0;
+      for k=1:maxstem, if X.site.ref(l)~=5-(X.site.ref(r)), break; end
+        nbp=nbp+1; ngc=ngc+(X.site.ref(l)==2 || X.site.ref(l)==3); l=l-1; r=r+1;
+      end
+      X.site.nbp(i,li) = nbp; X.site.ngc(i,li) = ngc;
+  end,end,fprintf('\n');
+  ga = (X.site.ref==3 | X.site.ref==1); X.site.nbp(ga,:) = X.site.nbp(ga,X.loop.flip_idx); X.site.ngc(ga,:) = X.site.ngc(ga,X.loop.flip_idx); % flip info for ref=G/A
+  tmp=X.site.plus1(ga); X.site.plus1(ga)=5-X.site.minus0(ga); X.site.minus0(ga)=5-tmp;
+  tmp=X.site.plus2(ga); X.site.plus2(ga)=5-X.site.minus1(ga); X.site.minus1(ga)=5-tmp;
+  tmp=X.site.plus3(ga); X.site.plus3(ga)=5-X.site.minus2(ga); X.site.minus2(ga)=5-tmp;
+  tmp=X.site.plus4(ga); X.site.plus4(ga)=5-X.site.minus3(ga); X.site.minus3(ga)=5-tmp;
+  save(outfile,'X','-v7.3');
+end
+
+% OR it can be "compiled" and run in parallel on UGER (what we used) or LSF with minor adaptations.
+% --> copy this code to survey_hairpins.m
+
+% compile and run in parallel on UGER
+
+% compile (from Bash prompt)
+% mkdir /cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hsurv/mcc/v1
+% cd /cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hsurv/mcc/v1
+% cp /cga/tcga-gsc/home/lawrence/mut/20130429_pancan/mcc/build1/run_matlab.py .
+% reuse .matlab-2016b
+% mcc -m -C -I /cga/tcga-gsc/home/lawrence/cgal/trunk/matlab/seq -I /cga/tcga-gsc/home/lawrence/cga/trunk/matlab \
+%     -d /cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hsurv/mcc/v1 survey_hairpins
+
+% run
+outdir = 'v3a'; ede(outdir);
+mccdir = 'v1';
+mccname = 'survey_hairpins';
+load('hg19_genome_blocks.v1.0.mat','B');
+cmds = {}; banner='survhp'; mem = '36g';
+for blockno=1:slength(B)
+  outfile = [outdir '/block' num2str(blockno) '.mat'];
+  if exist(outfile,'file'), continue ;end
+  cmds{end+1} = ['python run_matlab.py . ' mccname ' ' outdir ' ' num2str(blockno)];
+end
+cmdfile = [outdir '/cmd.txt']; save_lines(cmds,cmdfile); qcmd = ['qsubb ' cmdfile];
+qcmd = [qcmd ' --pre=". /broad/software/scripts/useuse;reuse .matlab-2016b;cd ' mccdir '"'];
+qcmd = [qcmd ' -cwd -N ' banner ' -j y -l h_rt=48:00:00 -l h_vmem=' mem]; qcmd = [qcmd ' -o ' outdir];
+qcmd = [qcmd char(10)]; qcmdfile = [outdir '/qcmd.txt']; save_textfile(qcmd,qcmdfile);
+%%%
+
+% COLLAPSE AMBIGUOUS STRUCTURES
+% collapse each position to its strongest stem (defined by 3GC+1AT), using shortest loop as tiebreaker
+load('hg19_genome_blocks.v1.0.mat','B');
+indir = 'v3a';
+for bi=1:slength(B)
+  infile=[indir '/block' num2str(bi) '.mat']; outfile = [indir '/block' num2str(bi) '.collapsed.mat'];
+  if exist(outfile,'file'), continue; end
+  fprintf('BLOCK %d ',bi);
+  save_textfile('in_progress',outfile);
+  load(infile,'X');
+  X.site.dG3 = X.site.nbp+2*X.site.ngc; [tmp ord] = max(X.site.dG3,[],2);
+  z = zeros(slength(X.site),1,'uint8'); X.site.best_nbp=z; X.site.best_ngc=z; X.site.best_looplen=z; X.site.best_looppos=z;
+  for i=1:slength(X.loop), ii=(ord==i);
+    X.site.best_nbp(ii)=X.site.nbp(ii,i); X.site.best_ngc(ii)=X.site.ngc(ii,i);
+    X.site.best_looplen(ii)=X.loop.len(i); X.site.best_looppos(ii)=X.loop.pos(i);
+  end
+  X.site = rmfield(X.site,{'nbp','ngc','dG3'}); fs=grep('^best_',fieldnames(X.site));X.site=rename_fields(X.site,fs,regexprep(fs,'^best_',''));
+  X = rmfield(X,'loop'); X.site=rmfield_if_exist(X.site,{'minus3','plus4'});
+  save(outfile,'X','-v7.3');
+end
+
+% COMBINE TpCs FROM ALL BLOCKS
+load('hg19_genome_blocks.v1.0.mat','B');
+indir = 'v3a';
+X=[];
+for bi=1:slength(B),fprintf('BLOCK %d\n',bi);
+  infile = [indir '/block' num2str(bi) '.collapsed.mat'];
+  tmp=load(infile,'X');
+  if bi==1, X.gene=tmp.X.gene; end
+  X.site{bi} = reorder_struct(rmfield(tmp.X.site,{'tpc','minus0','plus3'}),tmp.X.site.tpc);
+  X.site{bi}.chr = repmat(uint8(B.chr(bi)),slength(X.site{bi}),1);
+end
+X.site=concat_structs(X.site); X.site=order_field_first(X.site,'chr');
+save([indir '/all.TpCs_only.mat'],'X','-v7.3');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -259,16 +388,17 @@ clf,legomaf(mut_apobec_most_a3a,P);print_to_file('finalfigs/sampledata/v1/lego.c
 %  the resulting annotation file is included in the github repo, and can be used downstream
 %  continue from line 309 to skip this step.
 
-% compile
-mkdir mcc
-mkdir mcc/phb
-mkdir mcc/phb/v7
-cd mcc/phb/v7
-cp /full/path/to/github/repo/directory/phb/v7/run_matlab.py .		%change to full path to repo directory
-echo "-Xmx16g" > java.opts
-reuse .matlab-2016b							%change depending on environment; add matlab to environment path
-mcc -m -C -I /full/path/to/github/repo/directory/ -I /full/path/to/github/repo/directory/ref \	%change to full path to repo directory
-    -d /full/path/to/github/repo/directory/phb/v7 process_hairpin_block_v7								%change to full path to current directory
+% COMPILE MATLAB CODE FOR SUBMITTING PARALLEL JOBS
+% from bash shell:
+%   mkdir mcc
+%   mkdir mcc/phb
+%   mkdir mcc/phb/v7
+%   cd mcc/phb/v7
+%   cp /full/path/to/github/repo/directory/phb/v7/run_matlab.py .		%change to full path to repo directory
+%   echo "-Xmx16g" > java.opts
+%   reuse .matlab-2016b							%change depending on environment; add matlab to environment path
+%   mcc -m -C -I /full/path/to/github/repo/directory/ -I /full/path/to/github/repo/directory/ref \	%change to full path to repo directory
+%       -d /full/path/to/github/repo/directory/phb/v7 process_hairpin_block_v7								%change to full path to current directory
 
 % run
 mutfile = 'FINAL_DATASET.v2.2.mat';
