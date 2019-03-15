@@ -25,7 +25,7 @@ save('FINAL_DATASET.MIN.v3.2.mat','X');
 %
 % GENOMEWIDE SURVEY FOR HAIRPIN SITES
 %
-% --> This code is slow, takes ~24 hours per chromosome.
+% --> Note, this code is slow, takes many hours per chromosome.
 % --> Instead of optimizing it, we submitted 24 jobs in parallel.
 %
 % It can either be run as a loop, or else "compiled" and run in parallel.
@@ -394,7 +394,7 @@ clf,legomaf(mut_apobec_most_a3a,P);print_to_file('finalfigs/sampledata/v1/lego.c
 %
 % PROCESS EACH GENOMIC BLOCK to calculate large- and mesoscale response curves
 %
-% --> This code is slow, takes 24 hours per chromosome.
+% --> This code is slow.
 % --> Instead of optimizing it, we submitted 24 jobs in parallel.
 %
 % It can either be run as a loop, as below, or else "compiled" and run in parallel.
@@ -551,7 +551,7 @@ end % next si
 
 save(outfile,'N','n','Q','subsets');
 
-end % next block
+end % next blockno
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -611,6 +611,7 @@ nnn=squeeze(sum(nn(:,1:3,:),2)); NNN=squeeze(sum(NN(:,1:3,:),2)); [r sd] = ratio
 rmd = nanmedian(r(1:2,:),1); r = bsxfun(@rdivide,r,rmd); sd = bsxfun(@rdivide,sd,rmd);
 save('wgs/v3/run12/stats_all.v1.1.mat','nn','NN','Q','subsets');
 
+% print numbers
 prn(ssmin',ssmax',r)
 
 %%%
@@ -990,7 +991,7 @@ end,end
 load('all_12086_WXS_hotspots.2.4.mat','S');
 
 MODEL=load('FINAL_cohorts_vs_looptypes.tabulated.model.1.2.mat','X');MODEL=MODEL.X;
-ci=3; Q=MODEL.cohort.Q{ci}; Q = reorder_struct(rmfield(Q,{'minus2','plus2'}),Q.minus2==0 & Q.plus2==0);
+ci=1; Q=MODEL.cohort.Q{ci}; Q = reorder_struct(rmfield(Q,{'minus2','plus2'}),Q.minus2==0 & Q.plus2==0);
 
 S.qidx1 = multimap(S,Q,{'looplen','looppos','minus1','plus1'});
 S0=S;S0.minus1(:)=0;S0.plus1(:)=0; S.qidx0 = multimap(S0,Q,{'looplen','looppos','minus1','plus1'});
@@ -1051,7 +1052,7 @@ print_to_file('finalfigs/sampledata/v1/fig.4.pdf');
 tic;load('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
 
 MODEL=load('FINAL_cohorts_vs_looptypes.tabulated.model.1.2.mat','X'); MODEL=MODEL.X;
-ci=3; Q=MODEL.cohort.Q{ci}; Q = reorder_struct(rmfield(Q,{'minus2','plus2'}),Q.minus2==0 & Q.plus2==0);
+ci=1; Q=MODEL.cohort.Q{ci}; Q = reorder_struct(rmfield(Q,{'minus2','plus2'}),Q.minus2==0 & Q.plus2==0);
 
 X.site.ss=X.site.nbp+2*X.site.ngc; nssbin=slength(MODEL.stem); X.site.ssbin=min(nssbin,max(1,X.site.ss-3));
 z=nan(slength(X.site),1,'single'); X.site.relrate_exp0=z; X.site.relrate_exp1=z; tic
@@ -1074,7 +1075,7 @@ save('FINAL_DATASET.with_TpCs.with_model.v1.0.mat','X','-v7.3');
 %%%%%%%%%%%%% CURVE FITTING 
 
 tmp=load('FINAL_cohorts_vs_looptypes.tabulated.1.0.mat','Z');X=tmp.Z; % ~5 sec to load
-minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=0.45;
+minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0:30:0.1:0.60];
 ssmin = X.stem.ssmin; nss=length(ssmin); x = ssmin; measurepoint=find(x==20);
 for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); npat=X.cohort.npat(ci);
   Q=X.loop; fs={'n3','n','rate','sd'};for fi=1:length(fs),f=fs{fi};Q.(f)=Q.(f)(:,:,ci,:); end;
@@ -1218,7 +1219,7 @@ save('validation_cohorts_vs_looptypes.tabulated.2.0.mat','Z');
 
 % CURVE FITTING
 tmp=load('validation_cohorts_vs_looptypes.tabulated.2.0.mat','Z');X=tmp.Z; % ~5 sec to load
-minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60]; %mhps=0.45;
+minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60]; 
 ssmin = X.stem.ssmin; nss=length(ssmin); x = ssmin; measurepoint=find(x==20);
 for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); npat=X.cohort.npat(ci);
   Q=X.loop; fs={'n3','n','rate','sd'};for fi=1:length(fs),f=fs{fi};Q.(f)=Q.(f)(:,:,ci,:); end;
@@ -1522,7 +1523,7 @@ save('validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');
 
 % CURVE FITTING
 tmp=load('validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');X=tmp.Z; % ~5 sec to load
-minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60]; %mhps=0.45;
+minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60];
 ssmin = X.stem.ssmin; nss=length(ssmin); x = ssmin; measurepoint=find(x==20);
 for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); npat=X.cohort.npat(ci);
   Q=X.loop; fs={'n3','n','rate','sd'};for fi=1:length(fs),f=fs{fi};Q.(f)=Q.(f)(:,:,ci,:); end;
