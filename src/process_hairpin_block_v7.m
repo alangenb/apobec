@@ -40,14 +40,7 @@ if chr<24 % (don't have replication timing info for chrY
   Z.site.reptime = nansub(W.rt_extra1,Z.site.widx);
 end
 
-% SITES TO USE: everything at least 20bp away from an exon (previously used splicedist track, but switched to calculating this more directly in survey_hairpins)
-% --> optionally restrict to 50-60% (or 40-60%) GC in 100bp windows
-
-%Z.site.use = (Z.site.splicedist>=20 & Z.site.gc100>=0.4 & Z.site.gc100<=0.6);  % was used for run9,10 (used spliceflank=0 in survey_hairpins)
-%Z.site.use = (Z.site.zone<3 & Z.site.gc100>=0.4 & Z.site.gc100<=0.6);          % was used for run11 (used spliceflank=20 in survey_hairpins)
-%Z.site.use = (Z.site.splicedist>=20);                                          % was used for run10a (used spliceflank=0 in survey_hairpins)
-%Z.site.use = (Z.site.zone<3);                                                  % was used for run11a (used spliceflank=20 in survey_hairpins)
-%Z.site.use = (Z.site.zone<3 & Z.site.gc100>=0.4 & Z.site.gc100<=0.6);          % was used for run12 (used spliceflank=20 in survey_hairpins)
+% SITES TO USE
 
 if gcmin>0 || gcmax<1
   % compute GC content in 100bp windows
@@ -69,7 +62,7 @@ ns = length(subsets);
 % make the following n and N tables:
 %   COL  = looplen (3-11)
 %   ROW  = stemstrength (0-26+)
-%   PAGE = patient subsets (all_data, APOBEC, UV, POLE, MSI)
+%   PAGE = patient subsets (e.g. APOBEC, UV, POLE, MSI)
 
 N = nan(27,9,ns); n = nan(27,9,ns);
 
@@ -114,8 +107,8 @@ for si=1:ns,name=subsets{si};
     suse = Z.site.use;
   elseif strcmp(name,'cohort_nonapobec')  % all mutations: need to repeat with Tp(C->G) only
     puse = X.pat.vanilla;
-    muse = puse(X.mut.pat_idx);
-    suse = Z.site.use;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==3)|(X.mut.ref==3&X.mut.alt==2));
+    suse = Z.site.use & ((Z.site.ref==2 & Z.site.minus0==4) | (Z.site.ref==3 & Z.site.plus1==1));
   elseif strcmp(name,'cohort_apobec')  % Tp(C->G)
     puse = X.pat.apobec;
     muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==3)|(X.mut.ref==3&X.mut.alt==2));
