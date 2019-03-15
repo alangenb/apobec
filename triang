@@ -983,6 +983,32 @@ end,end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% SHOW GRIDS OF FITS FOR plus1/minus1
+
+load('FINAL_cohorts_vs_looptypes.tabulated.model.1.2.mat','X');
+ci=1; Q=X.cohort.Q{ci}; npat=X.cohort.npat(ci);r0 = 1e6*sum(Q.n)/sum(Q.N)/npat;
+
+looplen=3;looppos=3;
+figure(4),clf;nrow=4;ncol=4;minmut=5;x=X.stem.ssmin;acgt='ACGT';
+for minus1=1:4, for plus1=1:4, qi = find(Q.looplen==looplen & Q.looppos==looppos & Q.minus2==0 & Q.minus1==minus1 & Q.plus1==plus1 & Q.plus2==0);
+  col=minus1;row=plus1;subplot(nrow,ncol,(row-1)*ncol+col); ttl=[acgt(5-plus1) '(' acgt(minus1) 'TC)' acgt(plus1)];
+  robs = as_column(Q.rate(qi,:)); robs(Q.n(qi,:)<minmut)=nan; rinit = robs(1); sdobs = as_column(Q.sd(qi,:)); rexp = Q.rexp(qi,:);
+  yobs=log10(robs);yinit=yobs(1);ymax=nanmax(yobs);yexp=log10(rexp);ylo=log10(max(0.01,robs-1.96*sdobs));yhi=log10(max(0.01,robs+1.96*sdobs));yopthresh=log10(r0*4);
+  red=sigmoid(Q.rr(qi)/4,1,2.3); optclr=0.95*[1 1-red 1-red];
+  cla,hold on, plot(x,yobs);plot(x,yexp);ff;xlim([0 max(x)+1]);ylim(log10([3 10000]));title(ttl,'fontsize',18);set(gca,'fontsize',14);
+  rectangle('position',[min(xlim) min(ylim) diff(xlim) abs(yopthresh-min(ylim))],'linestyle','none','facecolor',[0.8 0.8 0.8]);
+  rectangle('position',[min(xlim) yopthresh diff(xlim) abs(max(ylim)-yopthresh)],'linestyle','none','facecolor',optclr);
+  plot(x,yexp,'-','linewidth',2,'color',[0.4 0.4 1]); plot(x,yobs,'k.','markersize',12);
+  ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linewidth',1);line(x(j)+[-1 1]*ebw,[1;1]*[yhi(j) ylo(j)],'color',[0 0 0],'linewidth',1);end
+  if col==1, ylabel('muts/Mb','fontsize',16); yt=[10 100 1000 10000]; set(gca,'ytick',log10(yt),'yticklabel',yt); else set(gca,'ytick',[]); end
+  if row==nrow, xlabel('stem strength','fontsize',16);set(gca,'xtick',[0 10 20],'xticklabel',[0 10 20]);else set(gca,'xtick',[]); end
+end,end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % APPLY MODEL TO WXS HOTSPOTS TO DISTINGUISH
