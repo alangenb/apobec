@@ -12,7 +12,7 @@ if gcmin<0 || gcmin>1 || gcmax<0 || gcmax>1, error('gcmin/gcmax should be 0-1');
 if ~isnumeric(blockno), blockno=str2double(blockno); end
 if blockno<1 || blockno>32, error('invalid blockno')'; end
 
-load('/cga/tcga-gsc/home/lawrence/db/hg19/hg19_genome_blocks.v1.0.mat','B');
+load('hg19_genome_blocks.v1.0.mat','B');
 chr=B.chr(blockno);st=B.st(blockno);en=B.en(blockno);
 
 ede(outdir);
@@ -31,11 +31,8 @@ tic; X.mut.zidx = listmap(X.mut.pos,Z.site.pos); toc
 % ANNOTATE with replication timing, from hg19 windows reference file
 %   (should have done this in survey_hairpins)
 Z.site.reptime = nan(slength(Z.site),1);
-load('/cga/tcga-gsc/home/lawrence/mut/analysis/20110909_pancan/alltracks_hg19_100kb.v2.mat','Q','window');
 if chr<24 % (don't have replication timing info for chrY
-  W=Q{chr};
-  W.chr = repmat(chr,slength(W),1);
-  W.st=W.pos+1; W.en=W.pos+window;
+  W=reorder_struct(B.win,B.win.chr==chr);
   tic; Z.site.widx = mmw(Z.site,W); toc
   Z.site.reptime = nansub(W.rt_extra1,Z.site.widx);
 end
