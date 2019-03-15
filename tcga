@@ -1298,7 +1298,6 @@ ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linew
 xlabel('relative mutation rate (predicted, WGS noncoding, odd patients)','fontsize',20);
 ylabel('relative mutation rate (observed, WGS noncoding, even patients)','fontsize',20);
 line(xlim,xlim);
-% --> looks perfect!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -1444,7 +1443,6 @@ ebw=0.2;for j=1:length(x),line([1 1]*x(j),[ylo(j) yhi(j)],'color',[0 0 0],'linew
 xlabel('relative mutation rate (predicted, WGS noncoding, odd sites)','fontsize',20);
 ylabel('relative mutation rate (observed, WGS noncoding, even sites)','fontsize',20);
 line(xlim,xlim);
-% --> looks great!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -1455,11 +1453,11 @@ line(xlim,xlim);
 %
 % (5) make model based on a single patient's mutations
 
-% name_________________ ttype nmut  frac_apobec
-% Sanger560:PD13604a    BRCA  93102 0.90
-% Alexandrov507:PD4120a BRCA  67364 0.94
+% name_________________  ttype nmut  frac_apobec
+% Nik-Zainal560:PD13604a BRCA  93102 0.90
+% Alexandrov507:PD4120a  BRCA  67364 0.94
 
-tic;load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
+tic;load('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
 X.site.ss = X.site.nbp+2*X.site.ngc; ssmin = [0 4:22]; X.site.ssbin=min(max(1,X.site.ss-3),length(ssmin));
 X.mut=reorder_struct(X.mut,~isnan(X.mut.sidx));
 X.mut.muttype = nan(slength(X.mut),1);
@@ -1516,13 +1514,13 @@ end,toc % 10 min per cohort
 % REFORMAT AND SAVE
 Z=[]; Z.cohort=rmfield(C,'Q'); Z.stem.ssmin=as_column(ssmin); Z.muttype.name={'C->G';'C->A';'C->T'};
 fs={'n3','n','rate','sd'}; Z.loop=rmfield(C.Q{1},fs); for fi=1:length(fs),f=fs{fi};for ci=1:slength(C); Z.loop.(f)(:,:,ci,:)=C.Q{ci}.(f);end,end
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');
+save('validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');
 
 
 
 
 % CURVE FITTING
-tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');X=tmp.Z; % ~5 sec to load
+tmp=load('validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');X=tmp.Z; % ~5 sec to load
 minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60]; %mhps=0.45;
 ssmin = X.stem.ssmin; nss=length(ssmin); x = ssmin; measurepoint=find(x==20);
 for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); npat=X.cohort.npat(ci);
@@ -1541,11 +1539,11 @@ for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); n
     end,W.err(wi,1)=sum(Q.err); W.Q{wi,1}=Q;
   end,fprintf('\n'); [tmp wi] = min(W.err); X.cohort.mhp(ci,1)=W.mhp(wi); X.cohort.Q{ci,1}=W.Q{wi};
 end
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation_cohorts_vs_looptypes.tabulated.model.4.0.mat','X');
+save('validation_cohorts_vs_looptypes.tabulated.model.4.0.mat','X');
 
 % Apply model genomewide
-tic;load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
-MODEL=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation_cohorts_vs_looptypes.tabulated.model.4.0.mat','X'); MODEL=MODEL.X;
+tic;load('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
+MODEL=load('validation_cohorts_vs_looptypes.tabulated.model.4.0.mat','X'); MODEL=MODEL.X;
 X.site.ss=X.site.nbp+2*X.site.ngc; nssbin=slength(MODEL.stem); X.site.ssbin=min(nssbin,max(1,X.site.ss-3));
 X.site.relrate_exp_cohorts = nan(slength(X.site),slength(MODEL.cohort),'single');
 for ci=1:slength(MODEL.cohort), fprintf('COHORT %d ',ci); tic
@@ -1561,12 +1559,12 @@ for ci=1:slength(MODEL.cohort), fprintf('COHORT %d ',ci); tic
   end,end,end,end,end, fprintf('\n'); toc % ~15 min
   X.site.relrate_exp_cohorts(:,ci) = rr1; idx=find(isnan(rr1)); X.site.relrate_exp_cohorts(idx,ci)=rr0(idx);
 end % ~6 min per cohort
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs.with_validation_models.v4.0.mat','X','-v7.3');
+save('FINAL_DATASET.with_TpCs.with_validation_models.v4.0.mat','X','-v7.3');
 %%%
 
 % how well does model work? (predict rest of patients from just 1 patient)
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/FINAL_DATASET.with_TpCs.with_validation_models.v4.0.mat','X');
+load('FINAL_DATASET.with_TpCs.with_validation_models.v4.0.mat','X');
 pat=X.pat; pat.idx=(1:slength(pat))';
 pat = reorder_struct(pat,pat.apobec); % msupe- (<10%) apo+ (>=10%)
 pat = sort_struct(pat,'nmut',-1);
@@ -1594,10 +1592,10 @@ bin2=bin;
 pr(bin1);pr(bin2);
 
 V={}; V{5}=bin1; V{6}=bin2;
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v4.0.mat','V');
+save('validation.tabulated.v4.0.mat','V');
 %%%
 
-load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v4.0.mat','V');
+load('validation.tabulated.v4.0.mat','V');
 
 figure(1)
 subplot(1,2,1),cla,hold on
@@ -1623,11 +1621,11 @@ subplot(1,2,2),cla,hold on
 
 % combine all six validation curves into one file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 V={};
-tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v1.0.mat','V');V(1:2)=tmp.V(1:2);
-tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v2.0.mat','V');V(3)=tmp.V(3);
-tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v3.0.mat','V');V(4)=tmp.V(4);
-tmp=load('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.v4.0.mat','V');V(5:6)=tmp.V(5:6);
-save('/cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/validation.tabulated.1-6.v4.0.mat','V');
+tmp=load('validation.tabulated.v1.0.mat','V');V(1:2)=tmp.V(1:2);
+tmp=load('validation.tabulated.v2.0.mat','V');V(3)=tmp.V(3);
+tmp=load('validation.tabulated.v3.0.mat','V');V(4)=tmp.V(4);
+tmp=load('/validation.tabulated.v4.0.mat','V');V(5:6)=tmp.V(5:6);
+save('validation.tabulated.1-6.v4.0.mat','V');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
