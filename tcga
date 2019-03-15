@@ -876,7 +876,7 @@ save('all_12086_WXS_hotspots.2.4.mat','S');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% FINAL QUANTITATIVE MODELING
+% QUANTITATIVE MODELING
 
 tic;load('FINAL_DATASET.with_TpCs_v3a.v2.2.mat','X');toc   % 50 sec
 X.site.ss = X.site.nbp+2*X.site.ngc; ssmin = [0 4:22]; X.site.ssbin=min(max(1,X.site.ss-3),length(ssmin));
@@ -1070,31 +1070,33 @@ save('FINAL_DATASET.with_TpCs.with_model.v1.0.mat','X','-v7.3');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% FIGURE S4b (% mutations at optimal hairpins)
+%
 
+load('FINAL_DATASET.with_TpCs.with_model.v1.1.mat','X');
+pat=X.pat;
 
-%%%%%%%%%%%%% CURVE FITTING 
-
-tmp=load('FINAL_cohorts_vs_looptypes.tabulated.1.0.mat','Z');X=tmp.Z; % ~5 sec to load
-minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0:30:0.1:0.60];
-ssmin = X.stem.ssmin; nss=length(ssmin); x = ssmin; measurepoint=find(x==20);
-for ci=1:slength(X.cohort),fprintf('Cohort %d/%d\n',ci,length(X.cohort.name)); npat=X.cohort.npat(ci);
-  Q=X.loop; fs={'n3','n','rate','sd'};for fi=1:length(fs),f=fs{fi};Q.(f)=Q.(f)(:,:,ci,:); end;
-  W=[]; W.mhp=as_column(mhps); Q.rate=1e6*Q.rate/npat;Q.sd=1e6*Q.sd/npat;
-  for wi=1:slength(W),fprintf('%d/%d ',wi,length(W.mhp)); mhp=W.mhp(wi); r0 = 1e6*sum(Q.n)/sum(Q.N)/npat;
-    rhp = nan(length(x),length(xas)); for xai=1:length(xas), rhp(:,xai) = r0*2.^(mhp*(x-xas(xai))); end
-    for qi=slength(Q):-1:1
-      robs = as_column(Q.rate(qi,:)); sdobs = as_column(Q.sd(qi,:)); robs(Q.n(qi,:)<minmut)=nan;
-      rinit = robs(1); Q.rinit(qi,1)=rinit; rexp = rinit+rhp; yobs = log10(0.0001+robs); yexp = log10(0.0001+rexp);
-      yerr = nansum(bsxfun(@minus,yexp,yobs).^2,1); [err xai] = min(yerr);
-      Q.err(qi,1)=err; Q.xa(qi,1)=xas(xai); Q.rexp(qi,:) = rexp(:,xai);
-      lastdata = find(~isnan(robs),1,'last'); if isempty(lastdata), lastdata=1; end % cap predictions where data runs out
-      Q.rexp(qi,lastdata+1:end)=Q.rexp(qi,lastdata); Q.relrate_exp(qi,:) = Q.rexp(qi,:)/r0; Q.rr = Q.relrate_exp(:,measurepoint);
-      Q.rexp(qi,lastdata+1:end)=nan; Q.lastdata(qi,1)=lastdata;
-    end,W.err(wi,1)=sum(Q.err); W.Q{wi,1}=Q;
-  end,fprintf('\n'); [tmp wi] = min(W.err); X.cohort.mhp(ci,1)=W.mhp(wi); X.cohort.Q{ci,1}=W.Q{wi};
-end % ~10 sec per cohort
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+figure(1),clf,hold on
+  x = 100*pat.frac_apobec;
+  y = 100*sum(pat.frrbin(:,5:end),2);
+  clr = repmat([0.8 0.8 0.8],slength(pat),1); sz=10*ones(slength(pat),1);
+  van = (pat.vanilla); clr(van,:)=repmat([0.2 0.7 0.2],sum(van),1);sz(van)=30;
+  apo = (pat.apobec); clr(apo,:)=repmat([0 0 0],sum(apo),1);sz(apo)=30;
+  a3b = (pat.apobec_most_a3b);clr(a3b,:)=repmat([0 0 1],sum(a3b),1); sz(a3b)=50;
+  a3a = (pat.apobec_most_a3a);clr(a3a,:)=repmat([1 0 0],sum(a3a),1); sz(a3a)=50;
+  abd = (apo & pat.ABdel==1);
+  scatter(x,y,sz,clr,'filled');
+  scatter(x(van),y(van),sz(van),clr(van,:),'filled');
+  scatter(x(apo),y(apo),sz(apo),clr(apo,:),'filled');
+  scatter(x(a3b),y(a3b),sz(a3b),clr(a3b,:),'filled');
+  scatter(x(a3a),y(a3a),sz(a3a),clr(a3a,:),'filled');
+  scatter(x(abd),y(abd),130,[1 0.7 0],'filled');scatter(x(abd),y(abd),150,[0 0 0]);scatter(x(abd),y(abd),sz(abd),clr(abd,:),'filled');
+  line([10 10],ylim,'linestyle','--','color',[0 0 0]);ff;set(gca,'fontsize',20);ylim([0 1.8]);
+  xlabel('% APOBEC mutations','fontsize',30);ylabel('% at optimal hairpins','fontsize',30);
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
