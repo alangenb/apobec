@@ -1,7 +1,7 @@
 # apobec
-Code used to produce analyses/figures from Buisson et. al. 2019
+Matlab code used to produce analyses/figures from Buisson et. al. 2019
 
-Main run file is run.github2.m
+Main run file is run.m
 
 Example data files are provided in src/data/. This includes a subset of the patient cohort used in the paper that 
 is available for public release. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
