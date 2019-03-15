@@ -1,13 +1,13 @@
 # apobec
-Matlab code used to produce analyses/figures from Buisson et. al. 2019
+Code used to produce analyses/figures from Buisson et. al. 2019
 
 Main run file is run.m
 
 Note, this code includes optional sections for compiling + running in parallel to save time.
 
 Example data files are provided in src/data/. This includes a subset of the patient cohort used in the paper that 
-is available for public release. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
-lines 12-19 should be updated to reflect such changes.
+has been publicly released previously. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
+lines 12-19 should be updated to reflect such changes.  Note, the current code hard-codes the names of the mutational signatures discovered.
 
 In order to get the code to run, you must change the path on line 7 to be the full path where the repo was downloaded, e.g.:
 srcpath = '/full/path/to/rep/location/';
