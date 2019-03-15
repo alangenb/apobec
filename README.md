@@ -1,4 +1,27 @@
 # apobec
+
+Passenger hotspot mutations in cancer driven by APOBEC3A and mesoscale genomic features
+
+Rémi Buisson1,2, Adam Langenbucher1, Danae Bowen2, Eugene E. Kwan1, Cyril H. Benes1, 
+Lee Zou1,3*, and Michael S. Lawrence1,3,4*
+
+1) Massachusetts General Hospital Cancer Center, Harvard Medical School, Boston, Massachusetts, USA.
+2) Department of Biological Chemistry, University of California, Irvine, California, USA. 
+3) Department of Pathology, Massachusetts General Hospital, Harvard Medical School, Boston, Massachusetts, USA.
+4) Broad Institute of Harvard and MIT, Cambridge, Massachusetts, USA.
+
+*Corresponding authors:
+
+Lee Zou, Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Street, Charlestown, MA 02129. Phone: 617-724-9534; Fax: 617-726-7808; E-mail: lzou1@mgh.harvard.edu
+
+Michael S. Lawrence, Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Street, Charlestown, MA 02129. Phone 617-643-4379; Fax: 617-726-7808; E-mail: lawrence@broadinstitute.org    
+
+=====================================================================================================
+
+APOBEC
+Adam Langenbucher and Mike Lawrence
+Mar. 2019
+
 Code used to produce analyses/figures from Buisson et. al. 2019
 
 Main run file is run.m
