@@ -432,9 +432,9 @@ tic; X.mut.zidx = listmap(X.mut.pos,Z.site.pos); toc
 % ANNOTATE with replication timing, from hg19 windows reference file
 %   (should have done this in survey_hairpins)
 Z.site.reptime = nan(slength(Z.site),1);
-load('alltracks_hg19_100kb.v2.mat','Q','window');
+load('hg19_windows.v1.0.mat','W'); W0=W;
 if chr<24 % (don't have replication timing info for chrY
-  W=Q{chr};
+  W=reorder_struct(W.win,W.win.chr==chr);
   W.chr = repmat(chr,slength(W),1);
   W.st=W.pos+1; W.en=W.pos+window;
   tic; Z.site.widx = mmw(Z.site,W); toc
