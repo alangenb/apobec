@@ -27,8 +27,8 @@ save('FINAL_DATASET.MIN.v3.2.mat','X');
 %
 % --> This code is slow, takes 24 hours per chromosome.
 % --> Instead of optimizing it, we submitted 24 jobs in parallel.
-
-% It can either be run as a loop, directly as follows:
+%
+% It can either be run as a loop, or else "compiled" and run in parallel.
 
 spliceflank=20;
 outdir = 'v3a'; ede(outdir);
@@ -80,20 +80,17 @@ for bi=1:slength(X.block)
   save(outfile,'X','-v7.3');
 end
 
-% OR it can be "compiled" and run in parallel on UGER (what we used) or LSF with minor adaptations.
-% --> copy this code to survey_hairpins.m
 
-% compile and run in parallel on UGER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% optional: COMPILE AND RUN IN PARALEL
 
-% compile (from Bash prompt)
-% mkdir /cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hsurv/mcc/v1
-% cd /cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hsurv/mcc/v1
-% cp /cga/tcga-gsc/home/lawrence/mut/20130429_pancan/mcc/build1/run_matlab.py .
-% reuse .matlab-2016b
-% mcc -m -C -I /cga/tcga-gsc/home/lawrence/cgal/trunk/matlab/seq -I /cga/tcga-gsc/home/lawrence/cga/trunk/matlab \
-%     -d /cga/tcga-gsc/home/lawrence/apobec/20170117_rnaed/hsurv/mcc/v1 survey_hairpins
+% COMPILE
 
-% run
+%   Insert instrutions here how to compile survey_hairpins.m,
+%   analogous to the instructions below for process_hairpin_block.m
+
+% RUN IN PARALLEL
+
 outdir = 'v3a'; ede(outdir);
 mccdir = 'v1';
 mccname = 'survey_hairpins';
@@ -108,7 +105,7 @@ cmdfile = [outdir '/cmd.txt']; save_lines(cmds,cmdfile); qcmd = ['qsubb ' cmdfil
 qcmd = [qcmd ' --pre=". /broad/software/scripts/useuse;reuse .matlab-2016b;cd ' mccdir '"'];
 qcmd = [qcmd ' -cwd -N ' banner ' -j y -l h_rt=48:00:00 -l h_vmem=' mem]; qcmd = [qcmd ' -o ' outdir];
 qcmd = [qcmd char(10)]; qcmdfile = [outdir '/qcmd.txt']; save_textfile(qcmd,qcmdfile);
-%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % COLLAPSE AMBIGUOUS STRUCTURES
 % collapse each position to its strongest stem (defined by 3GC+1AT), using shortest loop as tiebreaker
@@ -188,10 +185,9 @@ X.nmf_input_rates.pat.nchan = bsxfun(@rdivide,X.nmf_input_rates.pat.nchan,X.nmf_
 
 k=8; randseed=196; X.nmf_rates = perform_nmf(X.nmf_input_rates,k,randseed);
 
-figure(1);clf,display_nmf_legos(X.nmf_rates)  % <------------------- need to manually look at the signatures and figure out which is which
-
-names = {'APOBEC';'UV';'MSI';'smoking';'ESO';'aging';'aging';'BRCA'};	% <------------------- change this based on what you see above
-ord = [5 1 8 3 7 2 4 6];						% <------------------- change this based on what you see above
+figure(1);clf,display_nmf_legos(X.nmf_rates)  % manually inspect signatures
+names = {'APOBEC';'UV';'MSI';'smoking';'ESO';'aging';'POLE';'BRCA'};	% the FULL cohort had all of these signatures
+ord = [5 1 8 3 7 2 4 6];						                                  % Note: POLE signature is absent from the LANZ cohort
 X.nmf.factor.name = as_column(names);
 X.nmf.chan = X.nmf_rates.chan;
 X.nmf.chan.nmf = X.nmf_rates.chan.nmf(:,ord);
@@ -202,6 +198,14 @@ X.pat.nmf = X.nmf_rates.pat.nmf(pord,ord);
 X.pat.nmf_norm = X.nmf_rates.pat.nmf_norm(pord,ord);
 X=rmfield(X,{'nmf_input','nmf_input_rates','nmf_rates'});
 X.pat=keep_fields(X.pat,{'name','cohort','ttype','ttype_long','ttype_idx','nmut','nchan_counts','nchan_rates','nmf','nmf_norm'});
+X.pat.frac_apobec = X.pat.nmf_norm(:,1);
+X.pat.frac_uv = X.pat.nmf_norm(:,2);
+X.pat.frac_pole = X.pat.nmf_norm(:,3);
+X.pat.frac_msi = X.pat.nmf_norm(:,4);
+X.pat.frac_smoking = X.pat.nmf_norm(:,5);
+X.pat.frac_eso = X.pat.nmf_norm(:,6);
+X.pat.frac_aging = X.pat.nmf_norm(:,7);
+X.pat.frac_brca = X.pat.nmf_norm(:,8);
 
 figure(1);clf,display_nmf_legos(X.nmf)
 
@@ -236,15 +240,6 @@ X.pat.nmut = histc(X.mut.pat_idx,1:slength(X.pat));
 X.pat=order_fields_first(X.pat,{'name','name0','cohort','nmut'});
 tic;X.mut = add_llftrr(X.mut,[],[srcpath 'ref/pentamer/']);toc; % ~3min
 X.mut = rmfield(X.mut,{'name','num'});
-X.pat.frac_apobec = X.pat.nmf_norm(:,1);
-X.pat.frac_uv = X.pat.nmf_norm(:,2);
-X.pat.frac_pole = X.pat.nmf_norm(:,3);
-X.pat.frac_msi = X.pat.nmf_norm(:,4);
-X.pat.frac_smoking = X.pat.nmf_norm(:,5);
-X.pat.frac_eso = X.pat.nmf_norm(:,6);
-X.pat.frac_aging = X.pat.nmf_norm(:,7);
-X.pat.frac_brca = X.pat.nmf_norm(:,8);
-% Gordenin A3A vs. A3B metric: restricted to Tp(C->K)pA
 c2gt = (X.mut.f==2 & X.mut.t~=1);
 X.pat.nC = histc(X.mut.pat_idx(c2gt),1:slength(X.pat));
 tca2gt = (c2gt & X.mut.l==4 & X.mut.r==1);
@@ -253,10 +248,10 @@ X.pat.nYTCA = histc(X.mut.pat_idx(tca2gt & (X.mut.ll==2 | X.mut.ll==4)),1:slengt
 X.pat.RTCA_C = X.pat.nRTCA./X.pat.nC; X.pat.YTCA_C = X.pat.nYTCA./X.pat.nC;
 x = X.pat.RTCA_C; y = X.pat.YTCA_C;
 X.pat.msupe_neg = (X.pat.frac_msi<0.1&X.pat.frac_smoking<0.1&X.pat.frac_uv<0.1&X.pat.frac_pole<0.1&X.pat.frac_eso<0.1);
-X.pat.vanilla = (X.pat.frac_apobec<0.02 & X.pat.msupe_neg);    %  32 APO- MSUPE- patients
-X.pat.apobec =  (X.pat.frac_apobec>=0.1 & X.pat.msupe_neg);    %  58 APO+ MSUPE- patients
-X.pat.apobec_most_a3a = X.pat.apobec & y>0.281;                %  22 APO+ MSUPE- A3A-most patients
-X.pat.apobec_most_a3b = X.pat.apobec & x>0.05 & y<0.116 & (x./(y+0.0315)>=0.655);       %  2 APO+ MSUPE- A3B-most patients
+X.pat.vanilla = (X.pat.frac_apobec<0.02 & X.pat.msupe_neg); 
+X.pat.apobec =  (X.pat.frac_apobec>=0.1 & X.pat.msupe_neg);   
+X.pat.apobec_most_a3a = X.pat.apobec & y>0.281;  
+X.pat.apobec_most_a3b = X.pat.apobec & x>0.05 & y<0.116 & (x./(y+0.0315)>=0.655);  
 save('FINAL_DATASET.v2.2.mat','X','-v7.3');
 %%%%%%%%%%%%%%%
 
@@ -346,7 +341,7 @@ print_to_file('finalfigs/sampledata/v1/fig1a.pdf');
 
 load('FINAL_DATASET.v2.2.mat','X');
 
-% Fig. S4a (Gordenin A3A vs. A3B metric)
+% Fig. S4a 
 figure(3);clf,hold on
 x = X.pat.RTCA_C; y = X.pat.YTCA_C;
 clr = repmat([0.8 0.8 0.8],slength(X.pat),1); sz=10*ones(slength(X.pat),1);
@@ -365,7 +360,7 @@ ff;set(gca,'fontsize',20,'ytick',0:0.1:4);xlabel('APOBEC3B character','fontsize'
 set(gcf,'papersize',[9 8],'paperposition',[0.2 0.2 9-0.4 8-0.4]);
 print_to_file('finalfigs/sampledata/v1/fig_S4a.pdf');
 
-% Fig. S4c (lego plots)
+% Fig. S4c
 ede('finalfigs/sampledata/v1');
 mut_nonapobec = reorder_struct(X.mut,X.pat.vanilla(X.mut.pat_idx));
 mut_apobec = reorder_struct(X.mut,X.pat.apobec(X.mut.pat_idx));
@@ -380,9 +375,197 @@ clf,legomaf(mut_apobec_most_a3a,P);print_to_file('finalfigs/sampledata/v1/lego.c
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 %%%%%%%%%%%%%%%%%%%%
-%Genome-wide survey of hairpin sites
 %
+% PROCESS EACH GENOMIC BLOCK to calculate large- and mesoscale response curves
+%
+% --> This code is slow, takes 24 hours per chromosome.
+% --> Instead of optimizing it, we submitted 24 jobs in parallel.
+%
+% It can either be run as a loop, or else "compiled" and run in parallel.
+%
+
+mutfile = 'FINAL_DATASET.v2.2.mat';
+survdir = [srcdir 'wgs/v3/run12/'];
+survfile  = [survdir  '/block' num2str(blockno) '.collapsed.mat'];
+gcmin=0.4; gcmax=0.6;
+outdir = 'wgs/v3/run12'; ede(outdir);
+
+% LOAD MUTATION DATA
+tic; load(mutfile,'X'); toc
+Xo=X
+
+load('hg19_genome_blocks.v1.0.mat','B');           % <------------------- 
+
+for blockno=1:32
+
+chr=B.chr(blockno);st=B.st(blockno);en=B.en(blockno);
+
+outfile = [outdir '/block' num2str(blockno) '.cts.mat'];
+if exist(outfile,'file'), error('outfile already exists'); end; fprintf('BLOCK %d\n',blockno); save_textfile('in_process',outfile);
+
+X=Xo
+
+% LOAD GENOMIC BLOCK from survey_hairpins_v*.m
+tic; tmp=load(survfile);Z=tmp.X; toc; Z.site.chr = repmat(chr,slength(Z.site),1); Z=rmfield_if_exist(Z,'loop');
+X.mut = reorder_struct(X.mut,X.mut.chr==chr & X.mut.pos>=st & X.mut.pos<=en);
+tic; X.mut.zidx = listmap(X.mut.pos,Z.site.pos); toc
+
+% ANNOTATE with replication timing, from hg19 windows reference file
+%   (should have done this in survey_hairpins)
+Z.site.reptime = nan(slength(Z.site),1);
+load('/cga/tcga-gsc/home/lawrence/mut/analysis/20110909_pancan/alltracks_hg19_100kb.v2.mat','Q','window');
+if chr<24 % (don't have replication timing info for chrY
+  W=Q{chr};
+  W.chr = repmat(chr,slength(W),1);
+  W.st=W.pos+1; W.en=W.pos+window;
+  tic; Z.site.widx = mmw(Z.site,W); toc
+  Z.site.reptime = nansub(W.rt_extra1,Z.site.widx);
+end
+
+% --> optionally restrict to 50-60% (or 40-60%) GC in 100bp windows
+
+if gcmin>0 || gcmax<1
+  % compute GC content in 100bp windows
+  fprintf('gcmin = %d   gcmax = %d\n');
+  tic; Z.site.gc100 = smooth((Z.site.ref==2 | Z.site.ref==3),100); toc
+  Z.site.use = (Z.site.zone<3 & Z.site.gc100>=gcmin & Z.site.gc100<=gcmax);
+else
+  Z.site.use = (Z.site.zone<3);
+end
+
+% STEM STRENGTH = 3GC + 1AT
+Z.site.stemstrength = Z.site.nbp + 2*Z.site.ngc;
+
+% PATIENT SUBSETS (some are assoiated with a "patient-specific LEGO region")
+subsets = {'apobec';'uv';'pole';'msi';'eso';'aging';'smoking';'brca';'cohort_nonapobec';'cohort_apobec';'cohort_A3A';'cohort_A3B'};
+ns = length(subsets);
+
+% TABULATE
+% make the following n and N tables:
+%   COL  = looplen (3-11)
+%   ROW  = stemstrength (0-26+)
+%   PAGE = patient subsets (all_data, APOBEC, UV, POLE, MSI)
+
+N = nan(27,9,ns); n = nan(27,9,ns);
+
+% also measure dependence on replication time
+Q=[];
+Q.min=[100:100:1000]';
+Q.max=[200:100:1000 inf]';
+Q.N = nan(slength(Q),ns); Q.n=Q.N;
+
+for si=1:ns,name=subsets{si};
+  if strcmp(name,'apobec')  % Tp(C->G)
+    puse = X.pat.frac_apobec>=0.5;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==3)|(X.mut.ref==3&X.mut.alt==2));
+    suse = Z.site.use & ((Z.site.ref==2 & Z.site.minus0==4) | (Z.site.ref==3 & Z.site.plus1==1));
+  elseif strcmp(name,'uv')  % C->T
+    puse = X.pat.frac_uv>=0.5 & X.pat.frac_apobec<0.1;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==4)|(X.mut.ref==3&X.mut.alt==1));
+    suse = Z.site.use & (Z.site.ref==2 | Z.site.ref==3);
+  elseif strcmp(name,'pole')  % all mutations
+    puse = X.pat.frac_pole>=0.5 & X.pat.frac_apobec<0.1;
+    muse = puse(X.mut.pat_idx);
+    suse = Z.site.use;
+  elseif strcmp(name,'msi')  % all mutations
+    puse = X.pat.frac_msi>=0.5 & X.pat.frac_apobec<0.1;
+    muse = puse(X.mut.pat_idx);
+    suse = Z.site.use;
+  elseif strcmp(name,'eso')  % A->C
+    puse = X.pat.frac_eso>=0.5 & X.pat.frac_apobec<0.1;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==1&X.mut.alt==2)|(X.mut.ref==4&X.mut.alt==3));
+    suse = Z.site.use & (Z.site.ref==1 | Z.site.ref==4);
+  elseif strcmp(name,'aging')  % (C->T)pG
+    puse = X.pat.frac_aging>=0.5 & X.pat.frac_apobec<0.1;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==4)|(X.mut.ref==3&X.mut.alt==1));
+    suse = Z.site.use & ((Z.site.ref==2 & Z.site.plus1==3) | (Z.site.ref==3 & Z.site.minus0==2));
+  elseif strcmp(name,'smoking')  % C->A
+    puse = X.pat.frac_smoking>=0.5 & X.pat.frac_apobec<0.1;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==1)|(X.mut.ref==3&X.mut.alt==4));
+    suse = Z.site.use & (Z.site.ref==2 | Z.site.ref==3);
+  elseif strcmp(name,'brca')  % all mutations
+    puse = X.pat.frac_brca>=0.5 & X.pat.frac_apobec<0.1;
+    muse = puse(X.mut.pat_idx);
+    suse = Z.site.use;
+  elseif strcmp(name,'cohort_nonapobec') 
+    puse = X.pat.vanilla;
+    muse = puse(X.mut.pat_idx);
+    suse = Z.site.use;
+  elseif strcmp(name,'cohort_apobec')
+    puse = X.pat.apobec;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==3)|(X.mut.ref==3&X.mut.alt==2));
+    suse = Z.site.use & ((Z.site.ref==2 & Z.site.minus0==4) | (Z.site.ref==3 & Z.site.plus1==1));
+  elseif strcmp(name,'cohort_A3A') 
+    puse = X.pat.apobec_most_a3a;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==3)|(X.mut.ref==3&X.mut.alt==2));
+    suse = Z.site.use & ((Z.site.ref==2 & Z.site.minus0==4) | (Z.site.ref==3 & Z.site.plus1==1));
+  elseif strcmp(name,'cohort_A3B') 
+    puse = X.pat.apobec_most_a3b;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==3)|(X.mut.ref==3&X.mut.alt==2));
+    suse = Z.site.use & ((Z.site.ref==2 & Z.site.minus0==4) | (Z.site.ref==3 & Z.site.plus1==1));
+  else
+    error('?');
+  end
+
+  fprintf('%20s %4d pat   %9d mut   %13d site\n',name,sum(puse),sum(muse));
+
+  fld = [name '_ct'];
+  Z.site.(fld) = histc(X.mut.zidx(muse),1:slength(Z.site));
+
+  sidx0 = find(Z.site.use);
+  for looplen=3:11
+    sidx1 = sidx0(Z.site.looplen(sidx0)==looplen);
+    for stemstrength=0:26
+      if stemstrength<26
+        sidx2 = sidx1(Z.site.stemstrength(sidx1)==stemstrength);
+      else
+        sidx2 = sidx1(Z.site.stemstrength(sidx1)>=stemstrength);
+      end
+      N(stemstrength+1,looplen-2,si) = sum(puse)*length(sidx2);
+      n(stemstrength+1,looplen-2,si) = sum(Z.site.(fld)(sidx2));
+    end
+  end
+
+  %% also measure dependence on replication time
+  for i=1:slength(Q)
+    sidx3 = sidx0(Z.site.reptime(sidx0)>=Q.min(i) & Z.site.reptime(sidx0)<Q.max(i));
+    Q.N(i,si) = sum(puse)*length(sidx3);
+    Q.n(i,si) = sum(Z.site.(fld)(sidx3));
+  end
+
+end % next si
+
+save(outfile,'N','n','Q','subsets');
+
+end % next block
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %					%%%NOTE:%%%
 %  this step can be skipped to avoid compiling/submission compatability issues, if they arise.
 %  the resulting annotation file is included in the github repo, and can be used downstream
