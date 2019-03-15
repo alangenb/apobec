@@ -1,8 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% FINAL COHORT for revised manuscript
-%
-
 %% CHANGE FOLLOWING LINE TO BE FULL PATH WHERE GITHUB REPO WAS COPIED TO %%
 
 srcpath = '/data/rama/labMembers/al20/Lawrence-APOBEC/git/repo/';
@@ -10,17 +5,6 @@ addpath(genpath(srcpath));
 maxNumCompThreads(8);
 cd(srcpath);
 
-pat=makeapn(load_struct('FINAL_DATASET.MIN.v3.2.pat.txt'));
-mut=arrayfun(@(x) makeapn(load_struct(['FINAL_DATASET.MIN.v3.2.mut.part' num2str(x) '.txt'])),[1:10]','uni',0);
-mut=concat_structs(mut);
-ttype=makeapn(load_struct('FINAL_DATASET.MIN.v3.2.ttype.txt'));
-
-X=struct(); X.pat=pat; X.mut=mut; X.ttype=ttype;
-
-save('FINAL_DATASET.MIN.v3.2.mat','X');
-
-
-%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -155,6 +139,24 @@ save([indir '/all.TpCs_only.mat'],'X','-v7.3');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% WGS DATASET 
+%
+
+pat=makeapn(load_struct('FINAL_DATASET.MIN.v3.2.pat.txt'));
+mut=arrayfun(@(x) makeapn(load_struct(['FINAL_DATASET.MIN.v3.2.mut.part' num2str(x) '.txt'])),[1:10]','uni',0);
+mut=concat_structs(mut);
+ttype=makeapn(load_struct('FINAL_DATASET.MIN.v3.2.ttype.txt'));
+
+X=struct(); X.pat=pat; X.mut=mut; X.ttype=ttype;
+
+save('FINAL_DATASET.MIN.v3.2.mat','X');
+
+%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % for reference:
