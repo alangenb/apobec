@@ -3,6 +3,8 @@ Matlab code used to produce analyses/figures from Buisson et. al. 2019
 
 Main run file is run.m
 
+Note, this code is a record of what was done.  It is not a script that can be run "in one go".
+
 Example data files are provided in src/data/. This includes a subset of the patient cohort used in the paper that 
 is available for public release. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
 lines 12-19 should be updated to reflect such changes.
