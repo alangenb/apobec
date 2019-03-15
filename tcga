@@ -181,7 +181,7 @@ legos(X,prefix(num2cellstr(1:30),'Signature '));
 %
 % NMF ON FINAL COHORT
 %
-% k=8, NMF on rates
+% k=8
 
 load('FINAL_DATASET.MIN.v3.2.mat','X');
 
