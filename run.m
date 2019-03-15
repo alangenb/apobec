@@ -504,8 +504,8 @@ for si=1:ns,name=subsets{si};
     suse = Z.site.use;
   elseif strcmp(name,'cohort_nonapobec') 
     puse = X.pat.vanilla;
-    muse = puse(X.mut.pat_idx);
-    suse = Z.site.use;
+    muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==3)|(X.mut.ref==3&X.mut.alt==2));
+    suse = Z.site.use & ((Z.site.ref==2 & Z.site.minus0==4) | (Z.site.ref==3 & Z.site.plus1==1));
   elseif strcmp(name,'cohort_apobec')
     puse = X.pat.apobec;
     muse = puse(X.mut.pat_idx) & ((X.mut.ref==2&X.mut.alt==3)|(X.mut.ref==3&X.mut.alt==2));
