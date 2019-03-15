@@ -3,7 +3,8 @@
 % FINAL COHORT for revised manuscript
 %
 
-%%CHANGE FOLLOWING LINE TO BE FULL PATH WHERE REPO WAS COPIED TO%%
+%% CHANGE FOLLOWING LINE TO BE FULL PATH WHERE GITHUB REPO WAS COPIED TO %%
+
 srcpath = '/data/rama/labMembers/al20/Lawrence-APOBEC/git/repo/';
 addpath(genpath(srcpath));
 maxNumCompThreads(8);
@@ -809,7 +810,7 @@ save('FINAL.Qs2.v3a.1.mat','QL3','Q4','Q3','contextL3','context3','context4','Z3
 pr(Z4);pr(Z3);pr(ZL3);pr(ZL3all)
 %%%
 
-% PLOT  OLD Fig. 3f, S8
+% PLOT  Fig. 3f, S8
 
 load('FINAL.Qs2.v3a.1.mat','Z3','Z4','ZL3','ZL3all');
 
@@ -834,7 +835,7 @@ subplot(2,2,3) % TRILOOPS (all--for supplementary info)
   for i=1:length(context),text(0.575+0.05*i,dat(i)+sd(i)+12,context{i},'fontsize',fontsize,'hor','cen','rot',70);end
 
 
-% PLOT  NEW Fig. 3f
+% PLOT  Fig. S8
 
 load('FINAL.Qs2.v3a.1.mat','QL3','contextL3');
 ssbin=6; % this corresponds to stemstrength=13-14.  The actual stemstrength for this construct is 16-18... pretty close
@@ -849,7 +850,7 @@ xlabel('sequence of (loop) and closing basepair','fontsize',14);  ylabel('relati
 xlim([0.55 1.45]); line(xlim,[1 1],'linestyle',':','color',[0 0 0]); dd=dat';sdd=sd';
 for i=1:length(context),text(0.56+0.0995*i,dd(i)+sdd(i)+2.0,context{i},'fontsize',17,'hor','cen','ver','bot','rot',55);end
 set(gcf,'papersize',[10 7.5],'paperposition',[0.2 0.2 10-0.4 7.5-0.4]);
-print_to_file('finalfigs/sampledata/v1/fig.3f.pdf');
+print_to_file('finalfigs/sampledata/v1/fig.S8.pdf');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -936,6 +937,7 @@ save('FINAL_cohorts_vs_looptypes.tabulated.1.0.mat','Z');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % CURVE FITTING FOR EACH SERIES
+% Note, here "fo" and "sso" are referred to as "rinit" and "xa"
 
 tmp=load('FINAL_cohorts_vs_looptypes.tabulated.1.0.mat','Z');X=tmp.Z; % ~5 sec to load
 minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60];
@@ -1099,7 +1101,6 @@ save('FINAL_DATASET.with_TpCs.with_model.v1.0.mat','X','-v7.3');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % FIGURE S4b (% mutations at optimal hairpins)
-%
 
 load('FINAL_DATASET.with_TpCs.with_model.v1.1.mat','X');
 pat=X.pat;
@@ -1546,9 +1547,6 @@ Z=[]; Z.cohort=rmfield(C,'Q'); Z.stem.ssmin=as_column(ssmin); Z.muttype.name={'C
 fs={'n3','n','rate','sd'}; Z.loop=rmfield(C.Q{1},fs); for fi=1:length(fs),f=fs{fi};for ci=1:slength(C); Z.loop.(f)(:,:,ci,:)=C.Q{ci}.(f);end,end
 save('validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');
 
-
-
-
 % CURVE FITTING
 tmp=load('validation_cohorts_vs_looptypes.tabulated.4.0.mat','Z');X=tmp.Z; % ~5 sec to load
 minmut=8; xas=[0:0.5:50 51:1:100 102:2:200]; mhps=[0.30:0.01:0.60];
@@ -1663,8 +1661,8 @@ save('validation.tabulated.1-6.v4.0.mat','V');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% FIG S9
-% make combined version for new Fig.S9 that has all six validation curves
+% FIG S10
+% six validation curves
 
 % V#                                          __display_order__
 % (1) predict WGS coding from WGS noncoding    bottom row left
@@ -1706,7 +1704,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% TABLES FOR EXCEL SHEETS (SUPP TABLES)
+% TABLES S2-S4
 
 % 63 BASIC LOOP TYPES
 load('FINAL.Qs.v3a.1.mat','Qs'); 
