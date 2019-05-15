@@ -2,7 +2,7 @@
 
 Passenger hotspot mutations in cancer driven by APOBEC3A and mesoscale genomic features
 
-Rémi Buisson1,2, Adam Langenbucher1, Danae Bowen2, Eugene E. Kwan1, Cyril H. Benes1, 
+Rémi Buisson1,2, Adam Langenbucher1, Danae Bowen2, Cyril H. Benes1, 
 Lee Zou1,3\*, and Michael S. Lawrence1,3,4\*
 
 1) Massachusetts General Hospital Cancer Center, Harvard Medical School, Boston, Massachusetts, USA.
