@@ -38,9 +38,10 @@ lines 150-153 should be updated to reflect such changes.  Note, the names of the
 
 (2) Please change the path on line 3 to be the full path where the GitHub repo was downloaded to, e.g.
 
-     srcpath = '/full/path/to/rep/location/';
-
-(3) This code includes optional sections for compiling + running in parallel to save time.  If you clear the environment variables or exit and resume in the middle of the pipeline, you must reinitialize the srcpath by re-running lines 3-6 before continuing.
+    srcpath = '/full/path/to/rep/location/';
+If you clear the environment variables or exit and resume in the middle of the pipeline, you must reinitialize the srcpath by re-running lines 3-6 before continuing.
+ 
+(3) This code includes optional sections for compiling + running in parallel to save time.
 
 
 # Zenodo snapshot frozen March 2019
