@@ -32,7 +32,7 @@ NOTE: This code includes optional sections for compiling + running in parallel t
 
 Example data files are provided in src/data/. This includes a subset of the patient cohort used in the paper that 
 has been publicly released previously. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
-lines 150-153 should be updated to reflect such changes.  Note, the current code hard-codes the names of the mutational signatures discovered.
+lines 150-153 should be updated to reflect such changes.  Note, the names of the mutational signatures that exist in this sample dataset are hard-coded.  When analyzing any other dataset, this step will require manual inspection and naming of the signatures that exist in that dataset.
 
 Please change path on line 3 to be the full path where the GitHub repo was downloaded to, e.g.:
 srcpath = '/full/path/to/rep/location/';
