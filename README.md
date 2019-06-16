@@ -19,12 +19,14 @@ Michael S. Lawrence, Massachusetts General Hospital Cancer Center, Building 149-
 =====================================================================
 
 APOBEC
+
 Adam Langenbucher and Mike Lawrence
+
 Mar. 2019
 
 Code used to produce analyses/figures from Buisson et. al. 2019
 
-Main run file is run.m
+[main run file](run.m)
 
 NOTE: This code includes optional sections for compiling + running in parallel to save time.
 
