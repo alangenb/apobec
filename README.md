@@ -25,6 +25,10 @@ Adam Langenbucher and Mike Lawrence
 
 Code used to produce analyses/figures from Buisson et. al. 2019
 
+Language used is MATLAB.  Built and tested on MATLAB v9.1.0.441655 (R2016b) but should be largely stable across versions.
+Uses two 
+
+All analysis code has been collected into a single script:
 [main run file](run.m)
 
 NOTES:
