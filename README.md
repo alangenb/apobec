@@ -18,27 +18,28 @@ Michael S. Lawrence, Massachusetts General Hospital Cancer Center, Building 149-
 
 =====================================================================
 
-APOBEC
+
+# APOBEC hairpins statistical analysis
 
 Adam Langenbucher and Mike Lawrence
-
-Mar. 2019
 
 Code used to produce analyses/figures from Buisson et. al. 2019
 
 [main run file](run.m)
 
-NOTE: This code includes optional sections for compiling + running in parallel to save time.
+NOTES:
 
-Example data files are provided in src/data/. This includes a subset of the patient cohort used in the paper that 
+(1) Example data files are provided in src/data/. This includes a subset of the patient cohort used in the paper that 
 has been publicly released previously. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
-lines 150-153 should be updated to reflect such changes.  Note, the names of the mutational signatures that exist in this sample dataset are hard-coded.  When analyzing any other dataset, this step will require manual inspection and naming of the signatures that exist in that dataset.
+lines 150-153 should be updated to reflect such changes.  Note, the names of the mutational signatures that exist in the sample dataset have been hard-coded here.  When analyzing any other dataset, this step will require manual inspection and naming of the signatures that exist in that dataset.
 
-Please change path on line 3 to be the full path where the GitHub repo was downloaded to, e.g.:
-srcpath = '/full/path/to/rep/location/';
+(2) Please change the path on line 3 to be the full path where the GitHub repo was downloaded to, e.g.
 
-If you clear the environment variables or exit and resume in the middle of the pipeline, you must reinitialize the srcpath by re-running
-lines 3-6 before continuing.
+     srcpath = '/full/path/to/rep/location/';
 
+(3) This code includes optional sections for compiling + running in parallel to save time.  If you clear the environment variables or exit and resume in the middle of the pipeline, you must reinitialize the srcpath by re-running lines 3-6 before continuing.
+
+
+# Zenodo snapshot frozen March 2019
 [![DOI](https://zenodo.org/badge/173772783.svg)](https://zenodo.org/badge/latestdoi/173772783)
 
