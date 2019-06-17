@@ -8,7 +8,7 @@ Lee Zou1,3\*, and Michael S. Lawrence1,3,4\*
 3) Department of Pathology, Massachusetts General Hospital, Harvard Medical School, Boston, Massachusetts, USA.
 4) Broad Institute of Harvard and MIT, Cambridge, Massachusetts, USA.
 
-\*Corresponding authors
+\*Corresponding authors:
 
 Lee Zou, <lzou1@mgh.harvard.edu>
 
