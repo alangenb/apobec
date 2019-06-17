@@ -3,6 +3,11 @@
 Rémi Buisson1,2, Adam Langenbucher1, Danae Bowen2, Eugene E. Kwan1, Cyril H. Benes1, 
 Lee Zou1,3\*, and Michael S. Lawrence1,3,4\*
 
+1) Massachusetts General Hospital Cancer Center, Harvard Medical School, Boston, Massachusetts, USA.
+2) Department of Biological Chemistry, University of California, Irvine, California, USA. 
+3) Department of Pathology, Massachusetts General Hospital, Harvard Medical School, Boston, Massachusetts, USA.
+4) Broad Institute of Harvard and MIT, Cambridge, Massachusetts, USA.
+
 \*Corresponding authors
 
 Lee Zou, <lzou1@mgh.harvard.edu>
@@ -10,13 +15,6 @@ Lee Zou, <lzou1@mgh.harvard.edu>
 Michael S. Lawrence, <lawrence@broadinstitute.org>
 
 Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Street, Charlestown, MA 02129.
-
-1) Massachusetts General Hospital Cancer Center, Harvard Medical School, Boston, Massachusetts, USA.
-2) Department of Biological Chemistry, University of California, Irvine, California, USA. 
-3) Department of Pathology, Massachusetts General Hospital, Harvard Medical School, Boston, Massachusetts, USA.
-4) Broad Institute of Harvard and MIT, Cambridge, Massachusetts, USA.
-
-
 
 # APOBEC hairpins statistical analysis
 
