@@ -1,15 +1,15 @@
-# APOBEC hairpins
-
-**Passenger hotspot mutations in cancer driven by APOBEC3A and mesoscale genomic features**
+### Passenger hotspot mutations in cancer driven by APOBEC3A and mesoscale genomic features
 
 Rémi Buisson1,2, Adam Langenbucher1, Danae Bowen2, Eugene E. Kwan1, Cyril H. Benes1, 
 Lee Zou1,3\*, and Michael S. Lawrence1,3,4\*
 
-\*Corresponding authors:
+\*Corresponding authors
 
-Lee Zou, Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Street, Charlestown, MA 02129. Phone: 617-724-9534; Fax: 617-726-7808; E-mail: lzou1@mgh.harvard.edu
+Lee Zou, <lzou1@mgh.harvard.edu>
 
-Michael S. Lawrence, Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Street, Charlestown, MA 02129. Phone 617-643-4379; Fax: 617-726-7808; E-mail: lawrence@broadinstitute.org    
+Michael S. Lawrence, <lawrence@broadinstitute.org>
+
+Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Street, Charlestown, MA 02129.
 
 1) Massachusetts General Hospital Cancer Center, Harvard Medical School, Boston, Massachusetts, USA.
 2) Department of Biological Chemistry, University of California, Irvine, California, USA. 
@@ -18,9 +18,9 @@ Michael S. Lawrence, Massachusetts General Hospital Cancer Center, Building 149-
 
 
 
-**APOBEC hairpins statistical analysis**
+# APOBEC hairpins statistical analysis
 
-Adam Langenbucher and Mike Lawrence
+Adam Langenbucher and Michael S. Lawrence
 
 Code used to produce analyses/figures from Buisson et. al. 2019
 
