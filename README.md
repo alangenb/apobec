@@ -30,7 +30,7 @@ NOTES:
 
 (1) Example data files are provided in src/data/. This includes a subset of the patient cohort used in the paper that 
 has been publicly released previously. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
-lines 150-153 should be updated to reflect such changes.  Note, the names of the mutational signatures that exist in the sample dataset have been hard-coded here.  When analyzing any other dataset, this step will require manual inspection and naming of the signatures that exist in that dataset.
+lines 150-153 should be updated to reflect such changes.  Note, the names of the mutational signatures discovered by NMF in the full dataset were hard-coded.  This step requires manual inspection and naming of the signatures that exist in your dataset.
 
 (2) Please change the path on line 3 to be the full path where the GitHub repo was downloaded to, e.g.
 
