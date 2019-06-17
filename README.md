@@ -4,7 +4,7 @@ Rémi Buisson1,2, Adam Langenbucher1, Danae Bowen2, Eugene E. Kwan1, Cyril H. Be
 Lee Zou1,3\*, and Michael S. Lawrence1,3,4\*
 
 1) Massachusetts General Hospital Cancer Center, Harvard Medical School, Boston, Massachusetts, USA.
-2) Department of Biological Chemistry, University of California, Irvine, California, USA. 
+2) Department of Biological Chemistry, University of California - Irvine, Irvine, California, USA. 
 3) Department of Pathology, Massachusetts General Hospital, Harvard Medical School, Boston, Massachusetts, USA.
 4) Broad Institute of Harvard and MIT, Cambridge, Massachusetts, USA.
 
