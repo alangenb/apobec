@@ -26,13 +26,13 @@ Language used is MATLAB.  Built and tested on MATLAB v9.1.0.441655 (R2016b) but 
 
 Main analysis code has been collected into a single script:  [main run file](run.m)
 
-Helper functions are located here: [src](src)
+Helper functions are located here: [src/](src/)
 
 NOTES:
 
 (1) Example data files are provided in [src/data/](src/data/). This includes a subset of the patient cohort used in the paper that 
 has been publicly released previously. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
-lines 150-153 should be updated to reflect such changes.  Note, the names of the mutational signatures discovered by NMF in the full dataset were hard-coded.  This step requires manual inspection and naming of the signatures that exist in your dataset.
+lines 150-153 should be updated to reflect such changes.  Note, the names of the mutational signatures discovered by NMF in the full dataset were hard-coded.  This step requires manual inspection and naming of the signatures that exist in the dataset.
 
 (2) Please change the path on line 3 to be the full path where the GitHub repo was downloaded to, e.g.
 
@@ -45,4 +45,3 @@ If you clear the environment variables or exit and resume in the middle of the p
 **Zenodo snapshot frozen March 2019:**
 [![DOI](https://zenodo.org/badge/173772783.svg)](https://zenodo.org/badge/latestdoi/173772783)
 
-z
