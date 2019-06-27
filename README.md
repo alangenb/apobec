@@ -1,4 +1,4 @@
-### Passenger hotspot mutations in cancer driven by APOBEC3A and mesoscale genomic features
+## Passenger hotspot mutations in cancer driven by APOBEC3A and mesoscale genomic features
 
 Rémi Buisson<sup>1,2</sup>, Adam Langenbucher<sup>1</sup>, Danae Bowen<sup>2</sup>, Eugene E. Kwan<sup>1</sup>, Cyril H. Benes<sup>1</sup>, Lee Zou<sup>1,3\*</sup>, and Michael S. Lawrence<sup>1,3,4\*</sup>
 
