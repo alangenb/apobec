@@ -42,6 +42,6 @@ If you clear the environment variables or exit and resume in the middle of the p
 (3) This code includes optional sections for compiling and running in parallel to save time.
 
 
-**Zenodo snapshot frozen March 2019:**
-[![DOI](https://zenodo.org/badge/173772783.svg)](https://zenodo.org/badge/latestdoi/173772783)
+
+[![DOI](https://zenodo.org/badge/173772783.svg)](https://zenodo.org/badge/latestdoi/173772783)  **Zenodo snapshot frozen March 2019**
 
