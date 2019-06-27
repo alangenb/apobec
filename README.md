@@ -12,13 +12,13 @@ Lee Zou1,3\*, and Michael S. Lawrence1,3,4\*
 
 Lee Zou, <lzou1@mgh.harvard.edu>
 
-Michael S. Lawrence, <lawrence@broadinstitute.org>
+Michael S. Lawrence, <mslawrence@mgh.harvard.edu>
 
 Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Street, Charlestown, MA 02129.
 
 # APOBEC hairpins statistical analysis
 
-Adam Langenbucher and Michael S. Lawrence
+**Adam Langenbucher and Michael S. Lawrence**
 
 Code used to produce analyses/figures from Buisson et. al. 2019
 
