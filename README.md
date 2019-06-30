@@ -18,7 +18,8 @@ Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Stree
 
 **Adam Langenbucher and Michael S. Lawrence**
 
-Code used to produce analyses/figures from Buisson et. al. _Science_ 2019.
+Code used to produce analyses/figures from [Buisson et. al. _Science_ 2019.](https://science.sciencemag.org/content/364/6447/eaaw2872)
+
 
 Language used is MATLAB.  Built and tested on MATLAB v9.1.0.441655 (R2016b) but should be largely stable across versions. 
 
