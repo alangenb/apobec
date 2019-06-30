@@ -1,3 +1,5 @@
+[_Science_ (2019) 364:eaaw2872](https://science.sciencemag.org/content/364/6447/eaaw2872)
+
 ## Passenger hotspot mutations in cancer driven by APOBEC3A and mesoscale genomic features
 
 Rémi Buisson<sup>1,2</sup>, Adam Langenbucher<sup>1</sup>, Danae Bowen<sup>2</sup>, Eugene E. Kwan<sup>1</sup>, Cyril H. Benes<sup>1</sup>, Lee Zou<sup>1,3\*</sup>, and Michael S. Lawrence<sup>1,3,4\*</sup>
@@ -16,7 +18,7 @@ Massachusetts General Hospital Cancer Center, Building 149-7th Floor, 13th Stree
 
 **Adam Langenbucher and Michael S. Lawrence**
 
-Code used to produce analyses/figures from Buisson et. al. 2019
+Code used to produce analyses/figures from Buisson et. al. _Science_ 2019.
 
 Language used is MATLAB.  Built and tested on MATLAB v9.1.0.441655 (R2016b) but should be largely stable across versions. 
 
