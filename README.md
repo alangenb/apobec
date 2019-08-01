@@ -29,16 +29,14 @@ Helper functions are located here: [src/](src/)
 
 NOTES:
 
-(1) Example data files are provided in [src/data/](src/data/). This includes a subset of the patient cohort used in the paper that 
-has been publicly released previously. Other similarly formatted mutation sets can be used in the same manner, and the input steps in
-lines 150-153 should be updated to reflect such changes.  Note, the names of the mutational signatures discovered by NMF in the full dataset were hard-coded.  This step requires manual inspection and naming of the signatures that exist in the dataset.
-
-(2) Please change the path on line 3 to be the full path where the GitHub repo was downloaded to, e.g.
+(1) Please change the path on line 3 to be the full path where the GitHub repo was downloaded to, e.g.
 
     srcpath = '/full/path/to/rep/location/';
 If you clear the environment variables or exit and resume in the middle of the pipeline, you must reinitialize the srcpath by re-running lines 3-6 before continuing.
  
-(3) This code includes optional sections for compiling and running in parallel to save time.
+(2) This code includes optional sections for compiling and running in parallel to save time.
+
+(3) Names of the mutational signatures discovered by NMF in the full dataset were hard-coded.  This step requires manual inspection and naming of the signatures that exist in the dataset.
 
 
 
